@@ -1,0 +1,19 @@
+{
+  "name": "ja_paines",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Ứng dụng web học từ vựng và luyện thi JLPT N5, dữ liệu học lưu ngay trong trình duyệt (không có backend).",
+  "scripts": {
+    "start": "vite --host 127.0.0.1 --port 8000 --strictPort",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1 --port 8000",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "vite": "^8.3.5"
+  }
+}

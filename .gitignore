@@ -1,0 +1,12 @@
+node_modules/
+.DS_Store
+
+# Tài liệu học có bản quyền (giáo trình, đề thi) chỉ để dùng cá nhân, không đưa vào repo
+*.pdf
+sources/
+
+# Sinh ra khi chạy / đóng gói
+dist/
+.vercel/
+*.tar.gz
+.env*

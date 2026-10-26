@@ -1,0 +1,220 @@
+// Bài 24 · Cho, nhận, làm giúp (くれます, ～て あげます / もらいます / くれます)
+import { ex, quiz } from '../helpers.js';
+
+export default {
+  meta: { title: 'Cho · Nhận · Làm giúp', jp: 'さとうさんが くれました。', summary: 'くれます, và ～て あげます / ～て もらいます / ～て くれます để nói việc làm giúp, được làm giúp.', note: 'Nội dung theo giáo trình Minna no Nihongo Sơ cấp 1 (bản tiếng Việt), nhập từ ảnh chụp sách. Có thể còn sai sót khi đối chiếu, hãy kiểm tra lại với sách.',
+    guide: [
+      'Bài 24 xoay quanh ba động từ cho nhận: あげます (tôi cho người khác), もらいます (tôi nhận từ người khác), くれます (người khác cho tôi). Sau đó mở rộng sang ～て あげます / ～て もらいます / ～て くれます để nói làm giúp, được làm giúp.',
+      'Thứ tự học gợi ý: (1) くれます (người khác cho tôi hoặc gia đình tôi), (2) ba mẫu V thể て + あげます / もらいます / くれます, (3) N1 は N2 が V để trả lời tự nhiên về món quà hay việc đã được làm. Luôn tự hỏi "ai làm, ai được lợi" trước khi chọn động từ.',
+      'Mẹo: あげます là đi ra khỏi tôi, くれます là đi về phía tôi, もらいます là tôi nhận. Với người trên, đừng dùng ～て あげます mà dùng ～ましょうか.',
+    ],
+  },
+  vocab: [
+    ['くれます', 'くれます', 'cho, tặng (tôi)', 'さとうさんは わたしに クリスマスカードを くれました。', 'Chị Sato đã tặng tôi thiệp mừng Giáng sinh.'],
+    ['直します', 'なおします', 'chữa, sửa'],
+    ['連れて行きます', 'つれていきます', 'dẫn (một ai đó) đi', 'わたしを おおさかじょうへ つれて いって くれます。', 'Anh ấy đưa tôi đi thăm thành Osaka.'],
+    ['連れて来ます', 'つれてきます', 'dẫn (một ai đó) đến'],
+    ['送ります#24', 'おくります', 'tiễn [một ai đó]'],
+    ['紹介します', 'しょうかいします', 'giới thiệu'],
+    ['案内します', 'あんないします', 'hướng dẫn, giới thiệu, dẫn đường'],
+    ['説明します', 'せつめいします', 'giải thích, trình bày'],
+    ['おじいさん', 'おじいさん', 'ông nội, ông ngoại, ông (cụ/lão)'],
+    ['おじいちゃん', 'おじいちゃん', 'ông nội, ông ngoại, ông (cụ/lão)'],
+    ['おばあさん', 'おばあさん', 'bà nội, bà ngoại, bà (cụ/lão)'],
+    ['おばあちゃん', 'おばあちゃん', 'bà nội, bà ngoại, bà (cụ/lão)'],
+    ['準備', 'じゅんび', 'sự chuẩn bị (～[を]します: chuẩn bị)'],
+    ['引っ越し', 'ひっこし', 'sự chuyển nhà (～[を]します: chuyển nhà)', 'わたしの ひっこしを てつだって くれます。', 'Anh ấy giúp tôi chuyển nhà.'],
+    ['お菓子', 'おかし', 'bánh kẹo', 'さとうさんは いもうとに おかしを くれました。', 'Chị Sato đã cho em gái tôi bánh kẹo.'],
+    ['ホームステイ', 'ホームステイ', 'homestay'],
+    ['全部', 'ぜんぶ', 'toàn bộ, tất cả'],
+    ['自分で', 'じぶんで', 'tự (mình)'],
+    ['ほかに', 'ほかに', 'ngoài ra, bên cạnh đó'],
+    ['母の日', 'ははのひ', 'Ngày của Mẹ'],
+  ],
+  grammar: [
+    {
+      id: 'b24-kuremasu',
+      title: 'くれます',
+      formula: 'N1 は (わたしに / わたしの かぞくに) N2 を くれます',
+      meaning: 'N1 cho/tặng tôi (hoặc gia đình tôi) N2',
+      explain: [
+        'Ý chính: くれます nghĩa là "(người khác) cho/tặng tôi hoặc gia đình tôi". Chủ ngữ là người cho, người nhận là tôi hoặc người trong nhóm của tôi.',
+        'あげます (Bài 7) chỉ dùng khi tôi cho người khác. Khi người khác cho tôi thì không dùng あげます mà dùng くれます.',
+        'Cấu trúc: người cho は (わたしに / người nhà に) vật を くれます. Người nhận đi với に, và thường lược わたしに vì đã rõ.',
+      ],
+      when: [
+        'Khi ai đó tặng quà hoặc cho đồ cho bạn.',
+        'Khi ai đó cho đồ cho người nhà bạn (em gái, mẹ...).',
+        'Khi kể lại món quà mình nhận được từ người khác.',
+      ],
+      steps: [
+        'Xác định người cho: さとうさん.',
+        'Xác định người nhận là tôi hoặc người nhà: わたしに / いもうとに.',
+        'Thêm vật được cho và を: クリスマスカードを.',
+        'Kết thúc bằng くれます (đã cho thì くれました): さとうさんは わたしに クリスマスカードを くれました。',
+      ],
+      table: {
+        title: 'Ba động từ cho nhận',
+        head: ['Hướng cho', 'Động từ', 'Ví dụ'],
+        rows: [
+          ['Tôi → người khác', 'あげます', 'わたしは さとうさんに はなを あげました'],
+          ['Người khác → tôi / nhà tôi', 'くれます', 'さとうさんは わたしに カードを くれました'],
+          ['Tôi nhận từ người khác', 'もらいます', 'わたしは さとうさんに カードを もらいました'],
+        ],
+      },
+      breakdown: {
+        jp: 'さとうさんは わたしに クリスマスカードを くれました。',
+        vi: 'Chị Sato đã tặng tôi thiệp mừng Giáng sinh.',
+        parts: [
+          ['さとうさんは', 'người cho (chủ đề)'],
+          ['わたしに', 'người nhận: tôi'],
+          ['クリスマスカードを', 'vật được tặng'],
+          ['くれました。', 'đã cho (hướng về phía tôi)'],
+        ],
+      },
+      mistakes: [
+        { wrong: 'さとうさんは わたしに クリスマスカードを あげました。', right: 'さとうさんは わたしに クリスマスカードを くれました。', why: 'Người khác cho tôi thì dùng くれます, không dùng あげます.' },
+        { wrong: 'わたしは さとうさんに クリスマスカードを くれました。', right: 'わたしは さとうさんに クリスマスカードを あげました。', why: 'Tôi cho người khác thì dùng あげます. くれます chỉ dùng khi người nhận là tôi hoặc người nhà tôi.' },
+      ],
+      compare: [
+        { with: 'もらいます', diff: 'もらいます lấy người nhận làm chủ ngữ (わたしは さとうさんに もらいました). くれます lấy người cho làm chủ ngữ (さとうさんは わたしに くれました).' },
+      ],
+      tip: 'くれます = "cho tôi": mũi tên cho luôn hướng về phía tôi.',
+      examples: [
+        ex('わたしは さとうさんに はなを あげました。', 'Tôi đã tặng hoa cho chị Sato.'),
+        ex('さとうさんは わたしに クリスマスカードを くれました。', 'Chị Sato đã tặng tôi thiệp mừng Giáng sinh.'),
+        ex('さとうさんは いもうとに おかしを くれました。', 'Chị Sato đã cho em gái tôi bánh kẹo.'),
+      ],
+      notes: [
+        'Không nói được: "さとうさんは わたしに クリスマスカードを あげました" (dùng あげます khi người khác cho tôi là sai); phải dùng くれます.',
+      ],
+      quiz: [
+        quiz('b24-kuremasu-1', 'さとうさんは わたしに クリスマスカードを ＿。', 'Chị Sato đã tặng tôi thiệp mừng Giáng sinh.', ['くれました', 'あげました', 'もらいました', 'かしました'], 'くれました', 'Người khác cho tôi dùng くれます, không dùng あげます.'),
+        quiz('b24-kuremasu-2', 'さとうさんは いもうと＿ おかしを くれました。', 'Chị Sato đã cho em gái tôi bánh kẹo.', ['に', 'を', 'が', 'は'], 'に', 'Người nhận (em gái của người nói) đi với trợ từ に.'),
+        quiz('b24-kuremasu-3', 'わたしは さとうさんに はなを ＿。', 'Tôi đã tặng hoa cho chị Sato.', ['あげました', 'くれました', 'もらいました', 'くださいました'], 'あげました', 'Tôi cho người khác dùng あげます.'),
+      ],
+    },
+    {
+      id: 'b24-te-ageru-morau-kureru',
+      title: 'Động từ thể て あげます / もらいます / くれます',
+      formula: 'V (thể て) + あげます / もらいます / くれます',
+      meaning: 'làm (giúp) cho ～ / được ～ làm cho / ～ làm cho tôi',
+      explain: [
+        'Ý chính: V thể て + あげます / もらいます / くれます nói về việc làm giúp ai, nhận được sự giúp đỡ, hoặc được ai làm giúp. Giống あげます / もらいます / くれます, nhưng thay vì cho vật thì "cho" một hành động mang lại ơn huệ.',
+        '～て あげます: tôi làm việc có ích cho người khác (chủ ngữ là người làm). Với người trên dễ gây cảm giác "khoe công", nên thay bằng ～ましょうか.',
+        '～て もらいます: tôi nhận được việc tốt từ người khác. Chủ ngữ là người nhận (thường là わたし, hay bị lược), người làm đi với に.',
+        '～て くれます: người khác làm giúp tôi. Chủ ngữ là người làm, người nhận (わたし) thường được lược. Trợ từ của người nhận giữ như câu bình thường: わたしに りょこうの しゃしんを みせて くれます, わたしを おおさかじょうへ つれて いって くれます.',
+      ],
+      when: [
+        'Khi nói mình đã giúp ai việc gì (cho mượn sách, gửi đồ).',
+        'Khi biết ơn người đã giúp mình: được cho biết, được dẫn đi.',
+        'Khi kể ai đã làm giúp mình điều gì.',
+      ],
+      steps: [
+        'Chia động từ sang thể て: かします → かして, おしえます → おしえて.',
+        'Tôi làm giúp người khác: ～て あげます. Ví dụ ほんを かして あげます。',
+        'Người khác làm giúp tôi (người làm là chủ ngữ): ～て くれます. Ví dụ セーターを おくって くれます。',
+        'Tôi là chủ ngữ và nhận việc tốt (người làm đi với に): ～て もらいます. Ví dụ おしえて もらいます。',
+      ],
+      table: {
+        title: 'Ba mẫu ～て あげます / もらいます / くれます',
+        head: ['Mẫu', 'Chủ ngữ', 'Ai làm cho ai', 'Ví dụ'],
+        rows: [
+          ['～て あげます', 'người làm (tôi)', 'tôi làm cho người khác', 'ほんを かして あげました'],
+          ['～て もらいます', 'người nhận (tôi)', 'người khác làm cho tôi', 'おしえて もらいました'],
+          ['～て くれます', 'người làm (người khác)', 'người khác làm cho tôi', 'おくって くれました'],
+        ],
+      },
+      breakdown: {
+        jp: 'わたしは やまださんに としょかんの でんわばんごうを おしえて もらいました。',
+        vi: 'Tôi (đã) được anh Yamada cho biết số điện thoại của thư viện.',
+        parts: [
+          ['わたしは', 'chủ ngữ: tôi (người nhận)'],
+          ['やまださんに', 'người làm việc giúp (đi với に)'],
+          ['としょかんの', 'của thư viện'],
+          ['でんわばんごうを', 'số điện thoại (tân ngữ)'],
+          ['おしえて', 'động từ thể て: cho biết'],
+          ['もらいました。', 'đã được (nhận ơn huệ)'],
+        ],
+      },
+      mistakes: [
+        { wrong: 'せんせいに にもつを もって あげます。', right: 'せんせい、にもつを もちましょうか。', why: 'Với người trên, ～て あげます nghe như khoe công. Hãy đề nghị bằng ～ましょうか.' },
+        { wrong: 'ミラーさんは わたしを おおさかじょうへ つれて いって あげました。', right: 'ミラーさんは わたしを おおさかじょうへ つれて いって くれました。', why: 'Người khác làm giúp tôi thì dùng ～て くれます.' },
+        { wrong: 'わたしは やまださんが でんわばんごうを おしえて もらいました。', right: 'わたしは やまださんに でんわばんごうを おしえて もらいました。', why: 'Trong ～て もらいます, người làm việc đi với に, không dùng が.' },
+      ],
+      compare: [
+        { with: '～て もらいます / ～て くれます', diff: 'Cùng là "được làm giúp", khác chủ ngữ. もらいます lấy người nhận làm chủ ngữ và người làm đi với に. くれます lấy người làm làm chủ ngữ.' },
+        { with: '～ましょうか (Bài 14)', diff: '～ましょうか là đề nghị làm giúp rồi hỏi ý, lịch sự với cả người trên. ～て あげます là nói việc mình đã làm giúp.' },
+      ],
+      tip: 'Hướng cho nhận giữ nguyên, chỉ đổi "cho vật" thành "làm việc": thể て + あげます / くれます / もらいます.',
+      examples: [
+        ex('わたしは きむらさんに ほんを かして あげました。', 'Tôi cho chị Kimura mượn sách.'),
+        ex('タクシーを よびましょうか。', 'Tôi gọi taxi cho anh/chị nhé. (xem Bài 14)'),
+        ex('てつだいましょうか。', 'Tôi giúp anh/chị nhé. (xem Bài 14)'),
+        ex('わたしは やまださんに としょかんの でんわばんごうを おしえて もらいました。', 'Tôi (đã) được anh Yamada cho biết số điện thoại của thư viện.'),
+        ex('ははは [わたしに] セーターを おくって くれました。', 'Mẹ gửi [cho tôi] một cái áo len.'),
+        ex('わたしに りょこうの しゃしんを みせて くれます。', 'Anh ấy cho tôi xem ảnh chụp khi đi du lịch.'),
+        ex('わたしを おおさかじょうへ つれて いって くれます。', 'Anh ấy đưa tôi đi thăm thành Osaka.'),
+        ex('わたしの ひっこしを てつだって くれます。', 'Anh ấy giúp tôi chuyển nhà.'),
+      ],
+      notes: [
+        'Trợ từ biểu thị người nhận ơn huệ ở trong câu với cấu trúc ～て あげます, ～て くれます cũng giống như ở câu không sử dụng ～て あげます, ～て くれます (vd わたしに りょこうの しゃしんを みせます → わたしに りょこうの しゃしんを みせて くれます; わたしを おおさかじょうへ つれて いきます → つれて いって くれます; わたしの ひっこしを てつだいます → てつだって くれます).',
+        'Với người trên, không dùng ～て あげます mà dùng ～ましょうか.',
+      ],
+      quiz: [
+        quiz('b24-te-ageru-morau-kureru-1', 'わたしは きむらさんに ほんを かして ＿。', 'Tôi cho chị Kimura mượn sách.', ['あげました', 'もらいました', 'くれました', 'いきました'], 'あげました', 'Tôi làm việc có ích cho người khác: ～て あげます.'),
+        quiz('b24-te-ageru-morau-kureru-2', 'わたしは やまださんに としょかんの でんわばんごうを おしえて ＿。', 'Tôi được anh Yamada cho biết số điện thoại của thư viện.', ['もらいました', 'あげました', 'くれました', 'ください'], 'もらいました', 'Chủ ngữ わたし nhận ơn huệ, người làm việc đi với に: ～て もらいます.'),
+        quiz('b24-te-ageru-morau-kureru-3', 'ははは わたしに セーターを おくって ＿。', 'Mẹ gửi cho tôi một cái áo len.', ['くれました', 'もらいました', 'あげました', 'おくりました'], 'くれました', 'Người khác làm việc giúp tôi, chủ ngữ là người làm: ～て くれます.'),
+        quiz('b24-te-ageru-morau-kureru-4', 'ミラーさんは わたしを おおさかじょうへ つれて いって ＿。', 'Anh Miller đã đưa tôi đi thăm thành Osaka.', ['くれました', 'もらいました', 'あげました', 'いきました'], 'くれました', 'Người khác làm giúp tôi: ～て くれます.'),
+      ],
+    },
+    {
+      id: 'b24-wa-ga',
+      title: 'Danh từ 1 は Danh từ 2 が Động từ',
+      formula: 'N1 は N2 が V',
+      meaning: 'Đối với N1 (chủ đề), N2 là chủ ngữ của động từ',
+      explain: [
+        'Ý chính: N1 は N2 が V. N1 là chủ đề (điều đang nói tới), N2 là chủ ngữ thật sự làm hành động. Ví dụ: この ワインは さとうさんが くれました (Rượu này thì chị Sato tặng).',
+        'Câu gốc là さとうさんが この ワインを くれました. Tân ngữ (この ワインを) được đưa lên đầu làm chủ đề (を đổi thành は, như ở Bài 17), còn người làm vẫn là chủ ngữ nên giữ が.',
+        'Vì cả hai người đều biết đang nói về rượu vang nên chủ đề có thể bị lược: ええ、さとうさんが くれました.',
+      ],
+      when: [
+        'Khi trả lời câu hỏi "cái này ai cho / ai làm?".',
+        'Khi muốn nhấn mạnh người làm hơn là đồ vật.',
+        'Khi nói về món đồ đã được nhắc tới trong hội thoại.',
+      ],
+      steps: [
+        'Bắt đầu từ câu gốc: さとうさんが この ワインを くれました。',
+        'Đưa tân ngữ lên đầu và đổi を thành は: この ワインは さとうさんが くれました。',
+        'Nếu người nghe đã biết chủ đề thì lược bỏ: さとうさんが くれました。',
+      ],
+      breakdown: {
+        jp: 'おいしい ワインですね。 ……ええ、[この ワインは] さとうさんが くれました。',
+        vi: 'Rượu vang này ngon nhỉ. Vâng, [rượu vang này là] chị Sato tặng tôi đấy ạ.',
+        parts: [
+          ['おいしい', 'tính từ: ngon'],
+          ['ワインですね。', 'rượu vang nhỉ (nhận xét, tìm sự đồng ý)'],
+          ['……ええ、', 'trả lời: vâng'],
+          ['[この ワインは]', 'chủ đề (có thể lược)'],
+          ['さとうさんが', 'chủ ngữ: người làm hành động'],
+          ['くれました。', 'đã cho tôi'],
+        ],
+      },
+      mistakes: [
+        { wrong: 'この ワインは さとうさんは くれました。', right: 'この ワインは さとうさんが くれました。', why: 'Chủ đề đã dùng は rồi. Người làm hành động là chủ ngữ nên dùng が.' },
+        { wrong: 'この ワインは さとうさんに くれました。', right: 'この ワインは さとうさんが くれました。', why: 'に chỉ người nhận, nhưng ở đây chị Sato là người cho nên phải dùng が.' },
+      ],
+      tip: 'Đồ vật nêu làm chủ đề (は), người làm hành động giữ が: このワインは さとうさんが くれました.',
+      examples: [
+        ex('おいしい ワインですね。 ……ええ、[この ワインは] さとうさんが くれました。', 'Rượu vang này ngon nhỉ. Vâng, [rượu vang này là] chị Sato tặng tôi đấy ạ.'),
+        ex('きれいな はなですね。 ……ええ、[この はなは] たなかさんが くれました。', 'Hoa đẹp nhỉ. Vâng, [hoa này là] anh Tanaka tặng tôi đấy ạ.'),
+      ],
+      notes: [],
+      quiz: [
+        quiz('b24-wa-ga-1', 'おいしい ワインですね。 ……ええ、[この ワインは] さとうさん＿ くれました。', 'Rượu vang này ngon nhỉ. Vâng, chị Sato tặng tôi đấy ạ.', ['が', 'と', 'で', 'へ'], 'が', 'Chủ ngữ さとうさん của câu đi với trợ từ が.'),
+        quiz('b24-wa-ga-2', 'きれいな はなですね。 ……ええ、このはなは たなかさん＿ くれました。', 'Hoa đẹp nhỉ. Vâng, hoa này là anh Tanaka tặng tôi đấy ạ.', ['が', 'を', 'と', 'で'], 'が', 'Tân ngữ đã đưa lên làm chủ đề, người cho là chủ ngữ nên dùng が.'),
+        quiz('b24-wa-ga-3', 'この ワインは さとうさんが ＿。', 'Rượu vang này là chị Sato tặng tôi.', ['くれました', 'あげました', 'もらいました', 'かしました'], 'くれました', 'Người khác tặng tôi: くれました.'),
+      ],
+    },
+  ],
+};

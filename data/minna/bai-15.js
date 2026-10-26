@@ -1,0 +1,340 @@
+// Bài 15 · Cho phép, cấm đoán, trạng thái
+import { ex, quiz } from '../helpers.js';
+
+export default {
+  meta: {
+    title: 'Cho phép, cấm đoán, trạng thái',
+    jp: 'ここで しゃしんを とっても いいですか。',
+    summary: 'Xin phép (V ても いいですか), cấm đoán (V ては いけません), V て います chỉ trạng thái và thói quen, trợ từ に chỉ nơi chốn có mặt.',
+    note: 'Nội dung theo giáo trình Minna no Nihongo Sơ cấp 1 (bản tiếng Việt), nhập từ ảnh chụp sách. Có thể còn sai sót khi đối chiếu, hãy kiểm tra lại với sách.',
+    guide: [
+      'Bài 15 tiếp tục dùng thể て (học ở Bài 14) để tạo ba mẫu quan trọng: xin phép (V ても いいですか), cấm đoán (V ては いけません) và mở rộng nghĩa của V て います (trạng thái, thói quen, nghề nghiệp). Cuối bài là cách dùng trợ từ に chỉ nơi chủ ngữ hay vật "ở lại" sau hành động.',
+      'Thứ tự học gợi ý: (1) V ても いいですか, (2) V ては いけません (hai mẫu đối nhau: も là được phép, は là bị cấm), (3) V て います với nghĩa mới, (4) N に V (はいります, すわります, のります), (5) N1 に N2 を V (とめます, かきます).',
+      'Mẹo: chỉ cần chia thể て thật chắc. も → cho phép, は → cấm. Phủ định của しって います là しりません. Vào, ngồi, lên xe, đỗ, ghi vào chỗ nào đều dùng に.',
+    ],
+  },
+  vocab: [
+    ['置きます', 'おきます', 'đặt, để (nhóm I)'],
+    ['作ります', 'つくります', 'làm, chế tạo, sản xuất (nhóm I)', 'IMC は コンピューターソフトを つくって います。', 'Công ty IMC chế tạo phần mềm máy vi tính.'],
+    ['売ります', 'うります', 'bán (nhóm I)', 'スーパーで ナンプラーを うって います。', 'Siêu thị có bán nước mắm.'],
+    ['知ります', 'しります', 'biết (nhóm I)', 'わたしは たなかさんを しって います。', 'Tôi biết anh Tanaka.'],
+    ['住みます', 'すみます', 'sống, ở (nhóm I)', 'わたしは おおさかに すんで います。', 'Tôi sống ở Osaka.'],
+    ['研究します', 'けんきゅうします', 'nghiên cứu (nhóm III)'],
+    ['資料', 'しりょう', 'tài liệu, tư liệu'],
+    ['カタログ', 'カタログ', 'ca-ta-lô'],
+    ['時刻表', 'じこくひょう', 'bảng giờ chạy tàu'],
+    ['服', 'ふく', 'quần áo'],
+    ['製品', 'せいひん', 'sản phẩm'],
+    ['ソフト', 'ソフト', 'phần mềm'],
+    ['電子辞書', 'でんしじしょ', 'kim từ điển'],
+    ['経済', 'けいざい', 'kinh tế'],
+    ['市役所', 'しやくしょ', 'tòa thị chính', 'しやくしょの でんわばんごうを しって いますか。', 'Anh/Chị có biết số điện thoại của tòa thị chính không?'],
+    ['高校', 'こうこう', 'trường trung học phổ thông, trường cấp 3'],
+    ['歯医者', 'はいしゃ', 'nha sĩ'],
+    ['独身', 'どくしん', 'độc thân'],
+    ['すみません#15', 'すみません', 'xin lỗi'],
+    ['皆さん', 'みなさん', 'các anh chị, các ông bà, các bạn, quý vị'],
+    ['思い出します', 'おもいだします', 'nhớ lại, hồi tưởng lại (nhóm I)'],
+    ['いらっしゃいます', 'いらっしゃいます', '(kính ngữ của います) (nhóm I)'],
+    ['日本橋', 'にっぽんばし', 'tên khu phố mua sắm ở Osaka'],
+  ],
+  grammar: [
+    {
+      id: 'b15-temo-ii',
+      title: 'Động từ thể て も いいですか',
+      formula: 'V て + も いいですか',
+      meaning: '～ có được không? (xin phép)',
+      explain: [
+        'Ý chính: V ても いいですか dùng để xin phép làm việc gì ("～ có được không?").',
+        'Cấu trúc: động từ thể て + も + いいですか. も có nghĩa "dù có ～ cũng", còn いいですか là "có được không". Ghép lại là "dù tôi làm ～ có được không?".',
+        'Cách trả lời: đồng ý thì nói ええ、いいですよ hoặc どうぞ. Từ chối thì nên nói tế nhị (すみません、ちょっと……) hoặc dùng V ては いけません (mẫu tiếp theo). Trường hợp từ chối, người ta thường nêu lý do.',
+      ],
+      when: [
+        'Khi muốn xin phép làm gì ở nơi của người khác hoặc nơi công cộng: chụp ảnh, hút thuốc, ngồi.',
+        'Khi người khác xin phép bạn và bạn đáp lại đồng ý hoặc từ chối.',
+      ],
+      steps: [
+        'Chia động từ sang thể て: とります → とって.',
+        'Thêm も: とっても.',
+        'Thêm いいですか: とっても いいですか。',
+        'Thêm tân ngữ / nơi chốn phía trước: ここで たばこを すっても いいですか。',
+      ],
+      table: {
+        title: 'Cách trả lời lời xin phép',
+        head: ['Kiểu trả lời', 'Ví dụ'],
+        rows: [
+          ['đồng ý', 'ええ、いいですよ。'],
+          ['từ chối tế nhị', 'すみません、ちょっと……。のどが いたいですから。'],
+          ['từ chối rõ ràng', 'いいえ、すっては いけません。きんえんですから。'],
+        ],
+      },
+      breakdown: {
+        jp: 'しゃしんを とっても いいですか。',
+        vi: 'Tôi chụp ảnh có được không?',
+        parts: [
+          ['しゃしん', 'ảnh'],
+          ['を', 'trợ từ chỉ tân ngữ'],
+          ['とって', 'thể て của とります (chụp)'],
+          ['も', 'dù có ～ cũng'],
+          ['いいですか。', 'có được không?'],
+        ],
+      },
+      mistakes: [
+        { wrong: 'しゃしんを とりても いいですか。', right: 'しゃしんを とっても いいですか。', why: 'とります (nhóm I, âm り) chia thành とって, không phải とりて.' },
+        { wrong: 'しゃしんを とっては いいですか。', right: 'しゃしんを とっても いいですか。', why: 'Xin phép dùng も; は đi với いけません để cấm đoán.' },
+      ],
+      compare: [
+        { with: 'V て ください', diff: 'V ても いいですか là xin phép làm việc gì. V て ください là nhờ người khác làm việc gì.' },
+      ],
+      tip: 'も = được phép ("V ても いいですか"). は = bị cấm ("V ては いけません").',
+      examples: [
+        ex('しゃしんを とっても いいですか。', 'Tôi chụp ảnh có được không?'),
+        ex('ここで たばこを すっても いいですか。 … ええ、[すっても] いいですよ。', 'Tôi hút thuốc ở đây có được không? … Vâng, [hút cũng] được.'),
+        ex('ここで たばこを すっても いいですか。 … すみません、ちょっと……。のどが いたいですから。', 'Tôi hút thuốc ở đây có được không? … Xin lỗi, không được đâu ạ. Tôi đang đau họng lắm.'),
+        ex('ここで たばこを すっても いいですか。 … いいえ、[すっては] いけません。きんえんですから。', 'Tôi hút thuốc ở đây có được không? … Không, không được [hút]. Vì ở đây cấm hút thuốc.'),
+      ],
+      notes: [],
+      quiz: [
+        quiz('b15-temo-ii-1', 'しゃしんを ＿ いいですか。', 'Tôi chụp ảnh có được không?', ['とっても', 'とって', 'とるても', 'とりても'], 'とっても', 'とります (nhóm I) → とって, thêm も いいですか.'),
+        quiz('b15-temo-ii-2', 'ここで たばこを ＿ いいですか。', 'Tôi hút thuốc ở đây có được không?', ['すっても', 'すいても', 'すんでも', 'すうても'], 'すっても', 'すいます (nhóm I, âm cuối い) → すって.'),
+        quiz('b15-temo-ii-3', 'ここに すわっても ＿。', 'Tôi ngồi ở đây có được không?', ['いいですか', 'いけませんか', 'ください', 'います'], 'いいですか', 'V て も いいですか dùng để xin phép.'),
+      ],
+    },
+    {
+      id: 'b15-tewa-ikemasen',
+      title: 'Động từ thể て は いけません',
+      formula: 'V て + は いけません',
+      meaning: 'không được ～ (cấm đoán)',
+      explain: [
+        'Ý chính: V ては いけません dùng để cấm đoán, nghĩa là "không được ～".',
+        'Cấu trúc: động từ thể て + は + いけません. は nhấn mạnh việc bị cấm, いけません là "không được". Thường nói kèm lý do: きんえんですから.',
+        'Lưu ý: cách nói này khá mạnh nên không dùng với người trên. Thường gặp khi nêu quy định, biển báo hoặc nói với người dưới.',
+      ],
+      when: [
+        'Khi nêu quy định, nơi bị cấm: cấm hút thuốc, không được vào.',
+        'Khi từ chối thẳng lời xin phép: いいえ、すっては いけません。',
+      ],
+      steps: [
+        'Chia động từ sang thể て: すいます → すって.',
+        'Thêm は: すっては.',
+        'Thêm いけません: すっては いけません。',
+        'Nêu lý do nếu cần: きんえんですから。',
+      ],
+      breakdown: {
+        jp: 'ここに はいっては いけません。',
+        vi: 'Không được vào đây.',
+        parts: [
+          ['ここ', 'chỗ này'],
+          ['に', 'trợ từ chỉ nơi sẽ vào'],
+          ['はいって', 'thể て của はいります (vào)'],
+          ['は', 'nhấn mạnh điều bị cấm'],
+          ['いけません。', 'không được'],
+        ],
+      },
+      mistakes: [
+        { wrong: 'ここに はいっても いけません。', right: 'ここに はいっては いけません。', why: 'いけません đi với は để cấm. ても đi với いいです để cho phép.' },
+        { wrong: 'ここで たばこを すいては いけません。', right: 'ここで たばこを すっては いけません。', why: 'すいます (nhóm I, âm い) chia thành すって, không phải すいて.' },
+      ],
+      compare: [
+        { with: 'V ません (phủ định thường)', diff: 'たばこを すいません chỉ nói tôi không hút. たばこを すっては いけません là cấm, không được phép hút.' },
+      ],
+      tip: 'Hỏi "được không" dùng ても いいですか; cấm "không được" dùng ては いけません.',
+      examples: [
+        ex('ここで たばこを すっては いけません。きんえんですから。', 'Không được hút thuốc ở đây. Vì ở đây cấm hút thuốc.'),
+        ex('ここに はいっては いけません。', 'Không được vào đây.'),
+      ],
+      notes: [
+        'Cách nói này không dùng với người trên.',
+      ],
+      quiz: [
+        quiz('b15-tewa-ikemasen-1', 'ここで たばこを すっては ＿。', 'Không được hút thuốc ở đây.', ['いけません', 'いいです', 'ください', 'います'], 'いけません', 'V て は いけません biểu thị sự cấm đoán.'),
+        quiz('b15-tewa-ikemasen-2', 'ここに はいっ＿ いけません。', 'Không được vào đây.', ['ては', 'ても', 'で', 'に'], 'ては', 'Cấm đoán dùng V て は いけません.'),
+        quiz('b15-tewa-ikemasen-3', 'ここで しゃしんを ＿ いけません。', 'Không được chụp ảnh ở đây.', ['とっては', 'とっても', 'とって', 'とりは'], 'とっては', 'とります → とって, rồi thêm は いけません.'),
+      ],
+    },
+    {
+      id: 'b15-te-imasu',
+      title: 'Động từ thể て います',
+      formula: 'V て + います',
+      meaning: 'trạng thái, thói quen, nghề nghiệp, tình cảnh',
+      explain: [
+        'Ý chính: V て います ngoài nghĩa "đang làm" (Bài 14) còn có thêm nghĩa trạng thái, thói quen / nghề nghiệp và tình cảnh.',
+        'Trạng thái: kết quả của hành động vẫn còn đó. Ví dụ けっこんして います (đã lập gia đình), しって います (biết), もって います (có / đang cầm), すんで います (đang sống ở). Những động từ này chủ yếu dùng ở dạng ～て います.',
+        'Thói quen, nghề nghiệp, tình cảnh: hành động lặp đi lặp lại trong thời gian dài, ví dụ はたらいて います (làm việc ở), べんきょうして います (đang học), うって います (bán), つくって います (chế tạo).',
+        'Lưu ý: phủ định của しって います là しりません (không nói しって いません). もって います có hai nghĩa là "đang cầm trong tay" và "có (sở hữu)".',
+      ],
+      when: [
+        'Khi nói tình trạng gia đình, nơi ở, vật sở hữu: đã kết hôn, sống ở Osaka, có máy ảnh.',
+        'Khi nói mình biết hay không biết: しって います / しりません.',
+        'Khi nói nghề nghiệp, nơi làm việc, nơi học: Miller làm việc ở công ty IMC.',
+      ],
+      steps: [
+        'Chia động từ sang thể て: すみます → すんで.',
+        'Thêm います: すんで います.',
+        'Chọn nghĩa theo động từ và ngữ cảnh: trạng thái (すんで), thói quen / nghề nghiệp (はたらいて).',
+        'Phủ định: thường là ～て いません, nhưng しって います → しりません.',
+      ],
+      table: {
+        title: 'Các nghĩa của V て います',
+        head: ['Nghĩa', 'Ví dụ'],
+        rows: [
+          ['đang diễn ra (Bài 14)', 'ふって います (đang mưa)'],
+          ['trạng thái', 'けっこんして います, しって います, もって います, すんで います'],
+          ['thói quen, nghề nghiệp', 'はたらいて います, うって います, つくって います'],
+        ],
+      },
+      breakdown: {
+        jp: 'わたしは おおさかに すんで います。',
+        vi: 'Tôi sống ở Osaka.',
+        parts: [
+          ['わたし', 'chủ đề: tôi'],
+          ['は', 'trợ từ chủ đề'],
+          ['おおさか', 'Osaka'],
+          ['に', 'trợ từ chỉ nơi sinh sống'],
+          ['すんで', 'thể て của すみます (sống)'],
+          ['います。', 'đang (trạng thái)'],
+        ],
+      },
+      mistakes: [
+        { wrong: 'しやくしょの でんわばんごうを しって いますか。 … いいえ、しって いません。', right: 'しやくしょの でんわばんごうを しって いますか。 … いいえ、しりません。', why: 'Phủ định của しって います là しりません.' },
+        { wrong: 'わたしは けっこんします。', right: 'わたしは けっこんして います。', why: 'Muốn nói "đã có gia đình" (tình trạng hiện tại) dùng けっこんして います; けっこんします chỉ là "sẽ kết hôn".' },
+        { wrong: 'わたしは おおさかを すんで います。', right: 'わたしは おおさかに すんで います。', why: 'Nơi sinh sống đi với に, không dùng を.' },
+      ],
+      compare: [
+        { with: 'V て います ở Bài 14 (đang làm)', diff: 'Ở Bài 14 nghĩa là hành động đang diễn ra ngay lúc này. Ở bài này còn dùng cho trạng thái kéo dài, thói quen, nghề nghiệp, và nghĩa tùy theo động từ.' },
+      ],
+      tip: 'Với các động từ như けっこんする, しる, もつ, すむ, nghĩa hay là trạng thái. Nhớ: biết = しって います, không biết = しりません.',
+      examples: [
+        ex('わたしは けっこんして います。', 'Tôi đã lập gia đình.'),
+        ex('わたしは たなかさんを しって います。', 'Tôi biết anh Tanaka.'),
+        ex('わたしは カメラを もって います。', 'Tôi có máy ảnh.'),
+        ex('わたしは おおさかに すんで います。', 'Tôi sống ở Osaka.'),
+        ex('しやくしょの でんわばんごうを しって いますか。 … はい、しって います。', 'Anh/Chị có biết số điện thoại của tòa thị chính không? … Vâng, tôi biết.'),
+        ex('しやくしょの でんわばんごうを しって いますか。 … いいえ、しりません。', 'Anh/Chị có biết số điện thoại của tòa thị chính không? … Không, tôi không biết.'),
+        ex('IMC は コンピューターソフトを つくって います。', 'Công ty IMC chế tạo phần mềm máy vi tính.'),
+        ex('スーパーで ナンプラーを うって います。', 'Siêu thị có bán nước mắm.'),
+        ex('ミラーさんは IMC で はたらいて います。', 'Anh Miller làm việc ở Công ty IMC.'),
+        ex('いもうとは だいがくで べんきょうして います。', 'Em gái tôi (đang) học đại học.'),
+      ],
+      notes: [
+        'Thể phủ định của しって います là しりません. Chú ý không nói là しって いません.',
+        'もって います có 2 nghĩa là "đang cầm (trong tay)" và "có (sở hữu)".',
+      ],
+      quiz: [
+        quiz('b15-te-imasu-1', 'わたしは けっこんして ＿。', 'Tôi đã lập gia đình.', ['います', 'ありました', 'ください', 'いません'], 'います', 'Trạng thái đã kết hôn dùng けっこんして います.'),
+        quiz('b15-te-imasu-2', 'わたしは おおさかに ＿ います。', 'Tôi sống ở Osaka.', ['すんで', 'すって', 'すいて', 'すみて'], 'すんで', 'すみます (nhóm I, âm cuối み) → すんで.'),
+        quiz('b15-te-imasu-3', 'しやくしょの でんわばんごうを しって いますか。 … いいえ、＿。', 'Anh/Chị có biết số điện thoại của tòa thị chính không? … Không, tôi không biết.', ['しりません', 'しっていません', 'しいません', 'しませんでした'], 'しりません', 'Phủ định của しって います là しりません.'),
+      ],
+    },
+    {
+      id: 'b15-ni-v',
+      title: 'Danh từ に Động từ',
+      formula: 'N + に + V',
+      meaning: 'nơi chủ ngữ có mặt sau khi thực hiện hành động',
+      explain: [
+        'Ý chính: trợ từ に đi với một nhóm động từ như はいります (vào), すわります (ngồi), のります (lên xe) để chỉ nơi chủ ngữ có mặt sau khi thực hiện hành động.',
+        'Cấu trúc: N + に + V. Nơi N là chỗ mình "đến rồi ở lại" sau hành động: vào phòng thì ở trong phòng, ngồi ghế thì ở trên ghế, lên xe thì ở trên xe. Sau này sẽ gặp thêm のぼります (leo), つきます (đến).',
+        'Lưu ý: に ở đây chỉ nơi "đến và ở lại", khác với で chỉ nơi diễn ra hành động (ここで たべます).',
+      ],
+      when: [
+        'Khi nói vào đâu, ngồi đâu: ここに はいります, ここに すわります.',
+        'Khi nói lên phương tiện nào: バスに のります.',
+      ],
+      steps: [
+        'Chọn nơi mình sẽ ở trong / trên sau hành động: ここ.',
+        'Thêm に: ここに.',
+        'Thêm động từ はいります / すわります / のります: ここに すわります。',
+      ],
+      table: {
+        title: 'Động từ đi với に ở bài này',
+        head: ['Động từ', 'Nghĩa', 'Ví dụ'],
+        rows: [
+          ['はいります', 'vào', 'ここに はいります'],
+          ['すわります', 'ngồi', 'ここに すわります'],
+          ['のります', 'lên (xe)', 'バスに のります'],
+        ],
+      },
+      breakdown: {
+        jp: 'ここに すわっても いいですか。',
+        vi: 'Tôi ngồi ở đây có được không?',
+        parts: [
+          ['ここ', 'chỗ này'],
+          ['に', 'nơi sẽ ngồi'],
+          ['すわって', 'thể て của すわります (ngồi)'],
+          ['も', 'dù có ～ cũng'],
+          ['いいですか。', 'có được không?'],
+        ],
+      },
+      mistakes: [
+        { wrong: 'ここで すわっても いいですか。', right: 'ここに すわっても いいですか。', why: 'Với すわります, nơi ngồi dùng に. で chỉ nơi diễn ra hành động.' },
+        { wrong: 'バスを のって ください。', right: 'バスに のって ください。', why: 'のります (lên xe) đi với に, không dùng を.' },
+      ],
+      compare: [
+        { with: 'N1 に N2 を V', diff: 'N に V không có tân ngữ (ここに はいります). N1 に N2 を V có thêm tân ngữ N2 (ここに くるまを とめます).' },
+      ],
+      tip: 'Vào, ngồi, lên xe = đến rồi ở lại chỗ đó → dùng に.',
+      examples: [
+        ex('ここに はいっては いけません。', 'Không được vào đây.'),
+        ex('ここに すわっても いいですか。', 'Tôi ngồi ở đây có được không?'),
+        ex('きょうとえきから じゅうろくばんの バスに のって ください。', 'Anh/Chị hãy lên xe buýt tuyến số 16 từ ga Kyoto nhé. (xem Bài 16)'),
+      ],
+      notes: [],
+      quiz: [
+        quiz('b15-ni-v-1', 'ここ＿ はいっては いけません。', 'Không được vào đây.', ['に', 'を', 'と', 'から'], 'に', 'Địa điểm chủ ngữ có mặt sau hành động はいります đi với に.'),
+        quiz('b15-ni-v-2', 'ここ＿ すわっても いいですか。', 'Tôi ngồi ở đây có được không?', ['に', 'を', 'と', 'から'], 'に', 'すわります đi với に để chỉ chỗ ngồi.'),
+        quiz('b15-ni-v-3', 'じゅうろくばんの バス＿ のって ください。', 'Hãy lên xe buýt tuyến số 16.', ['に', 'を', 'で', 'が'], 'に', 'のります đi với に chỉ phương tiện được lên.'),
+      ],
+    },
+    {
+      id: 'b15-n1-ni-n2-wo',
+      title: 'Danh từ 1 に Danh từ 2 を Động từ',
+      formula: 'N1 + に + N2 + を + V',
+      meaning: 'đặt/làm cho N2 có mặt ở N1 (địa điểm)',
+      explain: [
+        'Ý chính: mẫu này nói đặt / đỗ / ghi cái gì (N2) vào chỗ nào (N1).',
+        'Cấu trúc: N1 + に + N2 + を + động từ. N2 là vật chịu tác động nên đi với を. N1 là nơi N2 nằm lại sau hành động, nên đi với に. Ví dụ ここに くるまを とめます: xe nằm ở đây sau khi đỗ.',
+        'Thường ghép với ～て ください để nhờ hay hướng dẫn: ここに じゅうしょを かいて ください.',
+      ],
+      when: [
+        'Khi nhờ hoặc hướng dẫn đặt, đỗ, ghi cái gì ở đâu.',
+        'Khi nói vật nằm ở đâu sau hành động của mình.',
+      ],
+      steps: [
+        'Xác định nơi N1: ここ.',
+        'Thêm に: ここに.',
+        'Thêm vật N2 + を: じゅうしょを.',
+        'Thêm động từ, thường là thể て ください: かいて ください。',
+      ],
+      breakdown: {
+        jp: 'ここに くるまを とめて ください。',
+        vi: 'Anh/Chị hãy đỗ xe ở đây.',
+        parts: [
+          ['ここ', 'chỗ này'],
+          ['に', 'nơi xe nằm lại sau khi đỗ'],
+          ['くるま', 'xe hơi'],
+          ['を', 'trợ từ chỉ tân ngữ'],
+          ['とめて', 'thể て của とめます (đỗ)'],
+          ['ください。', 'hãy'],
+        ],
+      },
+      mistakes: [
+        { wrong: 'ここに くるまが とめて ください。', right: 'ここに くるまを とめて ください。', why: 'くるま là tân ngữ của とめます nên đi với を, không dùng が.' },
+        { wrong: 'ここに くるまを とって ください。', right: 'ここに くるまを とめて ください。', why: 'とります nghĩa là lấy / chụp. Đỗ xe là とめます (nhóm II), thể て là とめて.' },
+      ],
+      compare: [
+        { with: 'N に V', diff: 'N に V (ここに はいります) chỉ có nơi chốn. N1 に N2 を V có thêm vật N2 chịu tác động nên cần cả に lẫn を.' },
+      ],
+      tip: 'Vật + を, nơi để vật + に: ここに [vật]を ～て ください.',
+      examples: [
+        ex('ここに くるまを とめて ください。', 'Anh/Chị hãy đỗ xe ở đây.'),
+        ex('ここに じゅうしょを かいて ください。', 'Anh/Chị hãy ghi địa chỉ vào đây.'),
+      ],
+      notes: [],
+      quiz: [
+        quiz('b15-n1-ni-n2-wo-1', 'ここ＿ くるまを とめて ください。', 'Anh/Chị hãy đỗ xe ở đây.', ['に', 'を', 'と', 'が'], 'に', 'Địa điểm mà N2 có mặt sau hành động được biểu thị bằng に.'),
+        quiz('b15-n1-ni-n2-wo-2', 'ここ＿ じゅうしょを かいて ください。', 'Anh/Chị hãy ghi địa chỉ vào đây.', ['に', 'を', 'と', 'が'], 'に', 'Nơi chữ viết có mặt sau khi viết được biểu thị bằng に.'),
+        quiz('b15-n1-ni-n2-wo-3', 'ここに じゅうしょ＿ かいて ください。', 'Anh/Chị hãy ghi địa chỉ vào đây.', ['を', 'が', 'に', 'の'], 'を', 'Tân ngữ N2 của động từ đi với を.'),
+      ],
+    },
+  ],
+};

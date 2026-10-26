@@ -1,0 +1,328 @@
+// Bài 23 · Khi ～ thì ～ (とき, と), đường đi
+import { ex, quiz } from '../helpers.js';
+
+export default {
+  meta: { title: 'とき · と · Đường đi', jp: 'みぎへ まがると、ゆうびんきょくが あります。', summary: 'Nói khi nào làm gì bằng とき, điều kiện tất yếu bằng と, câu が với tính từ, và を với động từ chuyển động.', note: 'Nội dung theo giáo trình Minna no Nihongo Sơ cấp 1 (bản tiếng Việt), nhập từ ảnh chụp sách. Có thể còn sai sót khi đối chiếu, hãy kiểm tra lại với sách.',
+    guide: [
+      'Bài 23 xoay quanh việc nối hai mệnh đề bằng ～とき (khi ～) và ～と (hễ ～ thì tất yếu ～), cùng cách hướng dẫn dùng máy móc và chỉ đường. Khung chung: [mệnh đề 1] + とき / と、[mệnh đề 2].',
+      'Thứ tự học gợi ý: (1) ～とき với cách chia như khi bổ nghĩa cho danh từ, (2) nguyên dạng hay thể た trước とき để chỉ việc xảy ra trước hay sau, (3) V nguyên dạng + と cho kết quả tất yếu (bấm nút, chỉ đường), (4) N が Tính từ, (5) N を + động từ chuyển động (わたります, まがります).',
+      'Mẹo: とき nghĩa là "lúc", là một danh từ, nên chia như trước danh từ (ひまな とき, びょうきの とき). Còn ～と chỉ dùng cho kết quả chắc chắn xảy ra, không dùng với ý chí, rủ rê, nhờ vả ở vế sau.',
+    ],
+  },
+  vocab: [
+    ['聞きます#23', 'ききます', 'hỏi [giáo viên]', 'つかいかたが わからない とき、わたしに きいて ください。', 'Nếu anh/chị không biết cách sử dụng thì hãy hỏi tôi.'],
+    ['回します', 'まわします', 'vặn', 'これを まわすと、おとが おおきく なります。', 'Khi vặn cái này thì âm thanh sẽ to hơn.'],
+    ['引きます', 'ひきます', 'kéo'],
+    ['変えます', 'かえます', 'đổi'],
+    ['触ります', 'さわります', 'sờ, chạm vào [cửa]'],
+    ['出ます#23', 'でます', '[tiền thừa] ra, chạy ra', 'この ボタンを おすと、おつりが でます。', 'Khi ấn nút này thì tiền thừa sẽ ra.'],
+    ['歩きます', 'あるきます', 'đi bộ'],
+    ['渡ります', 'わたります', 'qua, đi qua [cầu]', 'みちを わたります。', 'Tôi qua đường.'],
+    ['曲がります', 'まがります', 'rẽ, quẹo [phải]', 'こうさてんを みぎへ まがります。', 'Tôi rẽ phải ở ngã tư.'],
+    ['寂しい', 'さびしい', 'buồn, cô đơn'],
+    ['お湯', 'おゆ', 'nước nóng'],
+    ['音', 'おと', 'âm thanh', 'おとが ちいさいです。', 'Âm thanh nhỏ.'],
+    ['サイズ', 'サイズ', 'cỡ, kích cỡ'],
+    ['故障', 'こしょう', '(sự) hỏng, hỏng hóc (～します: bị hỏng)'],
+    ['道', 'みち', 'đường, đường sá', 'みちを わたります。', 'Tôi qua đường.'],
+    ['交差点', 'こうさてん', 'ngã tư', 'こうさてんを みぎへ まがります。', 'Tôi rẽ phải ở ngã tư.'],
+    ['信号', 'しんごう', 'đèn tín hiệu'],
+    ['角', 'かど', 'góc'],
+    ['橋', 'はし', 'cầu'],
+    ['駐車場', 'ちゅうしゃじょう', 'bãi đỗ xe'],
+    ['建物', 'たてもの', 'toà nhà'],
+    ['何回も', 'なんかいも', 'nhiều lần'],
+    ['～目', 'め', 'thứ ～, số ～ (biểu thị thứ tự)'],
+    ['聖徳太子', 'しょうとくたいし', 'Thái tử Shotoku (574-622)'],
+    ['法隆寺', 'ほうりゅうじ', 'Chùa Horyuji, một ngôi chùa ở Nara do Hoàng tử Shotoku xây vào đầu thế kỷ thứ 7'],
+  ],
+  grammar: [
+    {
+      id: 'b23-toki',
+      title: 'Động từ nguyên dạng / ない, Tính từ, Danh từ の + とき、～',
+      formula: 'V (nguyên dạng / thể ない) / Aい / Aな (～な) / N の + とき、～ (mệnh đề chính)',
+      meaning: 'Khi ～ / (nếu) ～',
+      explain: [
+        'Ý chính: ～とき nghĩa là "khi ～", chỉ thời điểm xảy ra việc nói ở mệnh đề chính phía sau.',
+        'とき là danh từ ("lúc") nên cách chia giống mệnh đề bổ nghĩa cho danh từ: động từ nguyên dạng hoặc thể ない, tính từ い giữ ～い, tính từ な đổi thành ～な, danh từ đổi thành ～の.',
+        'Thời của mệnh đề trước とき không phụ thuộc vào thời của mệnh đề chính. Ví dụ わかい とき、あまり べんきょうしませんでした: わかい vẫn ở dạng hiện tại dù chuyện đã qua.',
+      ],
+      when: [
+        'Khi nói lúc nào thì làm gì: khi mượn sách, khi rảnh, khi không khỏe.',
+        'Khi nhờ vả hoặc dặn dò theo tình huống: "Khi không biết cách dùng, hãy hỏi tôi".',
+        'Khi kể về thời còn trẻ, còn nhỏ.',
+      ],
+      steps: [
+        'Chọn mệnh đề chỉ thời điểm: ほんを かりる.',
+        'Chia theo loại từ (xem bảng): ひま → ひまな, びょうき → びょうきの.',
+        'Thêm とき và dấu phẩy: ほんを かりる とき、',
+        'Nói mệnh đề chính: ほんを かりる とき、カードが いります。',
+      ],
+      table: {
+        title: 'Dạng đứng trước とき',
+        head: ['Loại từ', 'Dạng trước とき', 'Ví dụ'],
+        rows: [
+          ['Động từ', 'nguyên dạng / thể ない', 'かりる とき / わからない とき'],
+          ['Tính từ い', 'giữ ～い', 'わるい とき'],
+          ['Tính từ な', '～な', 'ひまな とき'],
+          ['Danh từ', '～の', 'びょうきの とき'],
+        ],
+      },
+      breakdown: {
+        jp: 'ひまな とき、うちへ あそびに きませんか。',
+        vi: 'Khi anh/chị rảnh rỗi thì đến nhà tôi chơi nhé!',
+        parts: [
+          ['ひまな', 'tính từ な ở dạng ～な: rảnh'],
+          ['とき、', '"khi" (thời điểm)'],
+          ['うちへ', 'đến nhà'],
+          ['あそびに', 'để chơi (mục đích)'],
+          ['きませんか。', 'lời mời: đến nhé?'],
+        ],
+      },
+      mistakes: [
+        { wrong: 'ひまの とき、うちへ あそびに きませんか。', right: 'ひまな とき、うちへ あそびに きませんか。', why: 'Tính từ な đứng trước とき dùng ～な, không dùng ～の.' },
+        { wrong: 'つまが びょうきな とき、かいしゃを やすみます。', right: 'つまが びょうきの とき、かいしゃを やすみます。', why: 'Danh từ đứng trước とき dùng ～の.' },
+        { wrong: 'つかいかたが わかりません とき、きいて ください。', right: 'つかいかたが わからない とき、きいて ください。', why: 'Trước とき dùng nguyên dạng hoặc thể ない, không dùng thể ます.' },
+      ],
+      compare: [
+        { with: 'V nguyên dạng + と (cùng bài)', diff: 'とき chỉ thời điểm và vế sau tự do (mời, nhờ vả...). と nói kết quả tất yếu và vế sau không có ý chí hay nhờ vả.' },
+      ],
+      tip: 'とき = "lúc" là danh từ, nên chia như trước danh từ: ひまな とき, びょうきの とき.',
+      examples: [
+        ex('としょかんで ほんを かりる とき、カードが いります。', 'Khi mượn sách ở thư viện thì cần có thẻ.'),
+        ex('つかいかたが わからない とき、わたしに きいて ください。', 'Nếu anh/chị không biết cách sử dụng thì hãy hỏi tôi.'),
+        ex('からだの ちょうしが わるい とき、「げんきちゃ」を のみます。', 'Khi thấy người không được khỏe thì tôi uống "trà Genki".'),
+        ex('ひまな とき、うちへ あそびに きませんか。', 'Khi anh/chị rảnh rỗi thì đến nhà tôi chơi nhé!'),
+        ex('つまが びょうきの とき、かいしゃを やすみます。', 'Khi vợ bị ốm thì tôi nghỉ làm.'),
+        ex('わかい とき、あまり べんきょうしませんでした。', 'Khi còn trẻ, tôi không học nhiều lắm.'),
+        ex('こどもの とき、よく かわで およぎました。', 'Khi còn là trẻ con, tôi hay bơi ở sông.'),
+      ],
+      notes: [
+        'Thời của mệnh đề bổ nghĩa cho とき không phụ thuộc vào thời của mệnh đề chính.',
+      ],
+      quiz: [
+        quiz('b23-toki-1', 'としょかんで ほんを かりる＿、カードが いります。', 'Khi mượn sách ở thư viện thì cần có thẻ.', ['とき', 'ところ', 'ばかり', 'ほど'], 'とき', 'Thời điểm xảy ra việc ở mệnh đề chính được biểu thị bằng とき.'),
+        quiz('b23-toki-2', 'ひま＿ とき、うちへ あそびに きませんか。', 'Khi anh/chị rảnh rỗi thì đến nhà tôi chơi nhé!', ['な', 'の', 'で', 'に'], 'な', 'Tính từ đuôi な đứng trước とき ở dạng ～な.'),
+        quiz('b23-toki-3', 'つまが びょうき＿ とき、かいしゃを やすみます。', 'Khi vợ bị ốm thì tôi nghỉ làm.', ['の', 'な', 'だ', 'で'], 'の', 'Danh từ đứng trước とき đi với の.'),
+        quiz('b23-toki-4', 'つかいかたが わから＿ とき、わたしに きいて ください。', 'Nếu anh/chị không biết cách sử dụng thì hãy hỏi tôi.', ['ない', 'ません', 'なく', 'なくて'], 'ない', 'Động từ thể ない đứng trực tiếp trước とき.'),
+      ],
+    },
+    {
+      id: 'b23-toki-jisei',
+      title: 'Động từ nguyên dạng / thể た + とき、～',
+      formula: 'V (thể nguyên dạng / thể た) + とき、～ (mệnh đề chính)',
+      meaning: 'Khi ～ (trước / sau khi)',
+      explain: [
+        'Ý chính: động từ trước とき ở nguyên dạng hay thể た sẽ cho biết việc ở mệnh đề chính xảy ra trước hay sau.',
+        'Nguyên dạng + とき: việc chính xảy ra TRƯỚC. パリへ いく とき、かばんを かいました = mua túi trước khi đến Pa-ri (mua ở đâu đó trên đường đi).',
+        'Thể た + とき: việc chính xảy ra SAU. パリへ いった とき、かばんを かいました = mua túi sau khi đã đến Pa-ri, tức là mua ở Pa-ri.',
+      ],
+      when: [
+        'Khi muốn nói việc xảy ra trước một hành động, như trước khi đi, trước khi ngủ.',
+        'Khi muốn nói việc xảy ra sau khi một hành động đã hoàn thành.',
+        'Khi kể chuyện chuyến đi, chuyến công tác.',
+      ],
+      steps: [
+        'Xác định việc A (vế とき) và việc B (vế chính).',
+        'Nếu B xảy ra trước A, dùng nguyên dạng: いく とき.',
+        'Nếu B xảy ra sau A, dùng thể た: いった とき.',
+        'Thêm vế chính: パリへ いった とき、かばんを かいました。',
+      ],
+      table: {
+        title: 'Nguyên dạng và thể た trước とき',
+        head: ['Dạng', 'Ý nghĩa', 'Ví dụ'],
+        rows: [
+          ['V nguyên dạng + とき', 'việc chính xảy ra trước', 'パリへ いく とき (chưa đến Pa-ri)'],
+          ['V thể た + とき', 'việc chính xảy ra sau', 'パリへ いった とき (đã đến Pa-ri)'],
+        ],
+      },
+      breakdown: {
+        jp: 'パリへ いった とき、かばんを かいました。',
+        vi: '(Sau) khi đi Pari tôi đã mua một cái túi xách.',
+        parts: [
+          ['パリへ', 'đến Pa-ri'],
+          ['いった', 'động từ thể た: đã đến'],
+          ['とき、', '"khi" (thời điểm)'],
+          ['かばんを', 'tân ngữ: túi xách'],
+          ['かいました。', 'đã mua'],
+        ],
+      },
+      mistakes: [
+        { wrong: 'ねた とき、「おやすみなさい」と いいます。', right: 'ねる とき、「おやすみなさい」と いいます。', why: 'Nói "oyasuminasai" xảy ra trước khi ngủ nên động từ ở nguyên dạng.' },
+        { wrong: 'パリへ いく とき、パリで かばんを かいました。', right: 'パリへ いった とき、パリで かばんを かいました。', why: 'Mua túi ở Pa-ri nghĩa là đã đến nơi rồi, nên dùng thể た.' },
+      ],
+      tip: 'Nguyên dạng = chưa xảy ra (việc chính ở trước), thể た = đã xong (việc chính ở sau).',
+      examples: [
+        ex('パリへ いく とき、かばんを かいました。', '(Trước) khi đi Pari tôi đã mua một cái túi xách.'),
+        ex('パリへ いった とき、かばんを かいました。', '(Sau) khi đi Pari tôi đã mua một cái túi xách.'),
+      ],
+      notes: [],
+      quiz: [
+        quiz('b23-toki-jisei-1', 'パリへ ＿ とき、にほんで かばんを かいました。', 'Trước khi đi Pari, tôi đã mua túi xách ở Nhật.', ['いく', 'いった', 'いきます', 'いって'], 'いく', 'Động từ nguyên dạng trước とき: việc ở mệnh đề chính xảy ra trước.'),
+        quiz('b23-toki-jisei-2', 'パリへ ＿ とき、パリで かばんを かいました。', 'Khi đến Pari, tôi đã mua túi xách ở Pari.', ['いった', 'いく', 'いきます', 'いって'], 'いった', 'Động từ thể た trước とき: việc ở mệnh đề chính xảy ra sau.'),
+        quiz('b23-toki-jisei-3', 'ねる＿ とき、「おやすみなさい」と いいます。', 'Khi (trước khi) đi ngủ thì nói "Oyasuminasai".', ['ねる', 'ねた', 'ねます', 'ねて'], 'ねる', 'Việc nói xảy ra trước khi ngủ nên động từ ở thể nguyên dạng.'),
+      ],
+    },
+    {
+      id: 'b23-to',
+      title: 'Động từ thể nguyên dạng と、～',
+      formula: 'V (thể nguyên dạng) + と、～ (mệnh đề chính)',
+      meaning: '(Khi) ～ thì/là ～',
+      explain: [
+        'Ý chính: V nguyên dạng + と、～ nghĩa là "hễ ～ thì (tất nhiên) ～". Khi việc trước xảy ra, việc sau chắc chắn xảy ra theo.',
+        'Hay dùng khi giải thích cách dùng máy móc (ấn nút thì tiền thừa ra) và khi chỉ đường (rẽ phải thì thấy bưu điện).',
+        'Vế sau là một kết quả hoặc hiện tượng, không phải ý chí, nguyện vọng, lời mời hay nhờ vả của người nói.',
+      ],
+      when: [
+        'Khi hướng dẫn cách dùng máy: ấn, vặn thì sẽ ra sao.',
+        'Khi chỉ đường: rẽ phải thì thấy gì.',
+        'Khi nói một quy luật hay kết quả tự nhiên.',
+      ],
+      steps: [
+        'Chia động từ về nguyên dạng: おします → おす.',
+        'Thêm と và dấu phẩy: おすと、',
+        'Nói kết quả sẽ xảy ra: おつりが でます。',
+        'Có tân ngữ thì giữ nguyên: この ボタンを おすと、おつりが でます。',
+      ],
+      breakdown: {
+        jp: 'この ボタンを おすと、おつりが でます。',
+        vi: 'Khi ấn nút này thì tiền thừa sẽ ra.',
+        parts: [
+          ['この ボタンを', 'nút này (tân ngữ)'],
+          ['おす', 'động từ nguyên dạng'],
+          ['と、', 'hễ ... thì (kết quả tất yếu)'],
+          ['おつりが', 'tiền thừa (chủ ngữ)'],
+          ['でます。', 'ra'],
+        ],
+      },
+      mistakes: [
+        { wrong: 'この ボタンを おしますと、おつりが でます。', right: 'この ボタンを おすと、おつりが でます。', why: 'Trước と dùng động từ nguyên dạng, không dùng thể ます.' },
+        { wrong: 'じかんが あると、いっしょに えいがを みませんか。', right: 'じかんが あったら、いっしょに えいがを みませんか。', why: 'Vế sau của ～と không dùng với lời mời, nhờ vả, ý chí. Trường hợp đó dùng ～たら (Bài 25).' },
+      ],
+      compare: [
+        { with: '～とき', diff: '～とき chỉ thời điểm và vế sau tự do. ～と nói kết quả tất yếu, vế sau là hiện tượng chứ không phải ý chí hay lời mời.' },
+        { with: '～たら (Bài 25)', diff: '～たら là giả định, vế sau được nói tự do (ý chí, mời, nhờ vả). ～と chỉ dùng cho kết quả chắc chắn xảy ra.' },
+      ],
+      tip: 'と = "hễ ... là ...": dùng cho nút bấm, máy móc và chỉ đường.',
+      examples: [
+        ex('この ボタンを おすと、おつりが でます。', 'Khi ấn nút này thì tiền thừa sẽ ra.'),
+        ex('これを まわすと、おとが おおきく なります。', 'Khi vặn cái này thì âm thanh sẽ to hơn.'),
+        ex('みぎへ まがると、ゆうびんきょくが あります。', '(Khi) rẽ phải thì/là thấy bưu điện.'),
+      ],
+      notes: [],
+      quiz: [
+        quiz('b23-to-1', 'この ボタンを おす＿、おつりが でます。', 'Khi ấn nút này thì tiền thừa sẽ ra.', ['と', 'ば', 'たら', 'から'], 'と', 'Động từ nguyên dạng + と: kết quả tất yếu xảy ra.'),
+        quiz('b23-to-2', 'みぎへ ＿と、ゆうびんきょくが あります。', '(Khi) rẽ phải thì thấy bưu điện.', ['まがる', 'まがります', 'まがった', 'まがって'], 'まがる', 'Trước と dùng động từ thể nguyên dạng.'),
+        quiz('b23-to-3', 'これを まわすと、おとが ＿ なります。', 'Khi vặn cái này thì âm thanh sẽ to hơn.', ['おおきく', 'おおきい', 'おおきに', 'おおきくて'], 'おおきく', 'Tính từ đuôi い + なります: bỏ い thêm く.'),
+      ],
+    },
+    {
+      id: 'b23-ga-keiyoushi',
+      title: 'Danh từ が Tính từ',
+      formula: 'N が Tính từ',
+      meaning: 'N thì ～ (diễn tả một hiện tượng / sự việc một cách khách quan)',
+      explain: [
+        'Ý chính: N が Tính từ dùng để nêu một hiện tượng đang thấy hoặc nghe được, hay nói khách quan một sự việc: おとが ちいさいです (âm thanh nhỏ).',
+        'Ở Bài 14 が được dùng như vậy với động từ. Bài này mở rộng sang câu tính từ.',
+        'Khác với N は Tính từ: は nêu chủ đề rồi nhận xét, còn が thuật lại điều đang cảm nhận trực tiếp bằng giác quan.',
+      ],
+      when: [
+        'Khi vừa nghe hoặc thấy điều gì và nói ra: âm thanh nhỏ, hoa đẹp.',
+        'Khi báo tình trạng của vật một cách khách quan.',
+        'Khi mô tả trực tiếp điều ở trước mắt.',
+      ],
+      steps: [
+        'Chọn đối tượng mình cảm nhận: おと.',
+        'Thêm が: おとが.',
+        'Thêm tính từ và です: おとが ちいさいです。',
+      ],
+      breakdown: {
+        jp: 'はなが きれいです。',
+        vi: 'Hoa đẹp.',
+        parts: [
+          ['はな', 'đối tượng cảm nhận: hoa'],
+          ['が', 'trợ từ nêu hiện tượng'],
+          ['きれい', 'tính từ な: đẹp'],
+          ['です。', 'kết câu lịch sự'],
+        ],
+      },
+      mistakes: [
+        { wrong: 'おとを ちいさいです。', right: 'おとが ちいさいです。', why: 'を dành cho tân ngữ của động từ. Câu tính từ nêu hiện tượng dùng が.' },
+      ],
+      compare: [
+        { with: 'N は Tính từ', diff: 'は nêu chủ đề đã biết rồi nhận xét. が thuật lại điều vừa cảm nhận trực tiếp hoặc nói khách quan.' },
+      ],
+      tip: 'Thấy hay nghe ngay trước mắt thì dùng が: おとが ちいさい!',
+      examples: [
+        ex('おとが ちいさいです。', 'Âm thanh nhỏ.'),
+        ex('はなが きれいです。', 'Hoa đẹp.'),
+      ],
+      notes: [],
+      quiz: [
+        quiz('b23-ga-keiyoushi-1', 'おと＿ ちいさいです。', 'Âm thanh nhỏ.', ['が', 'を', 'に', 'で'], 'が', 'Truyền đạt một hiện tượng cảm nhận được: N が Tính từ.'),
+        quiz('b23-ga-keiyoushi-2', 'はな＿ きれいです。', 'Hoa đẹp.', ['が', 'を', 'に', 'へ'], 'が', 'N が Tính từ: nêu khách quan một sự việc.'),
+        quiz('b23-ga-keiyoushi-3', 'そら＿ あおいです。', 'Bầu trời xanh.', ['が', 'を', 'と', 'から'], 'が', 'N が Tính từ dùng cả trong câu tính từ.'),
+      ],
+    },
+    {
+      id: 'b23-wo-idou',
+      title: 'Danh từ を Động từ chuyển động',
+      formula: 'N を + V chuyển động (さんぽします, わたります, あるきます, v.v.)',
+      meaning: 'đi qua / đi dọc N',
+      explain: [
+        'Ý chính: N を + động từ chuyển động diễn tả nơi chốn mà người hoặc vật đi qua.',
+        'Với さんぽします, わたります, あるきます, まがります..., を đánh dấu "con đường hay không gian đi qua" (công viên, đường, ngã tư), không phải đích đến.',
+        'Phân biệt: đích đến dùng へ / に (いきます), nơi đi qua dùng を. Trong こうさてんを みぎへ まがります: を là ngã tư (nơi đi qua), へ là hướng rẽ.',
+      ],
+      when: [
+        'Khi nói đi dạo, đi bộ ở đâu.',
+        'Khi chỉ đường: qua cầu, qua đường, rẽ ở ngã tư.',
+        'Khi muốn nói nơi người hay vật di chuyển qua.',
+      ],
+      steps: [
+        'Chọn nơi đi qua: こうえん.',
+        'Thêm を: こうえんを.',
+        'Thêm động từ chuyển động: こうえんを さんぽします。',
+        'Có hướng rẽ thì thêm へ: こうさてんを みぎへ まがります。',
+      ],
+      table: {
+        title: 'Phân biệt を, へ, で',
+        head: ['Trợ từ', 'Dùng cho', 'Ví dụ'],
+        rows: [
+          ['を', 'nơi đi qua', 'みちを わたります'],
+          ['へ / に', 'đích đến', 'がっこうへ いきます'],
+          ['で', 'nơi diễn ra hành động', 'こうえんで あそびます'],
+        ],
+      },
+      breakdown: {
+        jp: 'こうさてんを みぎへ まがります。',
+        vi: 'Tôi rẽ phải ở ngã tư.',
+        parts: [
+          ['こうさてん', 'ngã tư'],
+          ['を', 'trợ từ chỉ nơi đi qua'],
+          ['みぎへ', 'về phía bên phải'],
+          ['まがります。', 'rẽ'],
+        ],
+      },
+      mistakes: [
+        { wrong: 'みちに わたります。', right: 'みちを わたります。', why: 'Nơi đi qua của động từ chuyển động dùng を, không dùng に.' },
+        { wrong: 'きょうとを いきます。', right: 'きょうとへ いきます。', why: 'Đích đến dùng へ (hoặc に). を chỉ dùng cho nơi đi qua.' },
+      ],
+      compare: [
+        { with: 'N へ いきます / N で V', diff: 'へ chỉ đích đến, で chỉ nơi diễn ra hành động, còn を chỉ nơi đi qua.' },
+      ],
+      tip: 'Đi QUA chỗ nào thì を, đi ĐẾN chỗ nào thì へ.',
+      examples: [
+        ex('こうえんを さんぽします。', 'Tôi đi dạo ở công viên. (xem Bài 13)'),
+        ex('みちを わたります。', 'Tôi qua đường.'),
+        ex('こうさてんを みぎへ まがります。', 'Tôi rẽ phải ở ngã tư.'),
+      ],
+      notes: [],
+      quiz: [
+        quiz('b23-wo-idou-1', 'こうえん＿ さんぽします。', 'Tôi đi dạo ở công viên.', ['を', 'に', 'と', 'から'], 'を', 'Nơi chốn đi qua với động từ chuyển động dùng を.'),
+        quiz('b23-wo-idou-2', 'みち＿ わたります。', 'Tôi qua đường.', ['を', 'に', 'で', 'が'], 'を', 'わたります đi với を chỉ nơi chốn đi qua.'),
+        quiz('b23-wo-idou-3', 'こうさてん＿ みぎへ まがります。', 'Tôi rẽ phải ở ngã tư.', ['を', 'に', 'と', 'も'], 'を', 'まがります đi với を chỉ nơi chốn đi qua (ngã tư).'),
+      ],
+    },
+  ],
+};

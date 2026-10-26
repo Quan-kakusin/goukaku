@@ -1,0 +1,332 @@
+// Bài 25 · Giả định · Nhượng bộ (～たら, ～ても)
+import { ex, quiz } from '../helpers.js';
+
+export default {
+  meta: { title: 'Giả định · Nhượng bộ', jp: 'おかねが あったら、りょこうします。', summary: 'Điều kiện giả định bằng ～たら, "khi/sau khi" bằng V たら, nhượng bộ bằng ～ても, nhấn mạnh giả định bằng もし, và chủ ngữ của mệnh đề phụ.', note: 'Nội dung theo giáo trình Minna no Nihongo Sơ cấp 1 (bản tiếng Việt), nhập từ ảnh chụp sách. Có thể còn sai sót khi đối chiếu, hãy kiểm tra lại với sách.',
+    guide: [
+      'Bài 25 dạy hai kiểu câu điều kiện: ～たら (nếu ～ thì / khi ～ thì) và ～ても (cho dù ～ cũng ～). Khung chung: [mệnh đề điều kiện] + たら / ても、[mệnh đề chính].',
+      'Thứ tự học gợi ý: (1) ～たら giả định với mọi loại từ, (2) V たら với nghĩa "khi / sau khi chắc chắn xảy ra", (3) ～ても nhượng bộ, (4) もし để nhấn mạnh giả định, (5) chủ ngữ của mệnh đề phụ dùng が.',
+      'Mẹo: ～たら được tạo từ thể thông thường quá khứ (thể た) + ら, còn ～ても tạo từ thể て + も, nên cần nắm chắc thể た và thể て. Vế sau của ～たら nói tự do được, kể cả ý chí, mời rủ, nhờ vả.',
+    ],
+  },
+  vocab: [
+    ['考えます', 'かんがえます', 'nghĩ, suy nghĩ'],
+    ['着きます', 'つきます', 'đến'],
+    ['取ります#25', 'とります', 'có, thêm [tuổi]'],
+    ['足ります', 'たります', 'đủ'],
+    ['田舎', 'いなか', 'quê, nông thôn'],
+    ['チャンス', 'チャンス', 'cơ hội'],
+    ['億', 'おく', 'một trăm triệu'],
+    ['もし', 'もし', 'nếu'],
+    ['意味', 'いみ', 'nghĩa, ý nghĩa'],
+    ['もしもし', 'もしもし', 'A-lô'],
+    ['転勤', 'てんきん', 'việc chuyển địa điểm làm việc (～します: chuyển địa điểm làm việc)'],
+    ['こと', 'こと', 'việc, chuyện (～のこと: việc, chuyện về ～)'],
+    ['暇#25', 'ひま', 'thời gian rảnh'],
+    ['いろいろお世話になりました。', 'いろいろおせわになりました', 'Cám ơn anh/chị đã giúp đỡ tôi (nhiều).'],
+    ['頑張ります', 'がんばります', 'cố, cố gắng'],
+    ['どうぞお元気で。', 'どうぞおげんきで', 'Chúc anh/chị mạnh khỏe. Anh/Chị hãy bảo trọng. (câu nói trước khi chia tay với ai đó mà có lẽ lâu nữa mới gặp lại)'],
+    ['ベトナム', 'ベトナム', 'Việt Nam'],
+  ],
+  grammar: [
+    {
+      id: 'b25-tara-futsuu',
+      title: 'Thể thông thường (chia ở) quá khứ ら、～',
+      formula: 'Thể thông thường quá khứ + ら、～ (mệnh đề chính)',
+      meaning: 'Nếu ～ thì ～',
+      explain: [
+        'Ý chính: ～たら nghĩa là "nếu ～ thì ～". Vế trước たら là điều kiện giả định, vế sau là điều sẽ xảy ra hoặc ý định của bạn nếu điều kiện đó đúng.',
+        'Cách tạo: thể thông thường quá khứ + ら. Động từ: あった → あったら. Tính từ い: やすかった → やすかったら. Tính từ な và danh từ: ひまだった → ひまだったら.',
+        'Vế sau nói tự do được: ý chí (りょこうします), nguyện vọng (かいたいです), mời rủ (さんぽしませんか), nhờ vả (てつだって ください).',
+      ],
+      when: [
+        'Khi giả định về điều chưa chắc: nếu có tiền, nếu rảnh, nếu trời đẹp.',
+        'Khi mời hoặc nhờ có điều kiện: "Nếu rảnh thì giúp tôi nhé".',
+        'Khi nói ý định hoặc nguyện vọng tùy theo tình huống.',
+      ],
+      steps: [
+        'Chia về thể thông thường quá khứ: あります → あった, ありません → なかった.',
+        'Tính từ い đổi い thành かった: やすい → やすかった. Tính từ な và danh từ thêm だった: ひま → ひまだった.',
+        'Thêm ら: あったら, やすかったら, ひまだったら.',
+        'Nói vế sau: おかねが あったら、りょこうします。',
+      ],
+      table: {
+        title: 'Cách tạo ～たら',
+        head: ['Loại từ', 'Thể thông thường quá khứ', 'Thêm ら'],
+        rows: [
+          ['Động từ khẳng định', 'あった', 'あったら'],
+          ['Động từ phủ định', 'いかなかった', 'いかなかったら'],
+          ['Tính từ い', 'やすかった', 'やすかったら'],
+          ['Tính từ な', 'ひまだった', 'ひまだったら'],
+          ['Danh từ', 'あめだった', 'あめだったら'],
+        ],
+      },
+      breakdown: {
+        jp: 'おかねが あったら、りょこうします。',
+        vi: 'Nếu có tiền thì tôi sẽ đi du lịch.',
+        parts: [
+          ['おかねが', 'tiền (chủ ngữ)'],
+          ['あった', 'thể thông thường quá khứ của あります'],
+          ['ら、', 'hậu tố điều kiện: nếu'],
+          ['りょこうします。', 'vế sau: ý định đi du lịch'],
+        ],
+      },
+      mistakes: [
+        { wrong: 'おかねが ありたら、りょこうします。', right: 'おかねが あったら、りょこうします。', why: 'Phải dùng thể た (あった) rồi thêm ら, không dùng gốc ます (あり).' },
+        { wrong: 'ひまたら、てつだって ください。', right: 'ひまだったら、てつだって ください。', why: 'Tính từ な cần đổi thành ～だった rồi mới thêm ら.' },
+        { wrong: 'やすいたら、パソコンを かいたいです。', right: 'やすかったら、パソコンを かいたいです。', why: 'Tính từ い đổi い thành かった (やすかった) rồi thêm ら.' },
+      ],
+      compare: [
+        { with: 'V nguyên dạng + と (Bài 23)', diff: '～と nói kết quả tất yếu và vế sau không có ý chí hay nhờ vả. ～たら giả định và vế sau nói tự do.' },
+        { with: '～とき (Bài 23)', diff: '～とき là "khi" (thời điểm đã biết). ～たら là "nếu" (điều chưa chắc xảy ra).' },
+      ],
+      tip: 'Công thức: thể た + ら. Ví dụ あった → あったら, やすかった → やすかったら.',
+      examples: [
+        ex('おかねが あったら、りょこうします。', 'Nếu có tiền thì tôi sẽ đi du lịch.'),
+        ex('じかんが なかったら、テレビを みません。', 'Nếu không có thời gian thì tôi sẽ không xem ti-vi.'),
+        ex('やすかったら、パソコンを かいたいです。', 'Nếu máy tính cá nhân rẻ thì tôi muốn mua.'),
+        ex('ひまだったら、てつだって ください。', 'Nếu anh/chị rảnh rỗi thì hãy giúp tôi.'),
+        ex('いい てんきだったら、さんぽしませんか。', 'Nếu trời đẹp thì chúng ta đi dạo nhé?'),
+      ],
+      notes: [
+        'Ở mệnh đề (mệnh đề chính) sau ～と không thể đưa vào những biểu hiện nói về ý chí, nguyện vọng, sự mời rủ, nhờ vả, v.v.. Vd không nói được: じかんが あると、コンサートに いきます (ý chí) / いきたいです (nguyện vọng) / いきませんか (mời rủ) / ちょっと てつだって ください (nhờ vả).',
+      ],
+      quiz: [
+        quiz('b25-tara-futsuu-1', 'おかねが ＿、りょこうします。', 'Nếu có tiền thì tôi sẽ đi du lịch.', ['あったら', 'あるたら', 'ありたら', 'あって'], 'あったら', 'Thể thông thường quá khứ あった + ら.'),
+        quiz('b25-tara-futsuu-2', 'じかんが ＿、テレビを みません。', 'Nếu không có thời gian thì tôi sẽ không xem ti-vi.', ['なかったら', 'なくたら', 'ないたら', 'なかった'], 'なかったら', 'Thể thông thường quá khứ phủ định なかった + ら.'),
+        quiz('b25-tara-futsuu-3', 'ひま＿、てつだって ください。', 'Nếu anh/chị rảnh rỗi thì hãy giúp tôi.', ['だったら', 'ったら', 'かったら', 'でったら'], 'だったら', 'Danh từ / tính từ đuôi な: ～だった + ら.'),
+        quiz('b25-tara-futsuu-4', 'やす＿、パソコンを かいたいです。', 'Nếu máy tính cá nhân rẻ thì tôi muốn mua.', ['かったら', 'いたら', 'だったら', 'くたら'], 'かったら', 'Tính từ đuôi い: bỏ い thêm かった + ら (やすかったら).'),
+      ],
+    },
+    {
+      id: 'b25-tara-doushi',
+      title: 'Động từ thể たら、～',
+      formula: 'V (thể た) + ら、～ (mệnh đề chính)',
+      meaning: 'Khi / sau khi ～',
+      explain: [
+        'Ý chính: V たら cũng có nghĩa "khi / sau khi ～ (xong) thì ～". Dùng khi việc trước chắc chắn sẽ xảy ra, và việc sau chắc chắn tiếp theo.',
+        'Khác với nghĩa giả định "nếu", ở đây điều kiện chắc chắn sẽ đến (đến 10 giờ, về đến nhà). Vì vậy dịch là "khi / sau khi".',
+        'Cách chia vẫn là thể た + ら.',
+      ],
+      when: [
+        'Khi hẹn giờ: đến giờ đó thì làm gì.',
+        'Khi nói kế hoạch ngay sau một việc: về nhà là tắm ngay.',
+        'Khi nhờ vả: xong việc thì gọi điện cho tôi.',
+      ],
+      steps: [
+        'Chuyển động từ sang thể た: なります → なった, かえります → かえった.',
+        'Thêm ら: なったら, かえったら.',
+        'Nói việc sẽ làm tiếp theo: じゅうじに なったら、でかけましょう。',
+      ],
+      breakdown: {
+        jp: 'うちへ かえったら、すぐ シャワーを あびます。',
+        vi: 'Sau khi về nhà tôi sẽ tắm ngay.',
+        parts: [
+          ['うちへ', 'về nhà (nơi đến)'],
+          ['かえった', 'động từ thể た'],
+          ['ら、', 'khi / sau khi'],
+          ['すぐ', 'ngay'],
+          ['シャワーを', 'vòi sen (tân ngữ)'],
+          ['あびます。', 'tắm'],
+        ],
+      },
+      mistakes: [
+        { wrong: 'うちへ かえるたら、すぐ シャワーを あびます。', right: 'うちへ かえったら、すぐ シャワーを あびます。', why: 'Phải chuyển sang thể た (かえった) rồi mới thêm ら.' },
+        { wrong: 'しごとが おわりたら、でんわして ください。', right: 'しごとが おわったら、でんわして ください。', why: 'おわります có thể た là おわった, không phải おわり.' },
+      ],
+      compare: [
+        { with: 'V て から (Bài 16)', diff: 'Cùng gần nghĩa "sau khi". ～てから nhấn mạnh thứ tự hai hành động. ～たら nhấn mạnh rằng khi điều kiện hoặc thời điểm đó đến thì làm việc tiếp theo.' },
+      ],
+      tip: 'Thể た + ら = "một khi ... xong thì ...".',
+      examples: [
+        ex('じゅうじに なったら、でかけましょう。', '(Khi) đến 10 giờ thì chúng ta đi nhé.'),
+        ex('うちへ かえったら、すぐ シャワーを あびます。', 'Sau khi về nhà tôi sẽ tắm ngay.'),
+      ],
+      notes: [],
+      quiz: [
+        quiz('b25-tara-doushi-1', 'じゅうじに ＿、でかけましょう。', '(Khi) đến 10 giờ thì chúng ta đi nhé.', ['なったら', 'なるたら', 'なりたら', 'なって'], 'なったら', 'Động từ thể た + ら: なったら.'),
+        quiz('b25-tara-doushi-2', 'うちへ ＿、すぐ シャワーを あびます。', 'Sau khi về nhà tôi sẽ tắm ngay.', ['かえったら', 'かえるたら', 'かえりたら', 'かえらたら'], 'かえったら', 'かえります thể た là かえった, thêm ら.'),
+        quiz('b25-tara-doushi-3', 'しごとが おわっ＿、でんわして ください。', 'Khi công việc xong thì hãy gọi điện cho tôi.', ['たら', 'ながら', 'まえに', 'ために'], 'たら', 'Thể た của おわります là おわった, thêm ら: おわったら.'),
+      ],
+    },
+    {
+      id: 'b25-temo',
+      title: 'Thể て も、～',
+      formula: 'V (thể て) / V ない → なくて / Aい → ～くて / Aな → ～で / N で + も、～ (mệnh đề chính)',
+      meaning: 'Cho dù ～',
+      explain: [
+        'Ý chính: ～ても nghĩa là "cho dù ～ cũng ～", là điều kiện giả định theo hướng ngược lại.',
+        'Vế sau là kết quả trái với dự đoán thông thường, hoặc việc đáng lẽ phải xảy ra nhưng không xảy ra. Ví dụ: mưa mà vẫn giặt quần áo.',
+        'Cách tạo: động từ dùng thể て + も. Động từ ない đổi thành ～なくて + も. Tính từ い: ～くて + も. Tính từ な và danh từ: ～で + も.',
+      ],
+      when: [
+        'Khi nói dù điều kiện bất lợi vẫn làm: dù mưa vẫn giặt đồ.',
+        'Khi nói dù thuận lợi vẫn không muốn: dù rẻ cũng không thích.',
+        'Khi nói không có ngoại lệ: chủ nhật cũng làm việc.',
+      ],
+      steps: [
+        'Động từ: chia thể て rồi thêm も: ふる → ふって → ふっても.',
+        'Phủ định: ふらない → ふらなくて → ふらなくても.',
+        'Tính từ い: やすい → やすくて → やすくても.',
+        'Tính từ な và danh từ: べんり → べんりでも, にちようび → にちようびでも.',
+        'Nói vế sau: あめが ふっても、せんたくします。',
+      ],
+      table: {
+        title: 'Cách tạo ～ても',
+        head: ['Loại từ', 'Dạng', 'Ví dụ'],
+        rows: [
+          ['Động từ', 'thể て + も', 'ふっても'],
+          ['Động từ ない', 'なくて + も', 'ふらなくても'],
+          ['Tính từ い', 'くて + も', 'やすくても'],
+          ['Tính từ な', 'で + も', 'べんりでも'],
+          ['Danh từ', 'で + も', 'にちようびでも'],
+        ],
+      },
+      breakdown: {
+        jp: 'あめが ふっても、せんたくします。',
+        vi: 'Cho dù trời có mưa tôi cũng giặt quần áo.',
+        parts: [
+          ['あめが', 'mưa (chủ ngữ)'],
+          ['ふって', 'động từ thể て'],
+          ['も、', 'cho dù'],
+          ['せんたくします。', 'vế sau: vẫn giặt quần áo'],
+        ],
+      },
+      mistakes: [
+        { wrong: 'あめが ふるても、せんたくします。', right: 'あめが ふっても、せんたくします。', why: 'Phải dùng thể て (ふって) rồi thêm も, không dùng nguyên dạng.' },
+        { wrong: 'やすいでも、わたしは グループりょこうが きらいです。', right: 'やすくても、わたしは グループりょこうが きらいです。', why: 'Tính từ い đổi い thành くて rồi thêm も.' },
+        { wrong: 'にちようびても、はたらきます。', right: 'にちようびでも、はたらきます。', why: 'Danh từ và tính từ な dùng で + も.' },
+      ],
+      compare: [
+        { with: '～たら', diff: '～たら là giả định thuận ("nếu ～ thì ～"). ～ても là giả định ngược ("dù ～ vẫn ～").' },
+        { with: 'N でも (Bài 21)', diff: 'N でも ở Bài 21 là đưa một ví dụ để mời nhẹ nhàng (ビールでも のみませんか). Ở đây でも nghĩa là "cho dù" (にちようびでも はたらきます).' },
+      ],
+      tip: 'Thể て + も = "dù ... cũng". Nhớ: tính từ い thành くても, tính từ な và danh từ thành でも.',
+      examples: [
+        ex('あめが ふっても、せんたくします。', 'Cho dù trời có mưa tôi cũng giặt quần áo.'),
+        ex('やすくても、わたしは グループりょこうが きらいです。', 'Cho dù có rẻ nhưng tôi cũng không thích đi du lịch theo đoàn.'),
+        ex('べんりでも、パソコンを つかいません。', 'Cho dù máy tính cá nhân tiện lợi nhưng tôi cũng không dùng.'),
+        ex('にちようびでも、はたらきます。', 'Cho dù chủ nhật tôi cũng làm việc.'),
+      ],
+      notes: [
+        'Động từ: thể て + も. Động từ thể ない: ～なくて + も. Tính từ đuôi い: ～い → ～くて + も. Tính từ đuôi な: ～な → ～で + も. Danh từ: ～で + も.',
+      ],
+      quiz: [
+        quiz('b25-temo-1', 'あめが ふっ＿、せんたくします。', 'Cho dù trời có mưa tôi cũng giặt quần áo.', ['ても', 'から', 'ので', 'と'], 'ても', 'Động từ thể て + も: cho dù ～.'),
+        quiz('b25-temo-2', 'やすく＿、わたしは グループりょこうが きらいです。', 'Cho dù có rẻ nhưng tôi cũng không thích đi du lịch theo đoàn.', ['ても', 'たら', 'ので', 'から'], 'ても', 'Tính từ đuôi い: bỏ い thêm くて + も → やすくても.'),
+        quiz('b25-temo-3', 'にちようび＿、はたらきます。', 'Cho dù chủ nhật tôi cũng làm việc.', ['でも', 'ても', 'だても', 'なても'], 'でも', 'Danh từ + でも.'),
+        quiz('b25-temo-4', 'べんり＿、パソコンを つかいません。', 'Cho dù máy tính cá nhân tiện lợi nhưng tôi cũng không dùng.', ['でも', 'ても', 'だても', 'なても'], 'でも', 'Tính từ đuôi な: bỏ な thêm で + も → べんりでも.'),
+      ],
+    },
+    {
+      id: 'b25-moshi',
+      title: 'もし',
+      formula: 'もし ～たら、～',
+      meaning: 'nếu ～ (nhấn mạnh giả định)',
+      explain: [
+        'Ý chính: もし đặt ở đầu câu và đi cùng ～たら, nghĩa là "nếu / giả sử".',
+        'もし không đổi nghĩa của câu mà chỉ báo trước cho người nghe rằng đây là câu giả định, và nhấn mạnh tâm lý giả định của người nói.',
+        'Có thể bỏ もし mà câu vẫn đúng. もし hay dùng với điều chưa chắc hoặc khó xảy ra (ví dụ có 100 triệu yên).',
+      ],
+      when: [
+        'Khi nói giả định xa vời: nếu có 100 triệu yên.',
+        'Khi nói giả định về dự báo: nếu ngày mai mưa.',
+        'Khi muốn người nghe hiểu ngay đây là câu giả định.',
+      ],
+      steps: [
+        'Viết vế điều kiện bằng ～たら: あした あめが ふったら.',
+        'Đặt もし ở đầu câu: もし あした あめが ふったら.',
+        'Thêm vế sau: もし あした あめが ふったら、うちに います。',
+      ],
+      breakdown: {
+        jp: 'もし あした あめが ふったら、うちに います。',
+        vi: 'Nếu ngày mai trời mưa thì tôi ở nhà.',
+        parts: [
+          ['もし', 'nếu (báo trước câu giả định)'],
+          ['あした', 'ngày mai'],
+          ['あめが', 'mưa (chủ ngữ)'],
+          ['ふったら、', 'thể た + ら: nếu mưa'],
+          ['うちに', 'ở nhà (nơi chốn)'],
+          ['います。', 'ở (vế sau)'],
+        ],
+      },
+      mistakes: [
+        { wrong: 'もし あした あめが ふりますから、うちに います。', right: 'もし あした あめが ふったら、うちに います。', why: 'もし đi cùng ～たら (giả định), không đi với から (lý do).' },
+        { wrong: 'あめが ふったら、もし うちに います。', right: 'もし あめが ふったら、うちに います。', why: 'もし đứng đầu mệnh đề điều kiện, trước phần ～たら.' },
+      ],
+      tip: 'もし ... たら: cặp đôi đi liền nhau, もし ở đầu vế điều kiện, たら ở cuối vế điều kiện.',
+      examples: [
+        ex('もし いちおくえん あったら、いろいろな くにを りょこうしたいです。', 'Nếu có 100 triệu yên thì tôi muốn đi du lịch đến nhiều nước.'),
+        ex('もし あした あめが ふったら、うちに います。', 'Nếu ngày mai trời mưa thì tôi ở nhà.'),
+      ],
+      notes: [],
+      quiz: [
+        quiz('b25-moshi-1', 'もし いちおくえん ＿、いろいろな くにを りょこうしたいです。', 'Nếu có 100 triệu yên thì tôi muốn đi du lịch đến nhiều nước.', ['あったら', 'あるのに', 'あるので', 'あるから'], 'あったら', 'もし đi cùng ～たら.'),
+        quiz('b25-moshi-2', 'もし じかんが ＿、いっしょに えいがを みに いきませんか。', 'Nếu có thời gian thì cùng đi xem phim nhé?', ['あったら', 'あるのに', 'あるので', 'ありたら'], 'あったら', 'もし đi cùng ～たら để nhấn mạnh giả định.'),
+        quiz('b25-moshi-3', 'もし あした あめが ＿、うちに います。', 'Nếu ngày mai trời mưa thì tôi ở nhà.', ['ふったら', 'ふるのに', 'ふるので', 'ふりたら'], 'ふったら', 'ふります thể た là ふった, thêm ら.'),
+      ],
+    },
+    {
+      id: 'b25-shugo-fukubun',
+      title: 'Chủ ngữ của mệnh đề phụ',
+      formula: 'N が V ～ まえに / とき / たら / ても、～',
+      meaning: 'chủ ngữ của mệnh đề phụ dùng が',
+      explain: [
+        'Ý chính: trong mệnh đề phụ (trước まえに, とき, たら, ても...), chủ ngữ của mệnh đề đó dùng が, không dùng は.',
+        'Bài 16 đã học điều này với ～てから. Bây giờ áp dụng cho các mệnh đề phụ khác: ともだちが くる まえに, つまが びょうきの とき, ともだちが こなかったら.',
+        'Chủ đề của cả câu (nếu có) vẫn dùng は như bình thường.',
+      ],
+      when: [
+        'Khi mệnh đề phụ có chủ ngữ khác với chủ ngữ của mệnh đề chính.',
+        'Khi nói hành động của một người khác trong điều kiện hoặc thời điểm nào đó.',
+        'Khi nói "khi bạn đến", "nếu bạn không đến".',
+      ],
+      steps: [
+        'Viết mệnh đề phụ với chủ ngữ riêng và が: ともだちが くる.',
+        'Nối bằng từ nối: ともだちが くる まえに、',
+        'Thêm mệnh đề chính: ともだちが くる まえに、へやを そうじします。',
+      ],
+      table: {
+        title: 'Các từ nối thường gặp với が',
+        head: ['Từ nối', 'Ví dụ'],
+        rows: [
+          ['まえに', 'ともだちが くる まえに'],
+          ['とき', 'つまが びょうきの とき'],
+          ['たら', 'ともだちが こなかったら'],
+          ['ても', 'あめが ふっても'],
+        ],
+      },
+      breakdown: {
+        jp: 'ともだちが くる まえに、へやを そうじします。',
+        vi: 'Trước khi bạn đến chơi, tôi dọn phòng.',
+        parts: [
+          ['ともだち', 'chủ ngữ của mệnh đề phụ: bạn'],
+          ['が', 'trợ từ chủ ngữ trong mệnh đề phụ'],
+          ['くる', 'động từ nguyên dạng: đến'],
+          ['まえに、', 'trước khi'],
+          ['へやを', 'tân ngữ: căn phòng'],
+          ['そうじします。', 'vế chính: dọn dẹp'],
+        ],
+      },
+      mistakes: [
+        { wrong: 'ともだちは くる まえに、へやを そうじします。', right: 'ともだちが くる まえに、へやを そうじします。', why: 'Chủ ngữ của mệnh đề phụ dùng が. Nếu dùng は thì nghe như bạn là chủ ngữ của cả câu.' },
+        { wrong: 'ともだちは やくそくの じかんに こなかったら、どう しますか。', right: 'ともだちが やくそくの じかんに こなかったら、どう しますか。', why: 'Mệnh đề phụ với ～たら cũng dùng が cho chủ ngữ.' },
+      ],
+      compare: [
+        { with: 'N は (chủ đề của cả câu)', diff: 'は nêu chủ đề của cả câu, còn が chỉ chủ ngữ riêng của mệnh đề phụ.' },
+      ],
+      tip: 'Trong mệnh đề phụ, chủ ngữ + が. "は" chỉ dành cho chủ đề của cả câu.',
+      examples: [
+        ex('ともだちが くる まえに、へやを そうじします。', 'Trước khi bạn đến chơi, tôi dọn phòng. (xem Bài 18)'),
+        ex('つまが びょうきの とき、かいしゃを やすみます。', 'Khi vợ bị ốm thì tôi nghỉ làm. (xem Bài 23)'),
+        ex('ともだちが やくそくの じかんに こなかったら、どう しますか。', 'Nếu (người) bạn không đến đúng giờ hẹn thì anh/chị sẽ làm gì? (xem Bài 25)'),
+      ],
+      notes: [],
+      quiz: [
+        quiz('b25-shugo-fukubun-1', 'ともだち＿ くる まえに、へやを そうじします。', 'Trước khi bạn đến chơi, tôi dọn phòng.', ['が', 'は', 'を', 'に'], 'が', 'Chủ ngữ của mệnh đề phụ dùng が, không dùng は.'),
+        quiz('b25-shugo-fukubun-2', 'つま＿ びょうきの とき、かいしゃを やすみます。', 'Khi vợ bị ốm thì tôi nghỉ làm.', ['が', 'は', 'を', 'も'], 'が', 'Chủ ngữ của mệnh đề とき là つま nên dùng が.'),
+        quiz('b25-shugo-fukubun-3', 'ともだち＿ やくそくの じかんに こなかったら、どう しますか。', 'Nếu (người) bạn không đến đúng giờ hẹn thì anh/chị sẽ làm gì?', ['が', 'は', 'を', 'と'], 'が', 'Mệnh đề phụ với ～たら cũng dùng が cho chủ ngữ.'),
+      ],
+    },
+  ],
+};

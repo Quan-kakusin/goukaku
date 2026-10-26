@@ -1,0 +1,99 @@
+/*
+ * Design tokens. Đây là nơi DUY NHẤT chứa giá trị thô (hex, px). style.css chỉ dùng var(--…).
+ * Nền tảng theo spec Threads; token đánh dấu [mở rộng] là phần app cần thêm và được ghi trong docs/DESIGN.md.
+ * Chỉ có một giao diện sáng, phong cách hoạt hình: viền đen dày, bóng đổ cứng, nền trời xanh.
+ */
+:root {
+  /* Typography */
+  --font-family-primary: system-ui, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, "Hiragino Sans", "Yu Gothic UI", Meiryo, "Noto Sans JP", sans-serif;
+  --font-size-xs: 12px;
+  --font-size-sm: 15px;
+  --font-size-md: 20px;
+  --font-size-lg: 28px; /* [mở rộng] câu hỏi, đáp án lớn */
+  --font-size-display: 48px; /* [mở rộng] từ/kanji trên thẻ học */
+  --font-size-giant: 96px; /* [mở rộng] ký tự kana khi luyện */
+  --font-weight-base: 400;
+  --font-weight-strong: 600;
+  --line-height-base: 21px;
+  --line-height-tight: 1.25; /* [mở rộng] cho cỡ chữ từ md trở lên */
+
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 36px;
+
+  /* Radius */
+  --radius-xs: 8px;
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 18px;
+  --radius-xl: 50px;
+  --radius-2xl: 1000px;
+  --radius-step7: 9999px;
+
+  /* Elevation */
+  --shadow-1: rgba(0, 0, 0, 0.08) 0px 6px 8px 0px;
+  --shadow-2: rgba(0, 0, 0, 0.04) 0px 0px 12px 0px;
+  --shadow-pop: 4px 4px 0 0 var(--color-outline); /* [mở rộng] bóng đổ cứng kiểu hoạt hình */
+  --shadow-pop-sm: 2px 2px 0 0 var(--color-outline);
+
+  /* Motion */
+  --motion-duration-instant: 100ms;
+  --motion-duration-fast: 200ms;
+  --motion-duration-slow: 600ms; /* [mở rộng] vòng tiến độ, hiệu ứng chúc mừng */
+
+  /* [mở rộng] kích thước dùng chung */
+  --size-target: 44px; /* vùng bấm tối thiểu cho mọi điều khiển */
+  --size-content: 640px; /* độ rộng cột nội dung */
+  --size-rail: 80px; /* thanh icon bên trái (desktop) */
+  --size-nav: 56px; /* ô icon trên thanh điều hướng */
+  --size-bar: 60px; /* chiều cao thanh tab dưới (điện thoại) */
+  --size-icon: 24px;
+  --size-ring: 112px; /* [mở rộng] vòng tiến độ */
+  --border-width: 1px;
+  --outline-width: 2px; /* [mở rộng] viền đen của khung, thẻ, nút */
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 2px;
+
+  /* Màu ngữ nghĩa: chỉ có một giao diện sáng, bảng màu mượn từ Quahog (trời xanh, áo trắng, quần xanh lá, cam) */
+  color-scheme: light;
+  --color-surface-base: #b8e0f7; /* nền trang: trời xanh */
+  --color-surface-raised: #ffffff; /* khung nội dung chính */
+  --color-surface-inset: #eef6fb; /* ô, thẻ lồng trong khung */
+  --color-surface-hover: #dcecf7;
+  --color-border-subtle: #b9c9d6; /* đường kẻ phân cách nhẹ trong danh sách */
+  --color-border-strong: #1a1a1a; /* viền đen của điều khiển */
+  --color-outline: #1a1a1a; /* [mở rộng] viền đen dày của khung/thẻ và bóng đổ cứng */
+  --color-text-primary: #1a1a1a;
+  --color-text-secondary: #1e4f8a;
+  --color-text-tertiary: #4a5560;
+  --color-accent: #0b5cad; /* liên kết, chỉ báo chọn */
+  --color-on-accent: #ffffff; /* chữ trên nền accent: đáp án đang chọn, câu đã trả lời */
+  --color-brand: #a33409; /* [mở rộng] cam đất: vòng tiến độ, dấu tích bài học, số bước. Dùng tiết kiệm */
+  --color-on-brand: #ffffff;
+  --color-action: #2e7d32; /* nút chính: xanh lá */
+  --color-on-action: #ffffff;
+  --color-focus-ring: #1a1a1a;
+  --color-success: #1b6e3a;
+  --color-danger: #b3261e;
+  --color-on-danger: #ffffff;
+  --color-warning: #7a4f00;
+}
+
+@media (max-width: 480px) {
+  :root {
+    --font-size-display: 40px;
+    --font-size-giant: 72px;
+    --size-ring: 96px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-duration-instant: 0ms;
+    --motion-duration-fast: 0ms;
+    --motion-duration-slow: 0ms;
+  }
+}

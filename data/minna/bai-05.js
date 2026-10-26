@@ -1,0 +1,567 @@
+// Bài 5 · Di chuyển · Ngày tháng
+import { ex, quiz } from '../helpers.js';
+
+export default {
+  meta: {
+    title: 'Di chuyển · Ngày tháng',
+    jp: 'でんしゃで きょうとへ いきます。',
+    summary: 'Động từ di chuyển với へ, phương tiện で, đi cùng ai với と, どこ[へ]も ～ません, hỏi いつ, trợ từ よ và そうですね.',
+    note: 'Nội dung theo giáo trình Minna no Nihongo Sơ cấp 1 (bản tiếng Việt), nhập từ ảnh chụp sách. Có thể còn sai sót khi đối chiếu, hãy kiểm tra lại với sách.',
+    guide: [
+      "Bài 5 dạy cách nói về việc di chuyển: đi đâu, bằng gì, cùng ai, khi nào. Khung câu chính là (khi nào) + (cùng ai) と + (phương tiện) で + (địa điểm) へ + いきます / きます / かえります.",
+      "Thứ tự học gợi ý: (1) へ chỉ nơi đến, (2) どこ[へ]も phủ định hoàn toàn, (3) で chỉ phương tiện, (4) と chỉ người đi cùng, (5) いつ hỏi thời điểm, (6) よ và そうですね ở cuối câu.",
+      "Mẹo: mỗi trợ từ gánh một vai riêng: へ (đến đâu), で (bằng gì), と (cùng ai), に (lúc nào). Động từ luôn đứng cuối câu, còn các thành phần phía trước có thể đổi thứ tự khá tự do.",
+    ],
+  },
+  vocab: [
+    ['行きます', 'いきます', 'Đi', 'きょうとへ いきます。', 'Tôi đi Kyoto.'],
+    ['来ます', 'きます', 'Đến', 'にほんへ きました。', 'Tôi đã đến Nhật Bản.'],
+    ['帰ります', 'かえります', 'Về', 'うちへ かえります。', 'Tôi về nhà.'],
+    ['学校', 'がっこう', 'Trường học'],
+    ['スーパー', 'スーパー', 'Siêu thị'],
+    ['駅', 'えき', 'Ga, nhà ga'],
+    ['飛行機', 'ひこうき', 'Máy bay'],
+    ['船', 'ふね', 'Thuyền, tàu thủy'],
+    ['電車', 'でんしゃ', 'Tàu điện', 'でんしゃで いきます。', 'Tôi đi bằng tàu điện.'],
+    ['地下鉄', 'ちかてつ', 'Tàu điện ngầm'],
+    ['新幹線', 'しんかんせん', 'Tàu Shinkansen (tàu điện cao tốc của Nhật)'],
+    ['バス', 'バス', 'Xe buýt'],
+    ['タクシー', 'タクシー', 'Tắc-xi', 'タクシーで きました。', 'Tôi đã đến bằng tắc-xi.'],
+    ['自転車', 'じてんしゃ', 'Xe đạp'],
+    ['歩いて', 'あるいて', 'Đi bộ', 'えきから あるいて かえりました。', 'Tôi đã đi bộ từ ga về nhà.'],
+    ['人', 'ひと', 'Người'],
+    ['友達', 'ともだち', 'Bạn, bạn bè'],
+    ['彼', 'かれ', 'Anh ấy, bạn trai'],
+    ['彼女', 'かのじょ', 'Chị ấy, bạn gái'],
+    ['家族', 'かぞく', 'Gia đình', 'かぞくと にほんへ きました。', 'Tôi đã đến Nhật Bản cùng với gia đình.'],
+    ['一人で', 'ひとりで', 'Một mình', 'ひとりで とうきょうへ いきます。', 'Tôi đi Tokyo một mình.'],
+    ['先週', 'せんしゅう', 'Tuần trước'],
+    ['今週', 'こんしゅう', 'Tuần này'],
+    ['来週', 'らいしゅう', 'Tuần sau', 'いつ ひろしまへ いきますか。 …らいしゅう いきます。', 'Khi nào bạn sẽ đi Hiroshima? …Tuần sau tôi sẽ đi.'],
+    ['先月', 'せんげつ', 'Tháng trước'],
+    ['今月', 'こんげつ', 'Tháng này'],
+    ['来月', 'らいげつ', 'Tháng sau'],
+    ['去年', 'きょねん', 'Năm ngoái'],
+    ['ことし', 'ことし', 'Năm nay'],
+    ['来年', 'らいねん', 'Sang năm'],
+    ['～年', 'ねん', 'Năm ～'],
+    ['何年', 'なんねん', 'Mấy năm'],
+    ['～月', 'がつ', 'Tháng ～'],
+    ['何月', 'なんがつ', 'Tháng mấy'],
+    ['1日', 'ついたち', 'Ngày mồng 1'],
+    ['2日', 'ふつか', 'Ngày mồng 2, 2 ngày'],
+    ['3日', 'みっか', 'Ngày mồng 3, 3 ngày'],
+    ['4日', 'よっか', 'Ngày mồng 4, 4 ngày'],
+    ['5日', 'いつか', 'Ngày mồng 5, 5 ngày'],
+    ['6日', 'むいか', 'Ngày mồng 6, 6 ngày'],
+    ['7日', 'なのか', 'Ngày mồng 7, 7 ngày'],
+    ['8日', 'ようか', 'Ngày mồng 8, 8 ngày'],
+    ['9日', 'ここのか', 'Ngày mồng 9, 9 ngày'],
+    ['10日', 'とおか', 'Ngày mồng 10, 10 ngày'],
+    ['14日', 'じゅうよっか', 'Ngày 14, 14 ngày'],
+    ['20日', 'はつか', 'Ngày 20, 20 ngày'],
+    ['24日', 'にじゅうよっか', 'Ngày 24, 24 ngày'],
+    ['～日', 'にち', 'Ngày ～, ～ ngày'],
+    ['何日', 'なんにち', 'Ngày mấy, ngày bao nhiêu, mấy ngày, bao nhiêu ngày'],
+    ['いつ', 'いつ', 'Bao giờ, khi nào', 'いつ にほんへ きましたか。', 'Bạn đến Nhật bao giờ?'],
+    ['誕生日', 'たんじょうび', 'Sinh nhật'],
+    ['そうですね', 'そうですね', 'Ừ, nhỉ.'],
+    ['どうもありがとうございました', 'どうもありがとうございました', 'Xin cám ơn anh/chị rất nhiều.'],
+    ['どういたしまして', 'どういたしまして', 'Không có gì đâu (anh/chị đừng bận tâm).'],
+    ['～番線', 'ばんせん', 'Sân ga số ～'],
+    ['次の', 'つぎの', 'Tiếp theo'],
+    ['普通', 'ふつう', 'Tàu thường (dừng cả ở các ga lẻ)'],
+    ['急行', 'きゅうこう', 'Tàu tốc hành'],
+    ['特急', 'とっきゅう', 'Tàu tốc hành đặc biệt'],
+    ['甲子園', 'こうしえん', 'Tên một khu phố ở gần Osaka'],
+    ['大阪城', 'おおさかじょう', 'Lâu đài Osaka, một lâu đài nổi tiếng ở Osaka'],
+  ],
+  grammar: [
+    {
+      id: 'b05-he-ikimasu',
+      title: 'N (địa điểm) へ いきます / きます / かえります',
+      formula: 'N (địa điểm) へ いきます / きます / かえります',
+      meaning: 'đi / đến / về (địa điểm)',
+      explain: [
+        "Ý chính: với các động từ di chuyển いきます (đi), きます (đến), かえります (về), dùng へ sau địa điểm để chỉ nơi hướng tới.",
+        "Cấu trúc: N (địa điểm) へ + động từ. Ví dụ きょうとへ いきます = đi tới Kyoto.",
+        "Lưu ý phát âm: trợ từ へ viết là へ nhưng đọc là \"e\" (え), không đọc là \"he\".",
+      ],
+      when: [
+        "Khi nói đi đâu: きょうとへ いきます。",
+        "Khi nói đến đâu: にほんへ きました。",
+        "Khi nói về đâu: うちへ かえります。",
+      ],
+      steps: [
+        "Chọn địa điểm: きょうと.",
+        "Thêm へ sau địa điểm: きょうとへ.",
+        "Thêm động từ di chuyển: きょうとへ いきます。",
+        "Thêm thời gian nếu cần: あした きょうとへ いきます。",
+      ],
+      table: {
+        title: "Ba động từ di chuyển",
+        head: [
+          "Động từ",
+          "Nghĩa",
+          "Ví dụ",
+        ],
+        rows: [
+          ["いきます", "đi", "きょうとへ いきます。"],
+          ["きます", "đến", "にほんへ きます。"],
+          ["かえります", "về", "うちへ かえります。"],
+        ],
+      },
+      breakdown: {
+        jp: "うちへ かえります。",
+        vi: "Tôi về nhà.",
+        parts: [
+          ["うち", "địa điểm: nhà"],
+          ["へ", "trợ từ chỉ hướng (đọc là e)"],
+          ["かえります。", "động từ: về"],
+        ],
+      },
+      mistakes: [
+        {
+          wrong: "きょうとで いきます。",
+          right: "きょうとへ いきます。",
+          why: "で chỉ phương tiện hoặc nơi diễn ra hành động. Nơi đến của động từ di chuyển dùng へ.",
+        },
+        {
+          wrong: "うちえ かえります。",
+          right: "うちへ かえります。",
+          why: "Phát âm là え nhưng viết là へ.",
+        },
+      ],
+      compare: [
+        {
+          with: "で (mẫu sau)",
+          diff: "へ chỉ nơi đến. で chỉ phương tiện đi. Ví dụ: でんしゃで きょうとへ いきます。",
+        },
+      ],
+      tip: "へ viết là he nhưng đọc là e. へ = \"hướng tới\".",
+      examples: [
+        ex('きょうとへ いきます。', 'Tôi đi Kyoto.'),
+        ex('にほんへ きました。', 'Tôi đã đến Nhật Bản. (xem Bài 6)'),
+        ex('うちへ かえります。', 'Tôi về nhà.'),
+      ],
+      notes: ['Trợ từ へ phát âm là え.'],
+      quiz: [
+        quiz('b05-he-1', 'きょうと＿ いきます。', 'Tôi đi Kyoto.', ['へ', 'で', 'と', 'も'], 'へ', 'Trợ từ へ chỉ phương hướng di chuyển với いきます/きます/かえります.'),
+        quiz('b05-he-2', 'にほん＿ きました。', 'Tôi đã đến Nhật Bản.', ['へ', 'で', 'と', 'を'], 'へ', 'Địa điểm đến của động từ di chuyển đi với へ.'),
+        quiz('b05-he-3', 'うちへ かえります。へは「＿」と よみます。', 'Trợ từ へ được phát âm thế nào?', ['え', 'へ', 'ほ', 'わ'], 'え', 'Trợ từ へ phát âm là え.'),
+      ],
+    },
+    {
+      id: 'b05-doko-mo',
+      title: 'どこ[へ]も いきません / いきませんでした',
+      formula: 'どこ[へ]も いきません / いきませんでした',
+      meaning: 'không đi đâu cả',
+      explain: [
+        "Ý chính: nghi vấn từ + も + động từ phủ định = phủ định hoàn toàn: \"không ... đâu / gì / ai cả\".",
+        "Ví dụ どこ[へ]も いきません = không đi đâu cả, なにも たべません = không ăn gì cả, だれも きません = không ai đến.",
+        "Với どこ, trợ từ へ trong ngoặc [ ] có thể bỏ. Động từ buộc phải ở dạng phủ định (ません / ませんでした).",
+      ],
+      when: [
+        "Khi trả lời \"không đi đâu cả\" cho câu hỏi どこへ いきますか。",
+        "Khi muốn nói \"không có gì / không ai\" ở câu động từ.",
+        "Khi nói chuyện về quá khứ: だれも きませんでした。",
+      ],
+      steps: [
+        "Chọn nghi vấn từ: どこ, なに hoặc だれ.",
+        "Thêm も ngay sau: どこ[へ]も.",
+        "Dùng động từ ở dạng phủ định: どこ[へ]も いきません。",
+        "Quá khứ thì dùng ませんでした: だれも きませんでした。",
+      ],
+      table: {
+        title: "Nghi vấn từ + も + phủ định",
+        head: [
+          "Nghi vấn từ",
+          "Phủ định hoàn toàn",
+          "Nghĩa",
+        ],
+        rows: [
+          ["どこ", "どこ[へ]も いきません", "không đi đâu cả"],
+          ["なに", "なにも たべません", "không ăn gì cả"],
+          ["だれ", "だれも きません", "không có ai đến"],
+        ],
+      },
+      breakdown: {
+        jp: "だれも きませんでした。",
+        vi: "(Đã) không có ai đến cả.",
+        parts: [
+          ["だれ", "nghi vấn từ: ai"],
+          ["も", "cũng/đều (kết hợp với phủ định thành \"không ai\")"],
+          ["きませんでした。", "động từ: đến (phủ định quá khứ)"],
+        ],
+      },
+      mistakes: [
+        {
+          wrong: "どこ[へ]も いきます。",
+          right: "どこ[へ]も いきません。",
+          why: "Nghi vấn từ + も luôn đi với động từ phủ định.",
+        },
+        {
+          wrong: "なには たべません。",
+          right: "なにも たべません。",
+          why: "Phủ định hoàn toàn cần も, không dùng は.",
+        },
+      ],
+      compare: [
+        {
+          with: "N も (Bài 1)",
+          diff: "Bài 1 も nghĩa là \"cũng\". Ở đây nghi vấn từ + も + phủ định nghĩa là \"không ... nào cả\".",
+        },
+      ],
+      tip: "Nghi vấn từ + も + ません = \"không ... gì / đâu / ai cả\".",
+      examples: [
+        ex('どこ[へ]も いきません。', 'Tôi không đi đâu cả.'),
+        ex('なにも たべません。', 'Tôi không ăn gì cả. (xem Bài 6)'),
+        ex('だれも きませんでした。', '(Đã) không có ai đến cả.'),
+      ],
+      notes: [],
+      quiz: [
+        quiz('b05-mo-1', 'きのう どこへ ＿ いきませんでした。', 'Hôm qua tôi không đi đâu cả.', ['も', 'は', 'を', 'に'], 'も', 'Nghi vấn từ + も + động từ phủ định = phủ định hoàn toàn.'),
+        quiz('b05-mo-2', 'なに＿ たべません。', 'Tôi không ăn gì cả.', ['も', 'を', 'は', 'が'], 'も', 'なにも ～ません nghĩa là "không ～ gì cả".'),
+        quiz('b05-mo-3', 'だれ＿ きませんでした。', 'Không có ai đến cả.', ['も', 'を', 'は', 'に'], 'も', 'だれも ～ませんでした nghĩa là "không ai ～".'),
+      ],
+    },
+    {
+      id: 'b05-de-ikimasu',
+      title: 'N (phương tiện đi lại) で いきます / きます / かえります',
+      formula: 'N (phương tiện) で いきます / きます / かえります',
+      meaning: 'đi / đến / về bằng (phương tiện)',
+      explain: [
+        "Ý chính: で đứng sau danh từ chỉ phương tiện để nói đi bằng cái gì: でんしゃで いきます (đi bằng tàu điện).",
+        "Cấu trúc: N (phương tiện) で + いきます / きます / かえります. Dùng chung cho cả ba động từ di chuyển.",
+        "Trường hợp đi bộ dùng あるいて và không thêm で: あるいて かえります.",
+      ],
+      when: [
+        "Khi nói đi bằng tàu, xe buýt, tắc-xi...",
+        "Khi nói đã đến bằng phương tiện nào: タクシーで きました。",
+        "Khi nói đi bộ: あるいて かえります。",
+      ],
+      steps: [
+        "Chọn phương tiện: でんしゃ.",
+        "Thêm で sau phương tiện: でんしゃで.",
+        "Thêm động từ di chuyển: でんしゃで いきます。",
+        "Đi bộ thì bỏ で: あるいて いきます。",
+      ],
+      table: {
+        title: "Phương tiện và đi bộ",
+        head: [
+          "Cách đi",
+          "Cách nói",
+          "Nghĩa",
+        ],
+        rows: [
+          ["でんしゃ", "でんしゃで いきます", "đi bằng tàu điện"],
+          ["タクシー", "タクシーで きました", "đã đến bằng tắc-xi"],
+          ["バス", "バスで かえります", "về bằng xe buýt"],
+          ["đi bộ", "あるいて かえります", "đi bộ về (không có で)"],
+        ],
+      },
+      breakdown: {
+        jp: "でんしゃで いきます。",
+        vi: "Tôi đi bằng tàu điện.",
+        parts: [
+          ["でんしゃ", "phương tiện: tàu điện"],
+          ["で", "trợ từ chỉ phương tiện"],
+          ["いきます。", "động từ: đi"],
+        ],
+      },
+      mistakes: [
+        {
+          wrong: "あるいてで いきます。",
+          right: "あるいて いきます。",
+          why: "Đi bộ dùng あるいて, không thêm で.",
+        },
+        {
+          wrong: "でんしゃへ いきます。",
+          right: "でんしゃで いきます。",
+          why: "Phương tiện đi với で. Dùng へ sẽ hiểu tàu điện là nơi đến.",
+        },
+      ],
+      compare: [
+        {
+          with: "へ (nơi đến)",
+          diff: "へ chỉ nơi đến. で chỉ phương tiện. Ví dụ: でんしゃで きょうとへ いきます。",
+        },
+      ],
+      tip: "で = \"bằng\". Đi bộ là ngoại lệ: あるいて (không で).",
+      examples: [
+        ex('でんしゃで いきます。', 'Tôi đi bằng tàu điện.'),
+        ex('タクシーで きました。', 'Tôi đã đến bằng tắc-xi.'),
+        ex('えきから あるいて かえりました。', 'Tôi đã đi bộ từ ga về nhà.'),
+      ],
+      notes: [],
+      quiz: [
+        quiz('b05-de-1', 'でんしゃ＿ いきます。', 'Tôi đi bằng tàu điện.', ['で', 'へ', 'を', 'と'], 'で', 'Phương tiện đi lại đi với trợ từ で.'),
+        quiz('b05-de-2', 'えきから ＿ かえりました。', 'Từ ga tôi đã đi bộ về nhà.', ['あるいて', 'あるいで', 'あるいてで', 'あるきで'], 'あるいて', 'Đi bộ dùng あるいて, không thêm で.'),
+        quiz('b05-de-3', 'バス＿ うちへ かえります。', 'Tôi về nhà bằng xe buýt.', ['で', 'を', 'と', 'に'], 'で', 'バス là phương tiện nên dùng で.'),
+      ],
+    },
+    {
+      id: 'b05-to',
+      title: 'N (người/động vật) と V',
+      formula: 'N (người/động vật) と V',
+      meaning: 'cùng với N làm gì',
+      explain: [
+        "Ý chính: N と V nghĩa là \"cùng với N làm gì\". N là người hoặc động vật cùng thực hiện hành động.",
+        "Cấu trúc: N と + động từ. Ví dụ かぞくと にほんへ きました = tôi đã đến Nhật cùng gia đình.",
+        "Nếu làm một mình thì dùng ひとりで. Trường hợp này không dùng と.",
+      ],
+      when: [
+        "Khi nói đi cùng ai: ともだちと いきます。",
+        "Khi nói đến cùng gia đình: かぞくと きました。",
+        "Khi nói đi một mình: ひとりで いきます。",
+      ],
+      steps: [
+        "Chọn người đi cùng: かぞく.",
+        "Thêm と: かぞくと.",
+        "Ghép với động từ và địa điểm: かぞくと にほんへ きました。",
+        "Đi một mình thì dùng ひとりで: ひとりで いきます。",
+      ],
+      table: {
+        title: "Đi cùng hay đi một mình",
+        head: [
+          "Tình huống",
+          "Cách nói",
+          "Ví dụ",
+        ],
+        rows: [
+          ["Đi cùng người khác", "N と V", "ともだちと いきます。"],
+          ["Đi một mình", "ひとりで V", "ひとりで いきます。"],
+        ],
+      },
+      breakdown: {
+        jp: "かぞくと にほんへ きました。",
+        vi: "Tôi đã đến Nhật Bản cùng với gia đình.",
+        parts: [
+          ["かぞく", "người đi cùng: gia đình"],
+          ["と", "cùng với"],
+          ["にほん", "địa điểm: Nhật Bản"],
+          ["へ", "trợ từ chỉ nơi đến"],
+          ["きました。", "động từ: đến (quá khứ)"],
+        ],
+      },
+      mistakes: [
+        {
+          wrong: "ひとりと とうきょうへ いきます。",
+          right: "ひとりで とうきょうへ いきます。",
+          why: "Đi một mình là ひとりで, không dùng と.",
+        },
+      ],
+      compare: [
+        {
+          with: "N1 と N2 (Bài 4)",
+          diff: "Bài 4 と nối hai danh từ, nghĩa là \"và\". Ở đây N と V nghĩa là \"cùng với N làm gì\".",
+        },
+      ],
+      tip: "と = \"cùng với\". Một mình: ひとりで.",
+      examples: [
+        ex('かぞくと にほんへ きました。', 'Tôi đã đến Nhật Bản cùng với gia đình.'),
+        ex('ひとりで とうきょうへ いきます。', 'Tôi đi Tokyo một mình.'),
+      ],
+      notes: [],
+      quiz: [
+        quiz('b05-to-1', 'かぞく＿ にほんへ きました。', 'Tôi đã đến Nhật Bản cùng gia đình.', ['と', 'で', 'を', 'も'], 'と', 'Người cùng thực hiện hành động đi với と.'),
+        quiz('b05-to-2', 'ともだち＿ とうきょうへ いきます。', 'Tôi đi Tokyo cùng bạn.', ['と', 'で', 'に', 'も'], 'と', 'ともだち là người cùng đi nên dùng と.'),
+        quiz('b05-to-3', 'ひとり＿ とうきょうへ いきます。', 'Tôi đi Tokyo một mình.', ['で', 'と', 'に', 'を'], 'で', 'Một mình là ひとりで, không dùng と.'),
+      ],
+    },
+    {
+      id: 'b05-itsu',
+      title: 'いつ',
+      formula: 'いつ ～ ますか',
+      meaning: 'khi nào, bao giờ',
+      explain: [
+        "Ý chính: いつ nghĩa là \"khi nào, bao giờ\", dùng để hỏi thời điểm chung chung.",
+        "Ngoài các từ hỏi có なん (なんじ, なんようび, なんがつ なんにち), còn có いつ. Với いつ không thêm に.",
+        "Câu trả lời tùy thời điểm: giờ hoặc ngày cụ thể thì thêm に (さんがつ にじゅうごにちに), còn らいしゅう, きょねん... thì không thêm に.",
+      ],
+      when: [
+        "Khi muốn hỏi thời điểm một việc xảy ra: いつ にほんへ きましたか。",
+        "Khi chưa biết loại thời gian nào (ngày, tháng hay tuần).",
+        "Khi hỏi sinh nhật, ngày lễ: たんじょうびは いつですか。",
+      ],
+      steps: [
+        "Viết câu bình thường nhưng thay thời điểm bằng いつ: いつ ひろしまへ いきますか。",
+        "Không thêm に sau いつ.",
+        "Trả lời bằng thời điểm cụ thể: らいしゅう いきます。",
+        "Với ngày tháng cụ thể thì thêm に: さんがつ にじゅうごにちに きました。",
+      ],
+      table: {
+        title: "Các cách hỏi thời gian",
+        head: [
+          "Hỏi",
+          "Từ hỏi",
+          "Trả lời mẫu",
+        ],
+        rows: [
+          ["giờ", "なんじ", "ろくじに"],
+          ["thứ", "なんようび", "にちようびに"],
+          ["tháng, ngày", "なんがつ なんにち", "さんがつ にじゅうごにちに"],
+          ["chưa rõ loại thời gian", "いつ", "らいしゅう / さんがつ にじゅうごにちに"],
+        ],
+      },
+      breakdown: {
+        jp: "いつ ひろしまへ いきますか。 …らいしゅう いきます。",
+        vi: "Khi nào bạn sẽ đi Hiroshima? …Tuần sau tôi sẽ đi.",
+        parts: [
+          ["いつ", "khi nào (không đi với に)"],
+          ["ひろしま", "địa điểm: Hiroshima"],
+          ["へ", "trợ từ chỉ nơi đến"],
+          ["いきますか。", "đi (hỏi)"],
+          ["…", "ngăn giữa hỏi và đáp"],
+          ["らいしゅう", "tuần sau (không đi với に)"],
+          ["いきます。", "đi (khẳng định)"],
+        ],
+      },
+      mistakes: [
+        {
+          wrong: "いつに にほんへ きましたか。",
+          right: "いつ にほんへ きましたか。",
+          why: "いつ không đi với に.",
+        },
+        {
+          wrong: "らいしゅうに いきます。",
+          right: "らいしゅう いきます。",
+          why: "らいしゅう là từ chỉ thời gian tương đối nên không đi với に.",
+        },
+      ],
+      compare: [
+        {
+          with: "なんじ / なんようび",
+          diff: "なんじ, なんようび hỏi một loại thời gian cụ thể và câu trả lời thường có に. いつ hỏi chung, không thêm に.",
+        },
+      ],
+      tip: "いつ = \"khi nào\", đứng một mình, không thêm に.",
+      examples: [
+        ex('いつ にほんへ きましたか。 …さんがつ にじゅうごにちに きました。', 'Bạn đến Nhật bao giờ? …Tôi đến Nhật vào ngày 25 tháng 3.'),
+        ex('いつ ひろしまへ いきますか。 …らいしゅう いきます。', 'Khi nào bạn sẽ đi Hiroshima? …Tuần sau tôi sẽ đi.'),
+      ],
+      notes: [],
+      quiz: [
+        quiz('b05-itsu-1', '＿ にほんへ きましたか。…さんがつ にじゅうごにちに きました。', 'Bạn đến Nhật khi nào? Tôi đến vào ngày 25 tháng 3.', ['いつ', 'どこ', 'だれ', 'なに'], 'いつ', 'Hỏi thời điểm dùng いつ.'),
+        quiz('b05-itsu-2', 'いつ ひろしまへ いきますか。…＿ いきます。', 'Khi nào bạn sẽ đi Hiroshima? Tuần sau tôi sẽ đi.', ['らいしゅう', 'らいしゅうに', 'せんしゅう', 'きょねん'], 'らいしゅう', 'らいしゅう không đi với に. せんしゅう và きょねん là quá khứ.'),
+        quiz('b05-itsu-3', 'ミラーさんの たんじょうびは ＿ですか。', 'Sinh nhật anh Miller là khi nào?', ['いつ', 'どこ', 'だれ', 'いくら'], 'いつ', 'Hỏi thời điểm dùng いつ.'),
+      ],
+    },
+    {
+      id: 'b05-yo',
+      title: '～よ',
+      formula: '～よ',
+      meaning: 'đấy, đó (nhấn mạnh thông tin)',
+      explain: [
+        "Ý chính: よ đặt ở cuối câu để nhấn mạnh một thông tin mà người nghe có thể chưa biết, hoặc để đưa ra ý kiến của người nói.",
+        "Cấu trúc: câu + よ. Ví dụ おいしいですよ = ngon lắm đấy.",
+        "Dùng よ khi muốn báo cho người nghe điều họ chưa biết hay chưa để ý.",
+      ],
+      when: [
+        "Khi cung cấp thông tin mới cho người nghe.",
+        "Khi muốn đưa ra ý kiến, lời khuyên nhẹ nhàng: おいしいですよ。",
+        "Khi nhấn mạnh điều người nghe có thể hiểu nhầm.",
+      ],
+      steps: [
+        "Nói câu như bình thường: あしたは にちようびです。",
+        "Thêm よ vào cuối câu: あしたは にちようびですよ。",
+        "Phát âm dứt khoát, nhấn mạnh thông tin mới.",
+      ],
+      breakdown: {
+        jp: "マリアさん、この アイスクリーム、おいしいですよ。",
+        vi: "Chị Maria ơi, kem này ngon lắm đấy.",
+        parts: [
+          ["マリアさん、", "gọi tên người nghe"],
+          ["この アイスクリーム、", "kem này (chủ đề)"],
+          ["おいしい", "ngon"],
+          ["です", "lịch sự"],
+          ["よ。", "nhấn mạnh thông tin, ý kiến của người nói"],
+        ],
+      },
+      mistakes: [
+        {
+          wrong: "きょうは にちようびよです。",
+          right: "きょうは にちようびですよ。",
+          why: "よ đứng ở cuối câu, sau です. Không đặt giữa danh từ và です.",
+        },
+      ],
+      compare: [
+        {
+          with: "～ね (Bài 4)",
+          diff: "ね mong người nghe đồng ý hoặc xác nhận điều đã biết. よ nhấn mạnh thông tin mới mà người nghe chưa biết.",
+        },
+      ],
+      tip: "よ = \"đấy nhé!\": báo cho người nghe điều họ chưa biết.",
+      examples: [
+        ex('この でんしゃは こうしえんへ いきますか。 …いいえ、いきません。つぎの「ふつう」ですよ。', 'Tàu điện này có đi đến Koshien không? …Không, không đi. Chuyến tàu thường tiếp theo mới đi cơ.'),
+        ex('ほっかいどうに うまが たくさん いますよ。', 'Ở Hokkaido có nhiều ngựa lắm đấy. (xem Bài 18)'),
+        ex('マリアさん、この アイスクリーム、おいしいですよ。', 'Chị Maria ơi, kem này ngon lắm đấy. (xem Bài 19)'),
+      ],
+      notes: [],
+      quiz: [
+        quiz('b05-yo-1', 'この でんしゃは こうしえんへ いきますか。…いいえ、いきません。つぎの「ふつう」です＿。', 'Không, không đi. Chuyến tàu thường tiếp theo mới đi cơ (thông tin người nghe chưa biết).', ['よ', 'ね', 'か', 'の'], 'よ', 'よ dùng để nhấn mạnh thông tin mà người nghe chưa biết.'),
+        quiz('b05-yo-2', 'マリアさん、この アイスクリーム、おいしいです＿。', 'Chị Maria ơi, kem này ngon lắm đấy.', ['よ', 'か', 'を', 'と'], 'よ', 'よ truyền đạt ý kiến của người nói đến người nghe.'),
+        quiz('b05-yo-3', 'ほっかいどうに うまが たくさん います＿。', 'Ở Hokkaido có nhiều ngựa lắm đấy (thông tin người nghe chưa biết).', ['よ', 'か', 'を', 'と'], 'よ', 'よ ở cuối câu để nhấn mạnh thông tin mới cho người nghe.'),
+      ],
+    },
+    {
+      id: 'b05-soudesune',
+      title: 'そうですね',
+      formula: 'そうですね',
+      meaning: 'ừ nhỉ (đồng ý, đồng cảm)',
+      explain: [
+        "Ý chính: そうですね nghĩa là \"ừ nhỉ, đúng nhỉ\", thể hiện sự đồng ý, đồng cảm với điều đối phương nói.",
+        "Người nói cũng nghĩ giống như vậy hoặc cũng biết điều đó nên mới đáp そうですね.",
+        "Khác với そうですか (Bài 2): そうですか là bày tỏ mình vừa nhận được thông tin mới. そうですね là bày tỏ cùng ý kiến, cùng hiểu biết.",
+      ],
+      when: [
+        "Khi đồng ý với điều người khác nói.",
+        "Khi nhớ ra điều người khác vừa nhắc: \"À, ừ nhỉ\".",
+        "Khi muốn tạo sự đồng cảm: ええ、そうですね。",
+      ],
+      steps: [
+        "Nghe người khác nói một điều mà bạn cũng biết hoặc cũng nghĩ vậy.",
+        "Đáp そうですね để bày tỏ đồng ý.",
+        "Có thể thêm あ、 hoặc ええ、 ở đầu: あ、そうですね。",
+      ],
+      breakdown: {
+        jp: "あしたは にちようびですね。 …あ、そうですね。",
+        vi: "Ngày mai là chủ nhật nhỉ? …À, ừ nhỉ.",
+        parts: [
+          ["あした", "ngày mai"],
+          ["は", "trợ từ chỉ chủ đề"],
+          ["にちようび", "chủ nhật"],
+          ["です", "lịch sự"],
+          ["ね。", "nhỉ (xác nhận)"],
+          ["…", "ngăn giữa hai người nói"],
+          ["あ、", "à (nhớ ra)"],
+          ["そうですね。", "ừ nhỉ (đồng ý)"],
+        ],
+      },
+      mistakes: [
+        {
+          wrong: "わたしは きのう にほんへ きました。 …そうですね。",
+          right: "わたしは きのう にほんへ きました。 …そうですか。",
+          why: "Thông tin mới nghe lần đầu thì dùng そうですか. そうですね chỉ dùng khi cũng biết hoặc cũng nghĩ như vậy.",
+        },
+      ],
+      compare: [
+        {
+          with: "そうですか (Bài 2)",
+          diff: "そうですか = \"thế à\" (nhận thông tin mới). そうですね = \"ừ nhỉ\" (đồng ý, đồng cảm với điều đã biết).",
+        },
+      ],
+      tip: "そうですか = mới biết. そうですね = đã biết / đồng ý.",
+      examples: [
+        ex('あしたは にちようびですね。 …あ、そうですね。', 'Ngày mai là chủ nhật nhỉ? …À, ừ nhỉ.'),
+        ex('ここから おおさかまで さんじかん かかりますね。 …ええ、そうですね。', 'Từ đây đến Osaka mất 3 tiếng nhỉ. …Ừ, đúng nhỉ.'),
+      ],
+      notes: [],
+      quiz: [
+        quiz('b05-sone-1', 'あしたは にちようびですね。…あ、＿。', 'Ngày mai là chủ nhật nhỉ? …À, ừ nhỉ.', ['そうですね', 'そうですか', 'ちがいます', 'そうです'], 'そうですね', 'Thể hiện sự đồng ý, đồng cảm với điều đối phương nói.'),
+        quiz('b05-sone-2', 'わたしは きのう にほんへ きました。…＿。', 'Tôi đã đến Nhật hôm qua. …Thế à.', ['そうですか', 'そうですね', 'ちがいます', 'いいえ'], 'そうですか', 'Nhận thông tin mới chưa biết thì dùng そうですか, không phải そうですね.'),
+        quiz('b05-sone-3', 'ここから おおさかまで さんじかん かかりますね。…はい、＿。', 'Từ đây đến Osaka mất 3 tiếng nhỉ. …Vâng, đúng nhỉ.', ['そうですね', 'そうですか', 'ちがいます', 'どういたしまして'], 'そうですね', 'Cả hai cùng biết và đồng ý nên dùng そうですね.'),
+      ],
+    },
+  ],
+};
