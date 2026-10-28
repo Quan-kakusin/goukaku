@@ -74,10 +74,19 @@ export const romajiOf = w => w.romaji ?? toRomaji(w.kana);
 
 // Đáp án từ vựng đúng nếu gõ đúng chữ, cách đọc kana (hiragana/katakana) hoặc romaji
 // Kana được so theo hiragana nên gõ ほてる cho ホテル vẫn đúng; kéo dài nguyên âm (こおひい ↔ こーひー) được châm chước.
-export function matchesWord(input, w) {
+// w.alts: các cách đọc khác cũng đúng (4 = よん/し ...). w.sentence: câu ví dụ, bỏ dấu câu và khoảng trắng trước khi so.
+const matchesOne = (input, w) => {
   const t = input.trim();
   if (!t) return false;
   if (t === w.word || t === w.kana || toHiragana(t.replace(/\s/g, '')) === toHiragana(w.kana)) return true;
   if (matchesRomaji(t, romajiOf(w), { lenient: true })) return true;
   return /[぀-ヿ]/.test(t) && matchesRomaji(toRomaji(t), romajiOf(w), { lenient: true });
+};
+
+const PUNCT = /[。、，．？！…「」・,.?!\s]/g;
+
+export function matchesWord(input, w) {
+  const t = w.sentence ? input.replace(PUNCT, '') : input;
+  if (matchesOne(t, w)) return true;
+  return (w.alts ?? []).some(a => matchesOne(t, { word: a, kana: a }));
 }

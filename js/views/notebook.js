@@ -80,7 +80,7 @@ export function mount(root) {
           h('div', { class: 'glyph' }, icon(...ICON.check)),
           h('p', null, h('strong', null, 'Sổ lỗi sai đang trống')),
           h('p', { class: 'muted' }, 'Câu sai khi làm đề (từ vựng, ngữ pháp, kanji) sẽ tự được ghi vào đây để bạn ôn lại.'),
-          h('div', { class: 'row' }, h('a', { class: 'btn primary', href: '#/lessons' }, 'Luyện tập theo bài'), h('a', { class: 'btn', href: '#/exams' }, 'Thi thử N5')),
+          h('div', { class: 'row' }, h('a', { class: 'btn primary', href: '#/lessons/exercise' }, 'Bài tập theo bài'), h('a', { class: 'btn', href: '#/exams' }, 'Thi thử N5')),
         ),
   );
 }

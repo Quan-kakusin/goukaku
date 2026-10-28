@@ -26,8 +26,11 @@ const savePick = set => {
 };
 
 // extra: các phần tử form thêm riêng cho từng kiểu luyện. onStart(words, { label }).
-export function wordSetup({ intro, extra = [], startLabel, onStart }) {
-  const selected = new Set(loadPick());
+// source: nguồn khác ngoài từ vựng, { size(lessons), pick(lessons, shuffle), unit } (vd các câu ví dụ). initial: số bài chọn sẵn (vd mở từ trang Bài tập).
+export function wordSetup({ intro, extra = [], startLabel, onStart, source, initial }) {
+  const selected = new Set(initial?.length ? initial : loadPick());
+  const unit = source?.unit ?? 'từ';
+  const sizeOf = lessons => (source ? source.size(lessons) : poolSize(getDeck(), lessons));
 
   const chips = Array.from({ length: LESSON_COUNT }, (_, i) => {
     const n = i + 1;
@@ -61,13 +64,13 @@ export function wordSetup({ intro, extra = [], startLabel, onStart }) {
   function update() {
     chips.forEach((c, i) => c.setAttribute('aria-pressed', String(selected.has(i + 1))));
     savePick(selected);
-    const n = selected.size ? poolSize(getDeck(), lessons()) : 0;
+    const n = selected.size ? sizeOf(lessons()) : 0;
     startBtn.disabled = n === 0;
-    note.textContent = selected.size === 0 ? 'Hãy chọn ít nhất một bài.' : `${lessonsLabel(lessons())}: ${n} từ.`;
+    note.textContent = selected.size === 0 ? 'Hãy chọn ít nhất một bài.' : `${lessonsLabel(lessons())}: ${n} ${unit}.`;
   }
   function start() {
-    const words = pickWords({ deck: getDeck(), lessons: lessons(), count: 'all', rng: Math.random, shuffle: mix.checked });
-    if (!words.length) return toast('Các bài đã chọn chưa có từ nào để luyện.');
+    const words = source ? source.pick(lessons(), mix.checked) : pickWords({ deck: getDeck(), lessons: lessons(), count: 'all', rng: Math.random, shuffle: mix.checked });
+    if (!words.length) return toast(`Các bài đã chọn chưa có ${unit} nào để luyện.`);
     return onStart(words, { label: lessonsLabel(lessons()), shuffle: mix.checked });
   }
 
@@ -84,7 +87,7 @@ export function wordSetup({ intro, extra = [], startLabel, onStart }) {
       h('button', { class: 'btn small', type: 'button', onclick: set([]) }, 'Bỏ chọn'),
     ),
     ...extra,
-    h('label', { class: 'check', for: 'w-shuffle' }, mix, h('span', null, 'Trộn thứ tự từ (bỏ tích để luyện theo thứ tự trong sách)')),
+    h('label', { class: 'check', for: 'w-shuffle' }, mix, h('span', null, 'Trộn thứ tự (bỏ tích để luyện theo thứ tự trong sách)')),
     note,
     startBtn,
   );

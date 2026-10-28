@@ -185,6 +185,10 @@ export function mount(root, params = []) {
   const kindRows = Object.entries(g.byKind).map(([key, s]) => h('li', null, h('span', null, KINDS[key]?.label ?? key), h('span', { class: 'muted' }, `${s.correct}/${s.total} (${pct(s)}%)`)));
   const lessonEntries = Object.entries(g.byLesson).sort(([a], [b]) => a - b);
   const wrongIds = entry.items.filter(i => !i.ok).map(i => i.qid);
+  // Lượt luyện chỉ gồm câu của một bài: có nút về trang Bài tập của bài đó
+  const lessonSet = new Set(entry.items.map(i => i.lesson));
+  const [onlyLesson] = lessonSet;
+  const backToLesson = !entry.paper && lessonSet.size === 1 && onlyLesson > 0 ? onlyLesson : 0;
 
   const mock = entry.paper ? scoreMock(entry.items) : null;
   const mockPanel = mock?.partial
@@ -265,6 +269,7 @@ export function mount(root, params = []) {
       h('button', { class: 'btn primary', type: 'button', onclick: () => (entry.paper ? launchMock({ paperId: entry.paper, includeListening: entry.items.some(i => i.section === 'choukai'), partKeys: [...new Set(entry.items.map(i => findMockQuestion(i.qid)?.partKey).filter(Boolean))] }) : launchFromIds({ ids: entry.items.map(i => i.qid), title: entry.title, mode: entry.mode, minutes: entry.limit ? entry.limit / 60 : undefined })) }, 'Làm lại đề này'),
       h('button', { class: 'btn', type: 'button', disabled: wrongIds.length === 0, onclick: () => launchFromIds({ ids: wrongIds, title: `Luyện lại câu sai: ${entry.title}`, mode: 'practice' }) }, `Luyện lại câu sai (${wrongIds.length})`),
       h('a', { class: 'btn', href: '#/notebook' }, 'Sổ lỗi sai'),
+      backToLesson && h('a', { class: 'btn', href: `#/lesson/${backToLesson}/exercise` }, `Bài tập Bài ${backToLesson}`),
     ),
     h(
       'section',

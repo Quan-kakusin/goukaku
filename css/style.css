@@ -1672,6 +1672,7 @@ input[type="radio"] {
 .exam-meta {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   justify-content: space-between;
   gap: var(--space-2);
   margin-bottom: var(--space-3);
@@ -2650,4 +2651,279 @@ rt {
   border: var(--border-width) solid var(--color-border-subtle);
   border-radius: var(--radius-md);
   object-fit: contain;
+}
+
+/* Bài học / Bài tập: hai mục lớn của mỗi bài, tab to hơn tab con */
+.mode-tabs a {
+  font-size: var(--font-size-md);
+}
+
+.sub-tabs a {
+  font-size: var(--font-size-sm);
+}
+
+.cta-practice {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+.cta-practice > div {
+  flex: 1 1 240px;
+}
+
+.cta-practice h2,
+.cta-practice p {
+  margin: 0 0 var(--space-1);
+}
+
+/* Trang Bài tập: mỗi dạng bài là một dòng có mô tả và nút làm */
+.ex-group h2 {
+  margin-bottom: var(--space-1);
+}
+
+.ex-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-3);
+  padding: var(--space-3) 0;
+  border-bottom: var(--border-width) solid var(--color-border-subtle);
+}
+
+.ex-info {
+  flex: 1 1 calc(var(--size-target) * 5);
+  min-width: 0;
+}
+
+.ex-info p {
+  margin: var(--space-1) 0;
+}
+
+.focus-pattern {
+  border: var(--outline-width) solid var(--color-outline);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-raised);
+  box-shadow: var(--shadow-pop-sm);
+}
+
+/* Chọn nhóm số đếm ở trang Gõ romaji */
+.count-groups {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(calc(var(--size-target) * 6), 1fr));
+  gap: 0 var(--space-4);
+  margin-bottom: var(--space-3);
+}
+
+/* Bảng tra số đếm */
+.cnt-jump {
+  margin-bottom: var(--space-3);
+}
+
+.cnt-section {
+  margin-top: var(--space-4);
+  scroll-margin-top: var(--space-3);
+}
+
+.cnt-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(calc(var(--size-target) * 2), 1fr));
+  gap: var(--space-2);
+}
+
+.cnt-grid.wide {
+  grid-template-columns: repeat(auto-fill, minmax(calc(var(--size-target) * 3), 1fr));
+}
+
+.cnt-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  min-height: calc(var(--size-target) * 2);
+  padding: var(--space-2);
+  border: var(--border-width) solid var(--color-border-subtle);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-raised);
+  color: var(--color-text-primary);
+  font: inherit;
+  text-align: center;
+  cursor: pointer;
+  overflow-wrap: anywhere;
+}
+
+.cnt-cell:hover,
+.cnt-mini:hover {
+  background: var(--color-surface-hover);
+}
+
+.cnt-k {
+  color: var(--color-text-tertiary);
+  font-size: var(--font-size-xs);
+}
+
+.cnt-r {
+  font-size: var(--font-size-md);
+}
+
+.cnt-ro,
+.cnt-alt {
+  color: var(--color-text-tertiary);
+  font-size: var(--font-size-xs);
+}
+
+.irr .cnt-r,
+.cnt-mini.irr,
+.irr-sample {
+  color: var(--color-brand);
+  font-weight: var(--font-weight-strong);
+  text-decoration: underline;
+  text-decoration-thickness: var(--focus-ring-width);
+  text-underline-offset: var(--space-1);
+}
+
+.cnt-matrix-wrap {
+  overflow-x: auto;
+}
+
+.cnt-matrix {
+  border-collapse: separate;
+  border-spacing: 0;
+  white-space: nowrap;
+}
+
+.cnt-matrix th,
+.cnt-matrix td {
+  padding: var(--space-1) var(--space-2);
+  border-bottom: var(--border-width) solid var(--color-border-subtle);
+  text-align: center;
+}
+
+.cnt-matrix thead th {
+  vertical-align: bottom;
+}
+
+.cnt-matrix tbody th,
+.cnt-matrix thead th:first-child {
+  position: sticky;
+  left: 0;
+  background: var(--color-surface-raised);
+  border-right: var(--border-width) solid var(--color-border-subtle);
+}
+
+.cnt-unit {
+  display: block;
+  font-size: var(--font-size-md);
+}
+
+.cnt-matrix th small {
+  display: block;
+  color: var(--color-text-tertiary);
+  font-size: var(--font-size-xs);
+  font-weight: normal;
+}
+
+.cnt-mini {
+  min-height: var(--size-target);
+  padding: 0 var(--space-2);
+  border: 0;
+  border-radius: var(--radius-xs);
+  background: transparent;
+  color: var(--color-text-primary);
+  font: inherit;
+  cursor: pointer;
+}
+
+/* Làm bài: màn rộng thì câu hỏi bên trái, danh sách câu hỏi và nút nộp bài dính bên phải */
+.exam-side .qnav-panel {
+  margin-top: 0;
+}
+
+@media (min-width: 1100px) {
+  main.wide {
+    max-width: calc(var(--size-content) * 1.5);
+  }
+
+  .exam-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) calc(var(--size-target) * 6);
+    align-items: start;
+    gap: var(--space-4);
+  }
+
+  .exam-layout.gate {
+    display: block;
+  }
+
+  .exam-side {
+    position: sticky;
+    top: var(--space-4);
+    max-height: calc(100vh - var(--space-5));
+    overflow-y: auto;
+  }
+
+  .exam-main .exam-actions:first-child {
+    margin-top: 0;
+  }
+
+  .exam-side .exam-submit {
+    margin-top: var(--space-3);
+  }
+
+  .exam-side .exam-submit .btn {
+    width: 100%;
+  }
+}
+
+/* Phản hồi sau khi chọn đáp án (luyện tập): nhỏ gọn, meme bên trái và giải thích bên phải */
+.practice-feedback {
+  justify-content: flex-start;
+  gap: var(--space-3);
+}
+
+.practice-feedback .meme-img {
+  height: min(calc(var(--size-target) * 2), 12vh);
+}
+
+.practice-feedback .meme::before {
+  font-size: var(--font-size-lg);
+}
+
+.right-answer {
+  color: var(--color-danger);
+  font-weight: var(--font-weight-strong);
+}
+
+.practice-feedback .feedback-text {
+  flex: 1 1 calc(var(--size-target) * 4);
+}
+
+.practice-feedback .feedback-text p + p {
+  margin-top: var(--space-1);
+}
+
+/* Cột phải khi làm bài: danh sách câu hỏi, rồi nút câu trước/sau, rồi nút nộp. Màn hẹp: nút câu trước/sau lên ngay dưới câu hỏi */
+.exam-side {
+  display: flex;
+  flex-direction: column;
+}
+
+.exam-side .exam-actions {
+  order: -1;
+}
+
+@media (min-width: 1100px) {
+  .exam-side .exam-actions {
+    order: 0;
+    margin: var(--space-3) 0 0;
+  }
+
+  .exam-side .exam-actions .btn {
+    flex: 1;
+  }
 }

@@ -6,6 +6,7 @@ import * as typing from './views/typing.js';
 import * as exams from './views/exams.js';
 import * as exam from './views/exam.js';
 import * as vocab from './views/vocab.js';
+import * as counting from './views/counting.js';
 import * as lessons from './views/lessons.js';
 import * as lesson from './views/lesson.js';
 import * as kanji from './views/kanji.js';
@@ -16,7 +17,7 @@ import * as data from './views/data.js';
 // Tab chỉ hiện favicon: tiêu đề là một ký tự trống (U+2800), vì tiêu đề rỗng thì trình duyệt hiện địa chỉ localhost
 const TAB_TITLE = '\u2800';
 
-// nav: mục sáng lên trên thanh điều hướng. 5 mục: Bài học · Từ vựng (thẻ flash, gõ romaji, tra từ) · Chữ viết (kana, kanji) · Luyện thi (thi thử N5, sổ lỗi sai) · Cài đặt. Không có trang chủ: mở app là vào danh sách bài.
+// nav: mục sáng lên trên thanh điều hướng. 5 mục: Bài học · Từ vựng (thẻ flash, gõ romaji, tra từ, bảng số đếm) · Chữ viết (kana, kanji) · Luyện thi (thi thử N5, sổ lỗi sai) · Cài đặt. Không có trang chủ: mở app là vào danh sách bài.
 // Đường dẫn có tham số: #/lesson/7/grammar → view "lesson" nhận ["7", "grammar"]; #/exam/run, #/exam/result/<id>.
 const routes = {
   exams: { view: exams, title: 'Thi thử N5', nav: 'test' },
@@ -26,6 +27,7 @@ const routes = {
   vocab: { view: vocab, title: 'Tra từ', nav: 'words' },
   flash: { view: flash, title: 'Thẻ flash', nav: 'words' },
   typing: { view: typing, title: 'Gõ romaji', nav: 'words' },
+  counting: { view: counting, title: 'Số đếm', nav: 'words' },
   kanji: { view: kanji, title: 'Kanji', nav: 'write' },
   kana: { view: kana, title: 'Kana', nav: 'write' },
   notebook: { view: notebook, title: 'Sổ lỗi sai', nav: 'test' },
@@ -59,6 +61,7 @@ function render() {
 
   const root = document.getElementById('app');
   root.replaceChildren();
+  root.classList.remove('wide'); // trang cần khung rộng (làm bài) tự thêm lại
   try {
     cleanup = routes[name].view.mount(root, params) ?? null;
   } catch (err) {

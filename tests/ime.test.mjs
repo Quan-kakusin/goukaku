@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { romajiToKana, finalizeKana, convertInput } from '../js/ime.js';
+import { romajiToKana, finalizeKana, convertInput, scriptOf } from '../js/ime.js';
 import { matchesWord, toRomaji, romajiOf } from '../js/romaji.js';
 import { toHiragana } from '../js/kana-data.js';
 import { VOCAB } from '../data/lessons.js';
@@ -100,4 +100,54 @@ test('ティ/ディ gõ theo romaji thường (ti, di, thi, texi) đều đượ
   for (const keys of ['pa-ti-', 'pa-thi-', 'pa-texi-', 'paatii']) assert.ok(matchesWord(finalizeKana(typeKeys(keys)), party), keys);
   const disney = VOCAB.find(w => w.kana === 'とうきょうディズニーランド');
   for (const keys of ['toukyoudizuni-rando', 'toukyoudhizuni-rando']) assert.ok(matchesWord(finalizeKana(typeKeys(keys)), disney), keys);
+});
+
+const typeLike = (keys, target) => {
+  let prev = { raw: '', text: '' };
+  for (const c of keys) prev = convertInput(prev.text + c, prev, { target });
+  return prev.text;
+};
+
+test('convertInput: ô gõ theo chữ viết của từ đích (katakana, hiragana, trộn)', () => {
+  assert.equal(typeLike('eakon', 'エアコン'), 'エアコン');
+  assert.equal(typeLike('ko-hi-', 'コーヒー'), 'コーヒー');
+  assert.equal(typeLike('hoteru', 'ホテル'), 'ホテル');
+  assert.equal(typeLike('kopi-shimasu', 'コピーします'), 'コピーします');
+  assert.equal(typeLike('kesigomu', 'けしゴム'), 'けしゴム');
+  assert.equal(typeLike('ro-mazi', 'ローマじ'), 'ローマじ');
+  assert.equal(typeLike('e-to', 'えーと'), 'えーと');
+  assert.equal(typeLike('toukyoudhizuni-rando', 'とうきょうディズニーランド'), 'とうきょうディズニーランド');
+  assert.equal(typeLike('sensei', 'せんせい'), 'せんせい', 'từ hiragana không đổi');
+  assert.equal(typeLike('k', 'エアコン'), 'k', 'phần Latin còn dở giữ nguyên');
+});
+
+test('scriptOf: phân loại chữ viết của từ', () => {
+  assert.equal(scriptOf('エアコン'), 'kata');
+  assert.equal(scriptOf('コーヒー'), 'kata');
+  assert.equal(scriptOf('コピーします'), 'mixed');
+  assert.equal(scriptOf('ほてる'), 'hira');
+  assert.equal(scriptOf('えーと'), 'hira');
+});
+
+test('mọi từ trong sách: gõ romaji được chấm đúng và chữ hiện đúng chữ viết (katakana/hiragana) của từ ở từng vị trí', () => {
+  const bad = [];
+  for (const w of VOCAB) {
+    const target = [...w.kana.replace(/\s/g, '')];
+    const shown = [...typeLike(romajiOf(w).replace(/\s/g, ''), w.kana)];
+    const wrongScript = shown.some((c, i) => (/[ァ-ヺ]/.test(target[i] ?? '') && /[ぁ-ゖ]/.test(c)) || (/[ぁ-ゖ]/.test(target[i] ?? '') && /[ァ-ヺ]/.test(c)));
+    if (wrongScript || !matchesWord(finalizeKana(shown.join('')), w)) bad.push(`${w.kana}: ${shown.join('')}`);
+  }
+  assert.deepEqual(bad, []);
+});
+
+test('gõ ー bằng dấu - ở từ katakana: hiện đúng từ, không lẫn hiragana', () => {
+  const bad = [];
+  for (const w of VOCAB.filter(x => x.kana.includes('ー'))) {
+    const keys = toRomaji(w.kana).replace(/\s/g, '');
+    // romaji của từ có ー thường ghi nguyên âm kép; thay lại bằng "-" như người dùng gõ thật
+    const dash = keys.replace(/([aiueo])\1/g, '$1-');
+    const shown = typeLike(dash, w.kana);
+    if (shown !== w.kana.replace(/\s/g, '') && !matchesWord(finalizeKana(shown), w)) bad.push(`${w.kana}: ${shown}`);
+  }
+  assert.deepEqual(bad, []);
 });

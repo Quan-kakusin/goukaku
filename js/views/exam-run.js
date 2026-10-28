@@ -204,6 +204,7 @@ export function mount(root) {
     eyebrow.textContent = multi ? `Thi thử · Phần ${partIdx + 1}/${parts.length} · ${p.name}` : exam ? 'Thi thử' : 'Luyện tập';
     submitBtn.textContent = !exam ? 'Kết thúc và xem kết quả' : multi && !isLastPart() ? 'Nộp phần này, sang phần tiếp' : 'Nộp bài';
     for (const el of [actions, qnavPanel, submitRow, metaLine]) el.hidden = gate;
+    layout.classList.toggle('gate', gate);
     refreshHeader();
     refreshNav();
   }
@@ -262,10 +263,15 @@ export function mount(root) {
     });
     if (!exam && locked) {
       const ok = chosen === q.answer;
-      feedback.replaceChildren(
-        h('p', { class: `result ${ok ? 'ok' : 'ng'}` }, meme(ok ? praise(answeredCount() - 1) : miss(answeredCount() - 1)), ok ? '' : ` Đáp án: ${q.answer}`),
-        h('p', null, q.explain),
-        h('p', { class: 'muted' }, 'Xem giải thích đầy đủ và kiến thức liên quan trong phần kết quả sau khi nộp bài.'),
+      // Gọn để cả đáp án lẫn phần giải thích vừa một màn hình: meme bên trái, đáp án đúng (nếu sai) và giải thích bên phải
+      fill(
+        feedback,
+        h(
+          'div',
+          { class: 'feedback-row practice-feedback' },
+          h('p', { class: `result ${ok ? 'ok' : 'ng'}` }, meme(ok ? praise(answeredCount() - 1) : miss(answeredCount() - 1))),
+          h('div', { class: 'feedback-text' }, !ok && h('p', { class: 'right-answer', lang: q.choiceLang }, `Đáp án: ${q.answer}`), h('p', null, q.explain)),
+        ),
       );
     }
   }
@@ -277,16 +283,30 @@ export function mount(root) {
     answers[idx] = exam && answers[idx] === c ? null : c;
     const keep = document.activeElement?.dataset?.choice;
     showQuestion();
-    if (exam && keep) card.querySelector(`[data-choice="${CSS.escape(keep)}"]`)?.focus();
-    else if (!exam) nextBtn.disabled ? card.querySelector('.choice')?.focus() : nextBtn.focus();
+    // preventScroll: focus() mặc định cuộn trang tới nút "Câu sau", làm các đáp án vừa chọn trượt lên khỏi màn hình
+    if (exam && keep) card.querySelector(`[data-choice="${CSS.escape(keep)}"]`)?.focus({ preventScroll: true });
+    else if (!exam) {
+      (nextBtn.disabled ? card.querySelector('.choice') : nextBtn)?.focus({ preventScroll: true });
+      revealFeedback();
+    }
     refreshHeader();
     refreshNav();
+  }
+
+  // Sau khi chọn đáp án (luyện tập): nếu phần giải thích nằm dưới mép màn hình thì cuộn vừa đủ để thấy, nhưng không bao giờ đẩy các đáp án ra khỏi màn hình
+  function revealFeedback() {
+    const fb = card.querySelector('.feedback');
+    const first = card.querySelector('.choice');
+    if (!fb || !first || !fb.childElementCount) return;
+    const hiddenBelow = fb.getBoundingClientRect().bottom - window.innerHeight + 16;
+    const room = first.getBoundingClientRect().top - 16;
+    if (hiddenBelow > 0 && room > 0) window.scrollBy({ top: Math.min(hiddenBelow, room), behavior: 'instant' });
   }
 
   function toggleFlag() {
     flags[idx] = !flags[idx];
     showQuestion();
-    card.querySelector('[aria-pressed]:not(.choice)')?.focus();
+    card.querySelector('[aria-pressed]:not(.choice)')?.focus({ preventScroll: true });
     refreshNav();
   }
 
@@ -297,6 +317,8 @@ export function mount(root) {
     confirmBox.hidden = true;
     showQuestion();
     refreshNav();
+    // Sang câu khác: đưa đầu câu hỏi về trong màn hình nếu đang cuộn xuống đọc giải thích
+    card.scrollIntoView({ block: 'nearest' });
   }
 
   // ---------- Nộp bài ----------
@@ -409,22 +431,17 @@ export function mount(root) {
   }
 
   // ---------- Dựng trang ----------
+  root.classList.add('wide');
+  const layout = h('div', { class: 'exam-layout' }, h('div', { class: 'exam-main' }, card, confirmBox), h('aside', { class: 'exam-side', 'aria-label': 'Danh sách câu hỏi và nộp bài' }, qnavPanel, actions, submitRow));
   show(
     root,
-    h(
-      'div',
-      { class: 'exam-head' },
-      h('div', null, eyebrow, headTitle),
-      timerEl,
-    ),
+    // Luyện tập: bỏ tiêu đề cho vừa khung hình (chỉ giữ cho trình đọc màn hình). Thi thử cần tiêu đề và đồng hồ.
+    exam ? h('div', { class: 'exam-head' }, h('div', null, eyebrow, headTitle), timerEl) : h('div', { class: 'sr-only' }, headTitle),
     h('div', { class: 'progress' }, barFill),
     metaLine,
     audioBar,
-    card,
-    actions,
-    qnavPanel,
-    confirmBox,
-    submitRow,
+    // Màn rộng: câu hỏi bên trái, danh sách câu hỏi và nút nộp bài dính bên phải. Màn hẹp: xếp dọc theo thứ tự này.
+    layout,
     live,
   );
   const furiBox = h('input', { type: 'checkbox', id: 'furi-toggle', checked: furi, onchange: e => {
@@ -443,6 +460,7 @@ export function mount(root) {
   else startPart();
   document.addEventListener('keydown', onKey);
   return () => {
+    root.classList.remove('wide');
     clearInterval(timerId);
     stopAudio();
     pauseSectionAudio();

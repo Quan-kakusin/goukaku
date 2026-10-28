@@ -1,3 +1,5 @@
+import { toKatakana } from './kana-data.js';
+
 // Gõ romaji, ô nhập tự đổi sang hiragana như bàn phím tiếng Nhật: "hoteru" → ほてる, "kyou" → きょう, "n" + phụ âm → ん, "-" → ー.
 // Hàm thuần nên test được. Phần còn dở (vd "k", "sh", "n" ở cuối) giữ nguyên dạng chữ Latin cho tới khi gõ đủ.
 
@@ -109,10 +111,26 @@ export const finalizeKana = text => romajiToKana(text).replace(/n$/, 'ん');
 // raw là chuỗi romaji đã gõ (để "konnichiha" ra こんにちは: nn + nguyên âm thì n thứ hai mở đầu âm tiết kế), text là chữ hiện trong ô.
 // "n" còn chờ ở cuối hiện luôn là ん cho dễ thấy (ichiban → いちばん); gõ thêm nguyên âm thì ん tự ghép lại (な, に...).
 // Xóa, dán hoặc sửa giữa chừng thì coi chữ đang hiện là nội dung mới.
-export function convertInput(value, prev = { raw: '', text: '' }) {
+// target: chữ kana của từ cần gõ; ký tự nào của từ đó là katakana (エアコン, コピーします) thì ô hiện katakana ở đúng vị trí ấy.
+export function convertInput(value, prev = { raw: '', text: '' }, { target = '' } = {}) {
   const appended = value.length === prev.text.length + 1 && value.startsWith(prev.text);
   const raw = appended ? prev.raw + value.slice(-1) : value;
   let text = romajiToKana(raw);
   if (text.endsWith('n')) text = `${text.slice(0, -1)}ん`;
-  return { raw, text };
+  return { raw, text: matchScript(text, target) };
+}
+
+const KATA = /^[ァ-ヺー]$/;
+
+// Ký tự thứ i của text lấy chữ viết (hiragana/katakana) giống ký tự thứ i của từ đích; phần dư hoặc chưa đổi được giữ nguyên
+export function matchScript(text, target) {
+  if (!target) return text;
+  return [...text].map((c, i) => (KATA.test(target[i] ?? '') ? toKatakana(c) : c)).join('');
+}
+
+// 'kata' nếu cả từ là katakana, 'mixed' nếu có xen katakana (コピーします), còn lại 'hira'
+export function scriptOf(kana) {
+  const t = kana.replace(/\s/g, '');
+  if (/^[ァ-ヺー]+$/.test(t)) return 'kata';
+  return /[ァ-ヺ]/.test(t) ? 'mixed' : 'hira';
 }

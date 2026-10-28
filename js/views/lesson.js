@@ -6,15 +6,18 @@ import { getState, save } from '../storage.js';
 import { getDeck, lessonWords } from '../deck.js';
 import { parseVocabLines, IMPORT_HELP } from '../import.js';
 import { vocabRow, patternCard, lessonPicker, noteBox } from './parts.js';
-import { launchExam, launchFromIds } from './launch.js';
-import { poolSize, verdict, formatDuration } from '../exam.js';
+import { launchFromIds } from './launch.js';
+import { verdict, formatDuration } from '../exam.js';
+import { exerciseCatalog, exerciseSummary, patternIds, allIds, pickIds, pickFromPreset, mixPresets } from '../lesson-exercises.js';
 
+// Hai mục của bài: Bài học (đọc: tổng quan, từ vựng, ngữ pháp) và Bài tập (làm: nhiều dạng câu hỏi theo từ vựng và ngữ pháp của bài)
 const TABS = [
   ['overview', 'Tổng quan'],
   ['vocab', 'Từ vựng'],
   ['grammar', 'Ngữ pháp'],
-  ['exam', 'Luyện tập'],
 ];
+const COUNT_CHOICES = [10, 20, 30];
+let lastCount = 10; // số câu mỗi lượt, giữ giữa các lần mở trang trong cùng phiên
 const KANA_ONLY = /^[぀-ヿー]+$/;
 
 export function mount(root, params = []) {
@@ -24,7 +27,10 @@ export function mount(root, params = []) {
     show(root, h('h1', null, 'Không tìm thấy bài này'), h('a', { class: 'btn', href: '#/lessons' }, 'Xem 25 bài'));
     return undefined;
   }
-  const tab = TABS.some(([id]) => id === params[1]) ? params[1] : 'overview';
+  // 'exam' là đường dẫn cũ của tab Luyện tập: nay là mục Bài tập
+  const practice = params[1] === 'exercise' || params[1] === 'exam';
+  const tab = practice ? 'exercise' : TABS.some(([id]) => id === params[1]) ? params[1] : 'overview';
+  const focusPattern = practice ? lesson.grammar.find(p => p.id === params[2]) : undefined;
 
   let importReport = null; // kết quả lần nhập hàng loạt gần nhất, hiện dưới ô nhập
   const words = () => lessonWords(getDeck(), n);
@@ -35,7 +41,7 @@ export function mount(root, params = []) {
     return h(
       'div',
       { class: 'lesson-head' },
-      h('a', { class: 'back-link', href: '#/lessons' }, icon(...ICON.back), 'Tất cả bài'),
+      h('a', { class: 'back-link', href: practice ? '#/lessons/exercise' : '#/lessons' }, icon(...ICON.back), 'Tất cả bài'),
       h('p', { class: 'eyebrow' }, `Bài ${n} / ${LESSON_COUNT}`),
       h('h1', null, lesson.title),
       h('p', { class: 'lesson-jp', lang: 'ja' }, lesson.jp),
@@ -44,14 +50,34 @@ export function mount(root, params = []) {
     );
   }
 
+  // Chuyển giữa hai mục lớn: Bài học / Bài tập
+  function modeTabs() {
+    return h(
+      'nav',
+      { class: 'tabs mode-tabs', 'aria-label': `Bài ${n}: chọn Bài học hoặc Bài tập` },
+      h('a', { href: `#/lesson/${n}/overview`, 'aria-current': practice ? undefined : 'page' }, 'Bài học'),
+      h('a', { href: `#/lesson/${n}/exercise`, 'aria-current': practice ? 'page' : undefined }, 'Bài tập', h('span', { class: 'tab-count' }, String(allIds(exerciseCatalog(n, getDeck())).length))),
+    );
+  }
+
   function tabs() {
     const counts = { vocab: words().length, grammar: lesson.grammar.length };
     return h(
       'nav',
-      { class: 'tabs', 'aria-label': `Nội dung Bài ${n}` },
+      { class: 'tabs sub-tabs', 'aria-label': `Nội dung Bài ${n}` },
       ...TABS.map(([id, label]) =>
         h('a', { href: `#/lesson/${n}/${id}`, 'aria-current': id === tab ? 'page' : undefined }, label, id in counts && h('span', { class: 'tab-count' }, String(counts[id]))),
       ),
+    );
+  }
+
+  // Cuối mỗi trang bài học: nút sang Bài tập
+  function toExercise() {
+    return h(
+      'section',
+      { class: 'panel flat cta-practice' },
+      h('div', null, h('h2', null, 'Học xong rồi, làm bài tập thôi'), h('p', { class: 'muted' }, 'Bài tập có nhiều dạng (từ vựng, điền trợ từ, sắp xếp câu, công thức, lỗi hay gặp) bám theo từ vựng và ngữ pháp của bài này.')),
+      h('a', { class: 'btn primary', href: `#/lesson/${n}/exercise` }, `Sang Bài tập Bài ${n} ›`),
     );
   }
 
@@ -85,8 +111,8 @@ export function mount(root, params = []) {
           'ol',
           { class: 'howto' },
           step('Đọc và nghe từ vựng', 'Bấm vào từng từ để xem ví dụ, bấm loa để nghe phát âm. Đọc to theo.', `#/lesson/${n}/vocab`, 'Mở từ vựng'),
-          step('Đọc từng mục ngữ pháp', 'Mỗi mục có công thức, giải thích, ví dụ và lưu ý. Đọc xong thì làm ngay bài tập của mục đó.', `#/lesson/${n}/grammar`, 'Mở ngữ pháp'),
-          step('Luyện tập cả bài', 'Làm các câu hỏi theo mẫu ngữ pháp của bài để biết mình nắm đến đâu. Có chấm điểm và giải thích từng câu.', `#/lesson/${n}/exam`, 'Mở luyện tập'),
+          step('Đọc từng mục ngữ pháp', 'Mỗi mục có công thức, giải thích, ví dụ và lưu ý. Đọc xong thì sang Bài tập để luyện công thức đó.', `#/lesson/${n}/grammar`, 'Mở ngữ pháp'),
+          step('Làm bài tập', 'Sang mục Bài tập để luyện nhiều dạng câu hỏi theo từ vựng và ngữ pháp của bài, thấy đúng sai và giải thích ngay.', `#/lesson/${n}/exercise`, 'Mở bài tập'),
           step('Xem lại câu sai', 'Đọc phần giải chi tiết, câu sai tự vào Sổ lỗi sai để ôn lại sau.', '#/notebook', 'Mở sổ lỗi sai'),
         ),
       ),
@@ -256,32 +282,57 @@ export function mount(root, params = []) {
       ...lesson.grammar.map((p, i) =>
         patternCard(p, section(i), {
           open,
-          onPractice: () => launchFromIds({ ids: p.quiz.map(q => `g:${q.id}`), title: `${section(i)} ${p.title}`, mode: 'practice', record: false }),
+          exercise: { href: `#/lesson/${n}/exercise/${p.id}`, count: patternIds(n, p.id).length },
         }),
       ),
     );
   }
 
-  // ---------- Tab Luyện đề ----------
-  function examTab() {
+  // ---------- Mục Bài tập ----------
+  // Gọn: một thẻ "Luyện tổng hợp" và vài dạng bài tập lớn (từ vựng, chọn câu đúng, sắp xếp câu, công thức)
+  function exerciseTab() {
     const s = getState();
+    const presets = exerciseSummary(n, getDeck());
     const score = s.lessons[n];
-    const available = poolSize([n]);
-    const mine = s.exams.filter(e => e.items.every(i => i.lesson === n)).slice(0, 5);
-    // Số câu chọn được: 5/10/15/20 nếu bài đủ câu, và luôn có "tất cả"
-    const counts = [5, 10, 15, 20].filter(c => c < available);
-    const countSel = h('select', { id: 'f-practice-count', 'aria-label': 'Số câu' }, ...counts.map(c => h('option', { value: String(c), selected: c === 10 }, `${c} câu`)), h('option', { value: String(available), selected: !counts.includes(10) }, `Tất cả (${available} câu)`));
-    const practiceCard = () =>
+    const mine = s.exams.filter(e => e.items.length > 0 && e.items.every(i => i.lesson === n)).slice(0, 5);
+    const run = (ids, title) => launchFromIds({ ids, title: `Bài tập Bài ${n} · ${title}`, mode: 'practice' });
+    const take = k => Math.min(lastCount, k);
+
+    const countSel = h(
+      'select',
+      {
+        id: 'f-ex-count',
+        'aria-label': 'Số câu mỗi lượt làm',
+        onchange: e => {
+          lastCount = Number(e.target.value) || 10;
+          render();
+        },
+      },
+      ...COUNT_CHOICES.map(c => h('option', { value: String(c), selected: c === lastCount }, `${c} câu`)),
+    );
+
+    const presetRow = p =>
       h(
         'div',
-        { class: 'practice-card' },
-        h('div', null, h('h2', null, 'Luyện tập'), h('p', { class: 'muted' }, `Câu hỏi theo các mẫu ngữ pháp của bài, không tính giờ. Chọn xong thấy đúng sai và giải thích ngay. Bài có ${available} câu.`)),
+        { class: 'ex-row' },
+        h('div', { class: 'ex-info' }, h('strong', null, p.title), h('p', { class: 'muted' }, p.desc)),
+        h('button', { class: 'btn small', type: 'button', 'data-kind': p.id, onclick: () => run(pickFromPreset(p, lastCount), p.title) }, `Làm ${take(p.ids.length)} câu`),
+      );
+
+    const focus =
+      focusPattern &&
+      h(
+        'section',
+        { class: 'panel flat focus-pattern' },
+        h('p', { class: 'eyebrow' }, 'Bài tập của một mục ngữ pháp'),
+        h('h2', { lang: 'ja' }, `${section(lesson.grammar.indexOf(focusPattern))} ${focusPattern.title}`),
+        h('p', { class: 'muted' }, `${focusPattern.meaning}.`),
         h(
           'div',
           { class: 'row' },
-          h('label', { class: 'sr-only', for: 'f-practice-count' }, 'Số câu'),
-          countSel,
-          h('button', { class: 'btn primary', type: 'button', disabled: available === 0, onclick: () => launchExam({ scope: String(n), count: Number(countSel.value), mode: 'practice' }) }, `Luyện tập Bài ${n}`),
+          h('button', { class: 'btn primary', type: 'button', onclick: () => run(pickIds(patternIds(n, focusPattern.id), lastCount), focusPattern.title) }, `Làm ${take(patternIds(n, focusPattern.id).length)} câu của mục này`),
+          h('a', { class: 'btn', href: `#/lesson/${n}/grammar` }, 'Xem lại ngữ pháp'),
+          h('a', { class: 'btn', href: `#/lesson/${n}/exercise` }, 'Tất cả bài tập'),
         ),
       );
 
@@ -289,20 +340,25 @@ export function mount(root, params = []) {
       'div',
       { class: 'practice' },
       score && h('p', null, h('span', { class: `chip${score.best >= 70 ? ' pass' : ''}` }, `Điểm đề cao nhất ${score.best}%`), ' ', h('span', { class: 'muted' }, `${score.attempts} lần làm đề bài này`)),
-      practiceCard(),
-      lesson.grammar.length > 0 &&
+      focus,
+      h(
+        'div',
+        { class: 'practice-card' },
+        h('div', null, h('h2', null, 'Luyện tổng hợp'), h('p', { class: 'muted' }, 'Trộn các dạng bài tập của bài.')),
+        h(
+          'div',
+          { class: 'row' },
+          h('label', { class: 'sr-only', for: 'f-ex-count' }, 'Số câu mỗi lượt làm'),
+          countSel,
+          h('button', { class: 'btn primary', type: 'button', disabled: presets.length === 0, onclick: () => run(mixPresets(presets, lastCount), 'tổng hợp') }, 'Bắt đầu'),
+        ),
+      ),
+      presets.length > 0 &&
         h(
           'section',
-          { class: 'panel flat' },
-          h('h2', null, 'Bài tập từng mục ngữ pháp'),
-          ...lesson.grammar.map((p, i) =>
-            h(
-              'div',
-              { class: 'weak-row' },
-              h('span', null, h('span', { class: 'section-no' }, section(i)), ' ', h('span', { lang: 'ja' }, p.title)),
-              h('button', { class: 'btn small', type: 'button', onclick: () => launchFromIds({ ids: p.quiz.map(q => `g:${q.id}`), title: `${section(i)} ${p.title}`, mode: 'practice', record: false }) }, `${p.quiz.length} câu`),
-            ),
-          ),
+          { class: 'panel flat ex-group' },
+          h('h2', null, 'Chọn dạng bài tập'),
+          ...presets.map(presetRow),
         ),
       mine.length > 0 &&
         h(
@@ -322,7 +378,8 @@ export function mount(root, params = []) {
   }
 
   function render() {
-    show(root, header(), tabs(), tab === 'overview' ? overview() : tab === 'vocab' ? vocabTab() : tab === 'grammar' ? grammarTab() : examTab(), footerNav());
+    const body = tab === 'overview' ? overview() : tab === 'vocab' ? vocabTab() : tab === 'grammar' ? grammarTab() : exerciseTab();
+    show(root, header(), modeTabs(), practice ? null : tabs(), body, practice ? null : toExercise(), footerNav());
   }
 
   function footerNav() {

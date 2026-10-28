@@ -84,7 +84,8 @@ function mistakeList(items) {
   );
 }
 
-export function patternCard(p, number, { onPractice, open = false } = {}) {
+// exercise: { href, count } liên kết sang bài tập của mục này (trang Bài tập)
+export function patternCard(p, number, { exercise, open = false } = {}) {
   return h(
     'details',
     { class: 'pattern', open },
@@ -102,7 +103,7 @@ export function patternCard(p, number, { onPractice, open = false } = {}) {
       p.compare?.length > 0 && block('Dễ nhầm với', h('ul', { class: 'compare-list' }, ...p.compare.map(c => h('li', null, h('strong', { lang: 'ja' }, c.with), h('span', null, c.diff))))),
       p.tip && h('p', { class: 'tip-box' }, h('strong', null, 'Mẹo nhớ: '), p.tip),
       p.notes.length > 0 && noteBox(p.notes),
-      onPractice && h('button', { class: 'btn primary small', type: 'button', onclick: onPractice }, `Làm bài tập (${p.quiz.length} câu)`),
+      exercise && h('a', { class: 'btn primary small', href: exercise.href }, `Làm bài tập mục này (${exercise.count} câu) ›`),
     ),
   );
 }

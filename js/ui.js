@@ -127,7 +127,7 @@ export function field(label, input, ...extra) {
 }
 
 // Hàng tab của từng mục lớn trên thanh điều hướng (như tab "Dành cho bạn / Đang theo dõi" của Threads)
-//   Từ vựng: thẻ flash, gõ romaji, tra từ · Chữ viết: kana, kanji · Luyện thi: thi thử N5, sổ lỗi sai
+//   Từ vựng: thẻ flash, gõ romaji, tra từ, bảng số đếm · Chữ viết: kana, kanji · Luyện thi: thi thử N5, sổ lỗi sai
 function tabRow(label, items, active) {
   return h(
     'nav',
@@ -137,7 +137,7 @@ function tabRow(label, items, active) {
 }
 
 export const wordsTabs = active =>
-  tabRow('Các phần của mục Từ vựng', [['flash', 'Thẻ flash'], ['typing', 'Gõ romaji'], ['vocab', 'Tra từ']], active);
+  tabRow('Các phần của mục Từ vựng', [['flash', 'Thẻ flash'], ['typing', 'Gõ romaji'], ['vocab', 'Tra từ'], ['counting', 'Số đếm']], active);
 export const writeTabs = active =>
   tabRow('Các phần của mục Chữ viết', [['kana', 'Kana'], ['kanji', 'Kanji']], active);
 export const testTabs = active =>

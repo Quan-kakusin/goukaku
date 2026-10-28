@@ -45,7 +45,7 @@ Mọi điều khiển **phải** có đủ trạng thái: default, hover, focus-
 
 ### Khung trang và điều hướng
 - **5 mục theo luồng học, mỗi mục có icon kèm nhãn chữ** (không chỉ icon): Bài học · Từ vựng · Chữ viết · Luyện thi · Cài đặt. Không có trang chủ: mở app (hoặc đường dẫn lạ) là vào danh sách bài, nơi chọn bài đang học. Mỗi mục lớn có hàng tab gạch chân bên trong (`wordsTabs`, `writeTabs`, `testTabs`):
-  - **Bài học:** danh sách 25 bài, mỗi bài có Tổng quan / Từ vựng / Ngữ pháp / Luyện tập.
+  - **Bài học:** danh sách 25 bài có hai tab lớn Bài học / Bài tập (`#/lessons`, `#/lessons/exercise`). Mỗi bài cũng có hai tab lớn: Bài học (Tổng quan / Từ vựng / Ngữ pháp, chỉ để đọc) và Bài tập (để làm).
   - **Từ vựng:** Thẻ flash | Gõ romaji | Tra từ.
   - **Chữ viết:** Kana | Kanji (80 chữ), tách khỏi bài học vì là nơi duy nhất dùng chữ Hán.
   - **Luyện thi:** Thi thử N5 | Sổ lỗi sai. Chấm số lỗi nằm trên icon Luyện thi.
@@ -106,7 +106,7 @@ Mọi điều khiển **phải** có đủ trạng thái: default, hover, focus-
 
 ### Luyện tập và kết quả
 - **Nội dung đề:** chỉ câu điền chỗ trống theo mẫu ngữ pháp của bài, không có câu hỏi từ vựng (từ vựng học ở tab Từ vựng).
-- **Một chế độ luyện tập duy nhất:** thẻ "Luyện tập" trong tab Luyện tập của trang từng bài có ô chọn số câu (5/10/15/20 hoặc tất cả) và một nút bắt đầu; không còn đề nhanh, form tạo đề hay chế độ thi thử theo bài. Trang Thi thử N5 (`#/exams`) chỉ có đề đầy đủ, thống kê, bài làm yếu và lịch sử có xóa.
+- **Bài tập tách khỏi bài học:** tab Bài tập của trang từng bài có thẻ "Luyện tổng hợp" (ô chọn 10/20/30/50 câu mỗi lượt), các nhóm dạng bài (từ vựng, câu và trợ từ, công thức, lỗi hay gặp, câu hỏi trong sách) mỗi dạng một dòng có mô tả, số câu có sẵn và nút "Làm N câu", rồi bài tập từng mục ngữ pháp và lối tắt sang Gõ romaji. Cuối mỗi trang bài học có thẻ dẫn sang Bài tập; không còn đề nhanh, form tạo đề hay chế độ thi thử theo bài. Trang Thi thử N5 (`#/exams`) chỉ có đề đầy đủ, thống kê, bài làm yếu và lịch sử có xóa.
 - **Luyện tập:** chọn xong khóa đáp án, hiện ✓/✗ và giải thích ngay, tiêu điểm chuyển sang nút "Câu tiếp".
 - **Thi thử (đề N5 đầy đủ, hoặc làm lại đề cũ):** đồng hồ đếm ngược (`role="timer"`, thông báo mốc còn lại cho trình đọc màn hình, không đọc từng giây), đổi đáp án tự do, đánh dấu câu (`aria-pressed`, phím `F`), bảng điều hướng câu `.qn` (mỗi ô nêu trạng thái bằng chữ: đã trả lời, bỏ trống, đánh dấu), hộp xác nhận nêu số câu chưa làm trước khi nộp, tự nộp khi hết giờ.
 - **Kết quả:** vòng điểm, xếp loại bằng chữ (Xuất sắc / Đạt / Gần đạt / Chưa đạt), thanh theo phần, dạng câu và bài, bộ lọc xem lại (tất cả / sai / bỏ trống / đánh dấu).
@@ -115,7 +115,7 @@ Mọi điều khiển **phải** có đủ trạng thái: default, hover, focus-
 ### Bài học (cấu trúc theo giáo trình)
 - **Chọn bài:** dải nút số 1–25 (`lessonPicker`, `aria-current` cho bài đang xem). Máy tính: xuống dòng để thấy đủ 25 bài; điện thoại: một hàng cuộn ngang.
 - **Danh sách 25 bài:** mỗi hàng có số bài (vòng nền nhạt, số màu `brand`), tiêu đề, tiếng Nhật, số từ/mẫu câu/điểm luyện tập cao nhất. Không có nhãn trạng thái "đang học" hay "đã học xong": người học tự chủ nhịp học.
-- **Trang một bài:** đầu trang có dải chọn bài một hàng cuộn ngang (mờ dần hai đầu); trang Bài học không lặp lại dải này vì danh sách bên dưới đã là nơi chọn bài; 4 tab (Tổng quan · Từ vựng · Ngữ pháp · Luyện tập) là liên kết có `aria-current`, mỗi tab một đường dẫn riêng (`#/lesson/12/grammar`).
+- **Trang một bài:** đầu trang có dải chọn bài một hàng cuộn ngang (mờ dần hai đầu); trang Bài học không lặp lại dải này vì danh sách bên dưới đã là nơi chọn bài; hai tab lớn (Bài học · Bài tập, cỡ chữ lớn hơn) và ba tab con của Bài học (Tổng quan · Từ vựng · Ngữ pháp) đều là liên kết có `aria-current`, mỗi tab một đường dẫn riêng (`#/lesson/12/grammar`, `#/lesson/12/exercise`).
 - **Tab Tổng quan:** mục tiêu của bài, 4 bước học (mỗi bước có nút mở đúng tab), bảng công thức các mẫu câu, lưu ý gom từ các mục, và từ khóa.
 - **Giảng giải ngữ pháp:** mỗi mục là một khối mở rộng gồm các khối nhỏ có tiêu đề (`.gblock`): ý chính in đậm, "Dùng khi nào" (danh sách), "Cách tạo câu" (các bước đánh số trong vòng tròn `action` và bảng `.gtable` cuộn ngang trên màn hẹp, ô đầu hàng là `th scope=row`), "Bóc tách một câu ví dụ" (từng phần câu kèm vai trò), "Lỗi hay gặp" (✗ gạch ngang màu `danger`, ✓ màu `success`, kèm lý do; không chỉ dùng màu vì có ký hiệu và nhãn đọc), "Dễ nhầm với", ô "Mẹo nhớ" (viền `success`). Khối nào thiếu dữ liệu thì không hiện. Tab Ngữ pháp có nút Mở tất cả / Thu gọn tất cả.
 - **Ngữ pháp theo mẫu tài liệu:** mỗi mục đánh số `bài.mục` (12.3), gồm khung Công thức (viền `accent`), giải thích, Ví dụ, hộp Lưu ý (viền `warning`) và nút làm bài tập. Hộp Lưu ý và Công thức không dùng màu làm tín hiệu duy nhất (có nhãn chữ).

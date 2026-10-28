@@ -4,11 +4,12 @@
 //   type = phần của đề: 'vocab' | 'grammar' | 'kanji' | 'moji' | 'bunpou' | 'dokkai' | 'choukai' (bốn loại cuối là đề thi thử N5).   kind = dạng câu hỏi (xem KINDS).
 //   ref  = nơi tra lại kiến thức liên quan khi giải thích: { patternId } | { wordId } | { word }.
 // id ổn định để sổ lỗi sai và lịch sử đề dựng lại được câu hỏi:
-//   'v:<id từ>' chọn nghĩa · 'w:<id từ>' chọn từ theo nghĩa · 'g:<id câu>' ngữ pháp · 'k:<từ>' kanji · 'j:<đề>:<mục>-<số>' đề thi thử N5.
+//   'v:<id từ>' chọn nghĩa · 'w:<id từ>' chọn từ theo nghĩa · 'g:<id câu>' ngữ pháp · 'k:<từ>' kanji · 'j:<đề>:<mục>-<số>' đề thi thử N5 · 'x:<bài>:<dạng>:<mã>' bài tập của bài (js/exercises.js).
 
 import { GRAMMAR } from '../data/lessons.js';
 import { KANJI } from '../data/kanji-n5.js';
 import { findMockQuestion } from './mock.js';
+import { EX_KINDS, exerciseQuestion } from './exercises.js';
 
 export const SECTIONS = {
   vocab: 'Từ vựng',
@@ -26,6 +27,8 @@ export const KINDS = {
   word: { section: 'vocab', label: 'Từ vựng: chọn từ theo nghĩa', short: 'Chọn từ' },
   grammar: { section: 'grammar', label: 'Ngữ pháp: điền chỗ trống', short: 'Điền chỗ trống' },
   kanji: { section: 'kanji', label: 'Kanji: đọc từ', short: 'Đọc kanji' },
+  // Bài tập của từng bài (js/exercises.js)
+  ...Object.fromEntries(Object.entries(EX_KINDS).map(([k, v]) => [k, { section: v.section, label: v.label, short: v.short }])),
   // Đề thi thử N5 đầy đủ (js/mock.js)
   moji: { section: 'moji', label: 'Thi thử N5: 文字・語彙', short: '文字・語彙' },
   bunpou: { section: 'bunpou', label: 'Thi thử N5: 文法', short: '文法' },
@@ -171,6 +174,7 @@ export function resolveQuestion(id, { deck = [], rng } = {}) {
   const key = id.slice(sep + 1);
   if (kind === 'g') return grammarQuestion(key, rng);
   if (kind === 'j') return findMockQuestion(id);
+  if (kind === 'x') return exerciseQuestion(id, choices => shuffle(choices, rng));
   if (kind === 'k') {
     const kw = KANJI_WORDS.find(x => x.word === key);
     return kw ? kanjiQuestion(kw, rng) : null;
