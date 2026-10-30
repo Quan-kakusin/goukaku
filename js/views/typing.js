@@ -14,8 +14,8 @@ import { wordSetup } from './word-setup.js';
 // Đường dẫn: #/typing (chọn bộ), #/typing/vocab/<bài>, #/typing/sentence/<bài> (câu ví dụ của bài), #/typing/count (số đếm, ngày, tháng).
 export function mount(root, params = []) {
   // Thời gian hiện đáp án (mili giây) trước khi tự sang từ kế, và trước khi ẩn đáp án để gõ lại
-  const SHOW_CORRECT_MS = 3800;
-  const SHOW_RETYPE_MS = 3200;
+  const SHOW_CORRECT_MS = 1800;
+  const SHOW_RETYPE_MS = 1500;
   const SHOW_REVEAL_MS = 3500;
 
   let onKey = null;
@@ -170,10 +170,17 @@ export function mount(root, params = []) {
       });
       input.addEventListener('compositionend', () => {
         composing = false;
+        hold();
       });
+      let frozen = null; // khi khác null: ô nhập bị khóa ở chữ này (đã đúng / đang xem đáp án)
+      const hold = () => {
+        if (frozen === null) return false;
+        if (input.value !== frozen) input.value = frozen;
+        return true;
+      };
       let shown = { raw: '', text: '' }; // romaji đã gõ và chữ đang hiện: để "n" cuối (hiện là ん) còn ghép được với chữ gõ tiếp
       input.addEventListener('input', () => {
-        if (composing) return;
+        if (hold() || composing) return;
         shown = convertInput(input.value, shown, { target: w.kana });
         if (shown.text !== input.value) {
           input.value = shown.text;
@@ -189,6 +196,11 @@ export function mount(root, params = []) {
       const skip = h('button', { class: 'btn', type: 'button', onclick: skipWord }, h('kbd', null, 'Esc'), 'Bỏ qua từ');
       const reveal = h('button', { class: 'btn', type: 'button', onclick: revealAnswer }, h('kbd', null, 'Ctrl+Enter'), 'Xem đáp án');
 
+      // Điện thoại không có phím Enter để sang nhanh: có nút bấm riêng (và Enter trên bàn phím ảo cũng dùng được)
+      const goNext = h('button', { class: 'btn primary', type: 'button', onclick: () => next() }, h('kbd', null, 'Enter'), 'Từ kế ›');
+      const again = h('button', { class: 'btn primary', type: 'button', onclick: () => endReveal() }, h('kbd', null, 'Enter'), 'Gõ lại');
+      goNext.hidden = again.hidden = true;
+
       actions.skip = skipWord;
       actions.reveal = () => revealAnswer();
       actions.endReveal = () => endReveal();
@@ -198,12 +210,13 @@ export function mount(root, params = []) {
         record('revealed');
         state = 'revealing';
         clearTimer();
-        input.disabled = true;
+        frozen = input.value;
         input.classList.add('wrong');
         check.hidden = skip.hidden = reveal.hidden = true;
+        again.hidden = false;
         feedback.replaceChildren(
           h('p', { class: 'result ng', lang: 'ja' }, w.sentence ? `Đáp án: ${w.word}` : `Đáp án: ${w.kana} (${romajiOf(w)})`),
-          h('p', { class: 'muted' }, 'Ghi nhớ nhé, đáp án sẽ ẩn đi rồi bạn gõ lại từ này. (Enter: ẩn ngay)'),
+          h('p', { class: 'muted' }, 'Ghi nhớ nhé, đáp án sẽ ẩn đi rồi bạn gõ lại từ này. Bấm "Gõ lại" để ẩn ngay.'),
         );
         timer = setTimeout(endReveal, SHOW_REVEAL_MS);
       }
@@ -211,10 +224,12 @@ export function mount(root, params = []) {
       function endReveal() {
         clearTimer();
         state = 'typing';
-        input.disabled = false;
+        frozen = null;
         input.value = '';
+        shown = { raw: '', text: '' };
         input.classList.remove('wrong');
         check.hidden = skip.hidden = reveal.hidden = false;
+        again.hidden = true;
         feedback.replaceChildren(h('p', { class: 'muted' }, 'Gõ lại từ vừa xem. Đáp án đã được ẩn.'));
         input.focus();
       }
@@ -222,17 +237,18 @@ export function mount(root, params = []) {
       // Gõ đúng: hiện đáp án một lát rồi tự sang từ kế
       function done(message, ms) {
         state = 'done';
-        input.disabled = true;
+        frozen = input.value;
         input.classList.remove('wrong');
         input.classList.add('right');
         check.hidden = skip.hidden = reveal.hidden = true;
+        goNext.hidden = false;
         // Meme bên trái, đáp án bên phải: gọn chiều cao để cả màn hình vừa một khung nhìn
         feedback.replaceChildren(
           h(
             'div',
             { class: 'feedback-row' },
             h('p', { class: 'result ok' }, message),
-            h('div', { class: 'feedback-text' }, h('p', { class: 'answer-line', lang: 'ja' }, `${w.word} · ${w.vi}`), h('p', { class: 'muted' }, 'Tự sang từ kế… (Enter: sang ngay)')),
+            h('div', { class: 'feedback-text' }, h('p', { class: 'answer-line', lang: 'ja' }, `${w.word} · ${w.vi}`), h('p', { class: 'muted' }, 'Tự sang từ kế sau vài giây…')),
           ),
         );
         clearTimer();
@@ -245,7 +261,8 @@ export function mount(root, params = []) {
           class: 'typing-form',
           onsubmit: e => {
             e.preventDefault();
-            if (state !== 'typing') return;
+            if (state === 'done') return next();
+            if (state === 'revealing') return endReveal();
             const value = finalizeKana(input.value).trim();
             if (!value) {
               feedback.replaceChildren(h('p', { class: 'muted' }, 'Hãy gõ từ này, hoặc bấm "Bỏ qua từ".'));
@@ -266,7 +283,7 @@ export function mount(root, params = []) {
           },
         },
         input,
-        h('div', { class: 'row' }, check, skip, reveal),
+        h('div', { class: 'row' }, check, skip, reveal, goNext, again),
         feedback,
       );
 
