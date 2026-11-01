@@ -151,3 +151,11 @@ test('gõ ー bằng dấu - ở từ katakana: hiện đúng từ, không lẫn
   }
   assert.deepEqual(bad, []);
 });
+
+test("ん trước nguyên âm: gõ đúng romaji hiển thị của từ (kin'en = きんえん, kinen = きねん)", () => {
+  const typeAll = r => finalizeKana([...r].reduce((p, c) => convertInput(p.text + c, p), { raw: '', text: '' }).text);
+  for (const w of [{ kana: 'きんえん' }, { kana: 'きねん' }, { kana: 'ほんや' }, { kana: 'れんあい' }]) {
+    assert.equal(typeAll(romajiOf(w)), w.kana, w.kana);
+  }
+  assert.equal(romajiToKana('san desu'), 'さん です', 'n trước dấu cách là ん');
+});

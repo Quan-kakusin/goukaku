@@ -70,6 +70,11 @@ export function romajiToKana(raw) {
         i += 1;
         continue;
       }
+      if (next && !LETTER.test(next) && next !== "'" && next !== '-') {
+        out += 'ん'; // n trước dấu cách/dấu câu là ん (san desu → さん です)
+        i += 1;
+        continue;
+      }
       if (next === "'") {
         out += 'ん';
         i += 2;

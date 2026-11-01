@@ -10,7 +10,9 @@ test('kana sang romaji', () => {
   assert.equal(toRomaji('まっちゃ'), 'matcha');
   assert.equal(toRomaji('コーヒー'), 'koohii');
   assert.equal(toRomaji('ありがとうございます'), 'arigatougozaimasu');
-  assert.equal(toRomaji('ほんや'), 'honya');
+  assert.equal(toRomaji('ほんや'), "hon'ya", 'ん trước nguyên âm/y có dấu nháy');
+  assert.equal(toRomaji('きんえん'), "kin'en");
+  assert.equal(toRomaji('きねん'), 'kinen');
   assert.equal(toRomaji('お元気'), 'o元気', 'chữ Hán được giữ nguyên');
 });
 

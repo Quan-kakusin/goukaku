@@ -15,7 +15,8 @@ const plain = t =>
     .toLowerCase()
     .normalize('NFD')
     .replace(/[̀-ͯ]/g, '')
-    .replace(/đ/g, 'd');
+    .replace(/đ/g, 'd')
+    .replace(/['’]/g, ''); // kin'en tìm được bằng kinen
 
 export function mount(root) {
   let query = '';

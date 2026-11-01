@@ -32,6 +32,11 @@ export function toRomaji(text) {
     } else if (ch === 'ー') {
       out += /[aiueo]$/.test(out) ? out.slice(-1) : '';
       i += 1;
+    } else if (ch === 'ん') {
+      // ん trước nguyên âm hoặc y viết là n' (kin'en = きんえん) để khác kinen = きねん
+      const t = readToken(chars, i + 1);
+      out += t && /^[aiueoy]/.test(t.r) ? "n'" : 'n';
+      i += 1;
     } else {
       const t = readToken(chars, i);
       out += t ? t.r : ch;
