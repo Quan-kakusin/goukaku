@@ -8,10 +8,11 @@ import { convertInput, finalizeKana, scriptOf } from '../ime.js';
 import { isCorrect, scoreTyping } from '../words.js';
 import { verdict } from '../exam.js';
 import { praise, miss } from '../insights.js';
-import { shuffle } from '../questions.js';
+import { shuffle, KANJI_WORDS } from '../questions.js';
+import { recordKey } from '../kanji-study.js';
 import { wordSetup } from './word-setup.js';
 
-// Đường dẫn: #/typing (chọn bộ), #/typing/vocab/<bài>, #/typing/sentence/<bài> (câu ví dụ của bài), #/typing/count (số đếm, ngày, tháng).
+// Đường dẫn: #/typing (chọn bộ), #/typing/vocab/<bài>, #/typing/sentence/<bài> (câu ví dụ của bài), #/typing/count (số đếm, ngày, tháng), #/typing/kanji (nhìn từ kanji, gõ cách đọc).
 export function mount(root, params = []) {
   // Thời gian hiện đáp án (mili giây) trước khi tự sang từ kế, và trước khi ẩn đáp án để gõ lại
   const SHOW_CORRECT_MS = 1800;
@@ -31,25 +32,28 @@ export function mount(root, params = []) {
   };
 
   // ---------- Chọn bộ từ ----------
-  // Ba nguồn: từ vựng theo bài · câu ví dụ theo bài · số đếm, ngày, tháng, năm, trợ số từ
+  // Bốn nguồn: từ vựng theo bài · câu ví dụ theo bài · số đếm, ngày, tháng, năm, trợ số từ · từ kanji N5 (nhìn kanji, gõ cách đọc)
   const MODES = [
     ['vocab', 'Từ vựng'],
     ['sentence', 'Câu ví dụ'],
     ['count', 'Số đếm・ngày tháng'],
+    ['kanji', 'Đọc kanji'],
   ];
+  const KANJI_GROUPS = [...new Set(KANJI_WORDS.map(w => w.group))].map((name, i) => ({ id: `k${i}`, label: name, words: KANJI_WORDS.filter(w => w.group === name) }));
   let mode = MODES.some(([id]) => id === params[0]) ? params[0] : 'vocab';
   const initialLesson = Number(params[1]);
   let initial = Number.isInteger(initialLesson) && initialLesson >= 1 ? [initialLesson] : undefined;
 
-  function countSetup() {
-    const chosen = new Set(COUNTING_GROUPS.map(g => g.id));
+  // Chọn nhóm rồi gõ: dùng cho số đếm・ngày tháng và cho từ kanji (mỗi nhóm là một danh sách từ)
+  function groupSetup({ groups, intro, label, extra }) {
+    const chosen = new Set(groups.map(g => g.id));
     const mix = h('input', { type: 'checkbox', id: 'cnt-shuffle', checked: true });
     const note = h('p', { class: 'muted', role: 'status', 'aria-live': 'polite' });
     const startBtn = h('button', { class: 'btn primary', type: 'button', onclick: begin }, 'Bắt đầu gõ');
-    const boxes = COUNTING_GROUPS.map(g =>
+    const boxes = groups.map(g =>
       h('label', { class: 'check', for: `cnt-${g.id}` }, h('input', { type: 'checkbox', id: `cnt-${g.id}`, checked: true, onchange: e => { if (e.target.checked) chosen.add(g.id); else chosen.delete(g.id); update(); } }), h('span', null, `${g.label} · ${g.words.length}`)),
     );
-    const words = () => COUNTING_GROUPS.filter(g => chosen.has(g.id)).flatMap(g => g.words);
+    const words = () => groups.filter(g => chosen.has(g.id)).flatMap(g => g.words);
     function update() {
       const n = words().length;
       startBtn.disabled = n === 0;
@@ -58,19 +62,19 @@ export function mount(root, params = []) {
     function begin() {
       const list = words();
       if (!list.length) return toast('Hãy chọn ít nhất một nhóm.');
-      return session(mix.checked ? shuffle(list) : list, { label: 'Số đếm・ngày tháng', shuffle: mix.checked });
+      return session(mix.checked ? shuffle(list) : list, { label, shuffle: mix.checked, ...extra });
     }
     const setAll = on => () => {
       for (const b of boxes) b.querySelector('input').checked = on;
       chosen.clear();
-      if (on) COUNTING_GROUPS.forEach(g => chosen.add(g.id));
+      if (on) groups.forEach(g => chosen.add(g.id));
       update();
     };
     update();
     return h(
       'section',
       { class: 'panel' },
-      h('p', { class: 'muted' }, 'Xem nghĩa (số, ngày, tháng, năm, giờ, số lượng) rồi gõ cách đọc bằng romaji, ví dụ "ngày 4" → よっか, "3 người" → さんにん, "2 tờ" → にまい. Những số có hai cách đọc (4 = よん/し, 7 = なな/しち) gõ cách nào cũng đúng. Cần xem lại cách đọc thì mở ', h('a', { href: '#/counting' }, 'bảng tra số đếm'), '.'),
+      intro,
       h('p', { class: 'eyebrow' }, 'Chọn nhóm cần luyện'),
       h('div', { class: 'count-groups' }, ...boxes),
       h('div', { class: 'row' }, h('button', { class: 'btn small', type: 'button', onclick: setAll(true) }, 'Chọn tất cả'), h('button', { class: 'btn small', type: 'button', onclick: setAll(false) }, 'Bỏ chọn')),
@@ -91,7 +95,18 @@ export function mount(root, params = []) {
     );
     const form =
       mode === 'count'
-        ? countSetup()
+        ? groupSetup({
+            groups: COUNTING_GROUPS,
+            label: 'Số đếm・ngày tháng',
+            intro: h('p', { class: 'muted' }, 'Xem nghĩa (số, ngày, tháng, năm, giờ, số lượng) rồi gõ cách đọc bằng romaji, ví dụ "ngày 4" → よっか, "3 người" → さんにん, "2 tờ" → にまい. Những số có hai cách đọc (4 = よん/し, 7 = なな/しち) gõ cách nào cũng đúng. Cần xem lại cách đọc thì mở ', h('a', { href: '#/counting' }, 'bảng tra số đếm'), '.'),
+          })
+        : mode === 'kanji'
+          ? groupSetup({
+              groups: KANJI_GROUPS,
+              label: 'Đọc kanji',
+              extra: { kanji: true },
+              intro: h('p', { class: 'muted' }, 'Nhìn một từ viết bằng kanji (kèm nghĩa gợi ý) rồi gõ cách đọc bằng romaji, ví dụ 日曜日 → にちようび. Từ lấy từ 80 chữ trong tab ', h('a', { href: '#/kanji' }, 'Kanji'), '. Muốn nhớ mặt chữ thì làm thêm bài "Chọn chữ Hán" ở đó.'),
+            })
         : mode === 'sentence'
           ? wordSetup({
               intro: 'Xem nghĩa tiếng Việt của một câu ví dụ trong bài rồi gõ cả câu bằng romaji (bỏ qua dấu cách và dấu câu). Gõ câu giúp nhớ công thức và trật tự từ. Trợ từ は, へ, を gõ theo chữ viết (ha, he, wo) hay theo cách đọc (wa, e, o) đều được.',
@@ -146,6 +161,7 @@ export function mount(root, params = []) {
       if (recorded) return;
       recorded = true;
       results.push({ word: words[idx], outcome, tries });
+      if (opts.kanji) recordKey(`kw:${words[idx].word}`, outcome === 'first'); // gõ đúng ngay mới tính là nhớ
     }
 
     function next() {
@@ -162,7 +178,7 @@ export function mount(root, params = []) {
       const w = words[idx];
       barFill.style.width = `${(idx / words.length) * 100}%`;
       footBtn.textContent = results.length ? 'Dừng và xem kết quả' : 'Chọn lại bộ từ';
-      const input = h('input', { type: 'text', id: 'ty-input', class: 'typing-input', autocomplete: 'off', autocapitalize: 'off', spellcheck: 'false', 'aria-describedby': 'ty-feedback', 'aria-label': 'Gõ từ tiếng Nhật của nghĩa này bằng romaji, ô tự đổi sang chữ kana', placeholder: { kata: 'gõ romaji, tự đổi thành カタカナ…', mixed: 'gõ romaji, tự đổi thành ひらがな・カタカナ…', hira: 'gõ romaji, tự đổi thành ひらがな…' }[scriptOf(w.kana)], lang: 'ja' });
+      const input = h('input', { type: 'text', id: 'ty-input', class: 'typing-input', autocomplete: 'off', autocapitalize: 'off', spellcheck: 'false', 'aria-describedby': 'ty-feedback', 'aria-label': opts.kanji ? 'Gõ cách đọc của từ kanji này bằng romaji, ô tự đổi sang chữ kana' : 'Gõ từ tiếng Nhật của nghĩa này bằng romaji, ô tự đổi sang chữ kana', placeholder: { kata: 'gõ romaji, tự đổi thành カタカナ…', mixed: 'gõ romaji, tự đổi thành ひらがな・カタカナ…', hira: 'gõ romaji, tự đổi thành ひらがな…' }[scriptOf(w.kana)], lang: 'ja' });
       // Tự đổi romaji sang hiragana khi gõ, trừ lúc đang dùng bộ gõ tiếng Nhật của hệ điều hành (composition)
       let composing = false;
       input.addEventListener('compositionstart', () => {
@@ -248,7 +264,7 @@ export function mount(root, params = []) {
             'div',
             { class: 'feedback-row' },
             h('p', { class: 'result ok' }, message),
-            h('div', { class: 'feedback-text' }, h('p', { class: 'answer-line', lang: 'ja' }, `${w.word} · ${w.vi}`), h('p', { class: 'muted' }, 'Tự sang từ kế sau vài giây…')),
+            h('div', { class: 'feedback-text' }, h('p', { class: 'answer-line', lang: 'ja' }, opts.kanji ? `${w.word} = ${w.kana} · ${w.vi}` : `${w.word} · ${w.vi}`), h('p', { class: 'muted' }, 'Tự sang từ kế sau vài giây…')),
           ),
         );
         clearTimer();
@@ -289,11 +305,13 @@ export function mount(root, params = []) {
 
       card.replaceChildren(
         h('div', { class: 'card-top' }, h('span', { class: 'chip' }, `Từ ${idx + 1}/${words.length}`), h('span', { class: 'chip' }, `${opts.label}`)),
-        h('div', { class: 'fc-meaning' }, w.vi),
+        opts.kanji
+          ? h('div', null, h('div', { class: 'fc-meaning kanji-prompt', lang: 'ja' }, w.word), h('p', { class: 'muted' }, w.vi))
+          : h('div', { class: 'fc-meaning' }, w.vi),
         form,
       );
       input.focus();
-      live.textContent = `Từ ${idx + 1} trên ${words.length}. Nghĩa: ${w.vi}.`;
+      live.textContent = opts.kanji ? `Từ ${idx + 1} trên ${words.length}. Từ kanji: ${w.word}. Nghĩa: ${w.vi}.` : `Từ ${idx + 1} trên ${words.length}. Nghĩa: ${w.vi}.`;
     }
 
     show(
@@ -338,7 +356,7 @@ export function mount(root, params = []) {
           'section',
           { class: 'panel' },
           h('h2', null, 'Từ cần luyện thêm'),
-          h('ul', { class: 'word-miss' }, ...missed.map(r => h('li', null, speakButton(r.word.kana), h('span', { class: 'vword', lang: 'ja' }, r.word.word), r.word.sentence ? null : h('span', { class: 'romaji' }, romajiOf(r.word)), h('span', { class: 'muted' }, r.word.vi)))),
+          h('ul', { class: 'word-miss' }, ...missed.map(r => h('li', null, speakButton(r.word.kana), h('span', { class: 'vword', lang: 'ja' }, r.word.word), opts.kanji && h('span', { lang: 'ja' }, r.word.kana), r.word.sentence ? null : h('span', { class: 'romaji' }, romajiOf(r.word)), h('span', { class: 'muted' }, r.word.vi)))),
         ),
     );
   }

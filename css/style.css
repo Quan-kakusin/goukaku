@@ -2250,6 +2250,11 @@ input[type="radio"] {
   overflow-wrap: anywhere;
 }
 
+/* Đề "đọc kanji": từ kanji to như chữ trên thẻ học */
+.fc-meaning.kanji-prompt {
+  font-size: var(--font-size-display);
+}
+
 .fc-sub {
   display: flex;
   align-items: center;
@@ -2926,4 +2931,21 @@ rt {
   .exam-side .exam-actions .btn {
     flex: 1;
   }
+}
+
+/* ---- Ôn lặp lại kanji ---- */
+.srs-boxes {
+  display: flex;
+  flex-direction: column;
+  margin: var(--space-3) 0;
+  padding: 0;
+  list-style: none;
+}
+
+.srs-boxes li {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-2) 0;
+  border-bottom: var(--border-width) solid var(--color-border-subtle);
 }

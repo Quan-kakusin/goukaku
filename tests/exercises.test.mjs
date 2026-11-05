@@ -159,3 +159,35 @@ test('trang Bài tập gọn: bốn dạng lớn, mỗi dạng trộn nhiều lo
   const kindOf = id => (id.startsWith('x:') ? id.split(':')[2] : id.split(':')[0]);
   assert.ok(new Set(pickFromPreset(right, 12).map(kindOf)).size >= 3, 'mục Chọn câu đúng phải trộn nhiều loại câu');
 });
+
+test('kanji: câu "chọn chữ Hán" hợp lệ cho mọi từ, và dựng lại được từ id', async () => {
+  const { KANJI_WORDS, kanjiPickQuestion, resolveQuestion, KINDS } = await import('../js/questions.js');
+  assert.ok(KINDS.kanjipick);
+  for (const kw of KANJI_WORDS) {
+    const q = kanjiPickQuestion(kw);
+    assert.equal(q.choices.length, 4, kw.word);
+    assert.equal(new Set(q.choices).size, 4, `${kw.word}: lựa chọn trùng`);
+    assert.ok(q.choices.includes(q.answer) && q.answer === kw.word);
+    const wrongWords = KANJI_WORDS.filter(x => q.choices.includes(x.word) && x.word !== kw.word);
+    assert.ok(wrongWords.every(x => x.kana !== kw.kana && x.vi !== kw.vi), `${kw.word}: đáp án nhiễu cũng đúng`);
+    assert.equal(resolveQuestion(q.id).answer, kw.word);
+    assert.equal(q.plain, true, 'không hiện furigana vì lộ đáp án');
+  }
+});
+
+test('kanji: gõ romaji của cách đọc thì được chấm đúng cho mọi từ', async () => {
+  const { KANJI_WORDS } = await import('../js/questions.js');
+  const { convertInput, finalizeKana } = await import('../js/ime.js');
+  const { isCorrect } = await import('../js/words.js');
+  const { romajiOf } = await import('../js/romaji.js');
+  for (const w of KANJI_WORDS) {
+    let prev = { raw: '', text: '' };
+    for (const c of romajiOf(w)) prev = convertInput(prev.text + c, prev, { target: w.kana });
+    assert.ok(isCorrect(finalizeKana(prev.text), w), `${w.word} (${w.kana}) gõ ${romajiOf(w)} → ${prev.text}`);
+  }
+});
+
+test('kanji: câu đọc kanji cũng không hiện furigana', async () => {
+  const { KANJI_WORDS, kanjiQuestion } = await import('../js/questions.js');
+  assert.ok(KANJI_WORDS.every(kw => kanjiQuestion(kw).plain === true));
+});

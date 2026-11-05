@@ -1,13 +1,14 @@
 // Sinh câu hỏi trắc nghiệm từ dữ liệu. Không đụng tới storage/DOM nên test được với rng cố định.
 //
-// Câu hỏi: { id, type, kind, prompt, hint, choices, answer, explain, tag, lesson?, promptLang?, choiceLang?, ref }
+// Câu hỏi: { id, type, kind, prompt, hint, choices, answer, explain, tag, lesson?, promptLang?, choiceLang?, plain?, ref }  (plain: không hiện furigana)
 //   type = phần của đề: 'vocab' | 'grammar' | 'kanji' | 'moji' | 'bunpou' | 'dokkai' | 'choukai' (bốn loại cuối là đề thi thử N5).   kind = dạng câu hỏi (xem KINDS).
 //   ref  = nơi tra lại kiến thức liên quan khi giải thích: { patternId } | { wordId } | { word }.
 // id ổn định để sổ lỗi sai và lịch sử đề dựng lại được câu hỏi:
-//   'v:<id từ>' chọn nghĩa · 'w:<id từ>' chọn từ theo nghĩa · 'g:<id câu>' ngữ pháp · 'k:<từ>' kanji · 'j:<đề>:<mục>-<số>' đề thi thử N5 · 'x:<bài>:<dạng>:<mã>' bài tập của bài (js/exercises.js).
+//   'v:<id từ>' chọn nghĩa · 'w:<id từ>' chọn từ theo nghĩa · 'g:<id câu>' ngữ pháp · 'k:<từ>' đọc kanji · 'p:<từ>' chọn chữ Hán · 'h:<chữ>' Hán Việt → chữ · 'j:<đề>:<mục>-<số>' đề thi thử N5 · 'x:<bài>:<dạng>:<mã>' bài tập của bài (js/exercises.js).
 
 import { GRAMMAR } from '../data/lessons.js';
 import { KANJI } from '../data/kanji-n5.js';
+import { KANJI_NOTES, CONFUSABLE } from '../data/kanji-notes.js';
 import { findMockQuestion } from './mock.js';
 import { EX_KINDS, exerciseQuestion } from './exercises.js';
 
@@ -27,6 +28,8 @@ export const KINDS = {
   word: { section: 'vocab', label: 'Từ vựng: chọn từ theo nghĩa', short: 'Chọn từ' },
   grammar: { section: 'grammar', label: 'Ngữ pháp: điền chỗ trống', short: 'Điền chỗ trống' },
   kanji: { section: 'kanji', label: 'Kanji: đọc từ', short: 'Đọc kanji' },
+  kanjipick: { section: 'kanji', label: 'Kanji: chọn chữ Hán', short: 'Chọn chữ Hán' },
+  kanjihv: { section: 'kanji', label: 'Kanji: Hán Việt → chữ', short: 'Hán Việt → chữ' },
   // Bài tập của từng bài (js/exercises.js)
   ...Object.fromEntries(Object.entries(EX_KINDS).map(([k, v]) => [k, { section: v.section, label: v.label, short: v.short }])),
   // Đề thi thử N5 đầy đủ (js/mock.js)
@@ -112,9 +115,63 @@ export function kanjiQuestion(kw, rng) {
     answer: kw.kana,
     explain: `${kw.word} đọc là ${kw.kana}, nghĩa là "${kw.vi}".`,
     tag: 'Kanji',
+    plain: true, // furigana trên chữ Hán chính là đáp án nên không hiện
     promptLang: 'ja',
     choiceLang: 'ja',
     ref: { word: kw.word },
+  };
+}
+
+// ---- Kanji: nghĩa + cách đọc → chọn đúng từ viết bằng kanji (luyện nhận mặt chữ) ----
+// Đáp án nhiễu ưu tiên từ có chung chữ Hán hoặc cùng nhóm (日曜日 / 月曜日 / 火曜日), loại từ trùng cách đọc hoặc nghĩa.
+export function kanjiPickQuestion(kw, rng) {
+  const others = shuffle(KANJI_WORDS.filter(x => x.word !== kw.word && x.kana !== kw.kana && x.vi !== kw.vi), rng);
+  const shares = x => [...x.word].some(c => /[一-鿿]/.test(c) && kw.word.includes(c));
+  const score = x => (shares(x) ? 2 : 0) + (x.group === kw.group ? 1 : 0);
+  const wrong = firstUnique([...others].sort((a, b) => score(b) - score(a)), x => x.word, 3);
+  return {
+    id: `p:${kw.word}`,
+    type: 'kanji',
+    kind: 'kanjipick',
+    prompt: `${kw.kana} · ${kw.vi}`,
+    hint: 'Chọn từ viết bằng kanji đúng',
+    choices: shuffle([kw.word, ...wrong.map(x => x.word)], rng),
+    answer: kw.word,
+    explain: `${kw.kana} (${kw.vi}) viết là ${kw.word}.`,
+    tag: 'Kanji',
+    plain: true,
+    choiceLang: 'ja',
+    ref: { word: kw.word },
+  };
+}
+
+// ---- Kanji: Hán Việt + nghĩa → chọn đúng một chữ Hán; đáp án nhiễu ưu tiên chữ dễ nhầm (data/kanji-notes.js) ----
+export const KANJI_BY_CHAR = new Map(KANJI.map(k => [k.char, k]));
+
+// Các chữ dễ nhầm với một chữ (giống hình hoặc giống nghĩa), không lặp
+export const confusablesOf = char => [...new Set(CONFUSABLE.filter(g => g.includes(char)).flatMap(g => g.filter(c => c !== char)))];
+
+export function kanjiHvQuestion(k, rng) {
+  const mates = confusablesOf(k.char);
+  const sameGroup = KANJI.filter(x => x.group === k.group && x.char !== k.char && !mates.includes(x.char)).map(x => x.char);
+  const rest = KANJI.filter(x => x.char !== k.char && !mates.includes(x.char) && x.group !== k.group).map(x => x.char);
+  // Chữ dễ nhầm trước; thiếu thì lấy chữ cùng nhóm chủ đề, cuối cùng là chữ bất kỳ
+  const wrong = [...shuffle(mates, rng), ...shuffle(sameGroup, rng), ...shuffle(rest, rng)].slice(0, 3);
+  const note = KANJI_NOTES[k.char];
+  const mateText = mates.length ? ` Dễ nhầm với ${mates.map(c => `${c} (${KANJI_BY_CHAR.get(c).hv}, ${KANJI_BY_CHAR.get(c).vi})`).join(', ')}.` : '';
+  return {
+    id: `h:${k.char}`,
+    type: 'kanji',
+    kind: 'kanjihv',
+    prompt: `${k.vi} · ${k.hv}`,
+    hint: 'Chọn chữ Hán đúng',
+    choices: shuffle([k.char, ...wrong], rng),
+    answer: k.char,
+    explain: `${k.char} là ${k.hv}, nghĩa là "${k.vi}".${note?.[1] ? ` Cách nhớ: ${note[1]}` : ''}${mateText}`,
+    tag: 'Kanji',
+    plain: true,
+    choiceLang: 'ja',
+    ref: { char: k.char },
   };
 }
 
@@ -175,9 +232,14 @@ export function resolveQuestion(id, { deck = [], rng } = {}) {
   if (kind === 'g') return grammarQuestion(key, rng);
   if (kind === 'j') return findMockQuestion(id);
   if (kind === 'x') return exerciseQuestion(id, choices => shuffle(choices, rng));
-  if (kind === 'k') {
+  if (kind === 'h') {
+    const k = KANJI_BY_CHAR.get(key);
+    return k ? kanjiHvQuestion(k, rng) : null;
+  }
+  if (kind === 'k' || kind === 'p') {
     const kw = KANJI_WORDS.find(x => x.word === key);
-    return kw ? kanjiQuestion(kw, rng) : null;
+    if (!kw) return null;
+    return kind === 'k' ? kanjiQuestion(kw, rng) : kanjiPickQuestion(kw, rng);
   }
   const w = deck.find(x => x.id === key);
   if (!w) return null;
@@ -197,6 +259,14 @@ export function choiceNote(q, text, words) {
   if (q.kind === 'word') {
     const w = words.find(x => x.word === text);
     return w ? `${show(w)} nghĩa là "${w.vi}".` : null;
+  }
+  if (q.kind === 'kanjihv') {
+    const k = KANJI_BY_CHAR.get(text);
+    return k ? `${k.char} là ${k.hv}, nghĩa là "${k.vi}".` : null;
+  }
+  if (q.kind === 'kanjipick') {
+    const kw = KANJI_WORDS.find(x => x.word === text);
+    return kw ? `${kw.word} đọc là ${kw.kana}, nghĩa là "${kw.vi}".` : null;
   }
   if (q.kind === 'kanji') {
     const kw = KANJI_WORDS.find(x => x.kana === text);

@@ -7,6 +7,7 @@ const KEY = 'nihongo-n5:v1';
 export const QUESTION_TYPES = ['vocab', 'kanji', 'grammar', 'moji', 'bunpou', 'dokkai', 'choukai'];
 export const MAX_EXAMS = 40;
 const MAX_ITEMS = 200;
+const MAX_SRS = 600;
 
 const isObj = v => v !== null && typeof v === 'object' && !Array.isArray(v);
 const num = v => typeof v === 'number' && Number.isFinite(v);
@@ -24,6 +25,7 @@ export const defaults = () => ({
   custom: [], // từ người dùng tự thêm: { id, word, kana, vi, ex, exVi, lesson }
   kana: {}, // ký tự → { ok, ng }: kana nào hay sai thì được hỏi nhiều hơn
   mistakes: {}, // id câu hỏi → { type, wrong, streak, last } — xem js/mistakes.js
+  srs: {}, // mục kanji ('kw:<từ>' hoặc 'kc:<chữ>') → { box, due, ok, ng } — xem js/srs.js
   lessons: {}, // số bài → { best, last, attempts, at }: điểm đề của đúng bài đó
   exams: [], // lịch sử làm đề, mới nhất trước — xem normalizeExam
   settings: { hideSuggested: {} },
@@ -93,6 +95,14 @@ export function normalize(raw) {
     for (const [id, m] of entries(raw.mistakes)) {
       if (isObj(m) && QUESTION_TYPES.includes(m.type) && num(m.wrong) && num(m.streak) && num(m.last)) {
         out.mistakes[id] = { type: m.type, wrong: m.wrong, streak: m.streak, last: m.last };
+      }
+    }
+  }
+
+  if (isObj(raw.srs)) {
+    for (const [key, s] of entries(raw.srs).slice(0, MAX_SRS)) {
+      if (/^k[wc]:.{1,20}$/.test(key) && isObj(s) && Number.isInteger(s.box) && s.box >= 1 && s.box <= 5 && num(s.due)) {
+        out.srs[key] = { box: s.box, due: s.due, ok: num(s.ok) ? Math.max(0, s.ok) : 0, ng: num(s.ng) ? Math.max(0, s.ng) : 0 };
       }
     }
   }

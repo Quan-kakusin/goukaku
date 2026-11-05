@@ -9,6 +9,7 @@ import { takePending, setLast } from '../exam-session.js';
 import { toItem, makeEntry, formatDuration, spokenDuration } from '../exam.js';
 import { addExam, recordLessonScore, save } from '../storage.js';
 import { recordAnswer } from '../mistakes.js';
+import { recordQuestion as recordKanjiSrs } from '../kanji-study.js';
 import { praise, miss } from '../insights.js';
 import { KINDS } from '../questions.js';
 import { lessonTitle } from '../deck.js';
@@ -369,7 +370,10 @@ export function mount(root) {
 
     // Câu đã trả lời đúng/sai đều đi vào Sổ lỗi sai: sai thì thêm vào, đúng hai lần liên tiếp thì gỡ ra
     questions.forEach((q, i) => {
-      if (answers[i] !== null) recordAnswer(q, items[i].ok);
+      if (answers[i] !== null) {
+        recordAnswer(q, items[i].ok);
+        recordKanjiSrs(q.id, items[i].ok); // câu kanji còn đi vào lịch ôn lặp lại
+      }
     });
 
     const entry = makeEntry({ id: newId(), title, mode: cfg.mode, items, seconds, limit: totalLimit, paper: cfg.paper });
