@@ -1,0 +1,57 @@
+// Một phần của bộ đề ÔN TẬP N5 (bám 25 bài Minna no Nihongo Sơ cấp 1): shard g1, 40 câu ngữ pháp điền từ. Nội dung ORIGINAL do app soạn, không phải đề thật của JLPT.
+// Mỗi câu thuộc đúng một bài (trường lesson) và chỉ dùng từ vựng, ngữ pháp của các bài 1 đến lesson. Không dùng chữ Hán.
+
+const Q = (prompt, choices, answer, explain, extra = {}) => ({ prompt, choices, answer, explain, ...extra });
+
+const g1 = {
+          id: 'g1',
+          kind: 'bunpou',
+          mondai: '問題1',
+          title: 'Điền từ vào câu',
+          instr: '（　　）に なにを いれますか。1・2・3・4から いちばん いい ものを ひとつ えらんで ください。',
+          instrVi: 'Chọn từ hoặc mẫu câu thích hợp điền vào chỗ trống.',
+          questions: [
+            Q('A「ミラーさんは がくせいですか。」B「いいえ、がくせい（　）ありません。かいしゃいんです。」', ['じゃ', 'です', 'の', 'も'], 1, 'Bài 1: phủ định của câu danh từ là N じゃ ありません. Sau じゃ phải là ありません; です không đi cùng ありません, の và も không tạo thành phủ định.', { lesson: 1 }),
+            Q('（　）かばんは わたしのです。', ['これ', 'この', 'ここ', 'こちら'], 2, 'Bài 2: この đứng trước danh từ (この かばん = cái cặp này). これ là đại từ đứng một mình, không đi kèm danh từ phía sau; ここ và こちら chỉ nơi chốn.', { lesson: 2 }),
+            Q('A「おてあらいは（　）ですか。」B「あそこです。」', ['なん', 'だれ', 'どこ', 'いくら'], 3, 'Bài 3: hỏi địa điểm dùng どこ (ở đâu), và B trả lời bằng あそこ (ở đằng kia). なん hỏi vật, だれ hỏi người, いくら hỏi giá.', { lesson: 3 }),
+            Q('わたしは ごご ごじはん（　）かえります。', ['を', 'で', 'と', 'に'], 4, 'Bài 4: mốc thời gian cụ thể (ごじはん) đi với に: ごじはんに かえります. を, で, と không dùng để chỉ thời điểm.', { lesson: 4 }),
+            Q('きのうは やすみでした。わたしは はたらき（　）。', ['ます', 'ません', 'ませんでした', 'ました'], 3, 'Bài 4: きのう là quá khứ, hành động không xảy ra thì dùng V ませんでした (đã không làm). ません là phủ định hiện tại, ました là khẳng định quá khứ.', { lesson: 4 }),
+            Q('あした ともだちの うちへ タクシー（　）いきます。', ['で', 'を', 'に', 'が'], 1, 'Bài 5: phương tiện đi lại đi với で: タクシーで いきます (đi bằng taxi). を, に, が không chỉ phương tiện.', { lesson: 5 }),
+            Q('まいあさ コーヒー（　）のみます。', ['が', 'を', 'に', 'で'], 2, 'Bài 6: tân ngữ của ngoại động từ đi với を: コーヒーを のみます (uống cà phê). が, に, で không đánh dấu tân ngữ trong câu này.', { lesson: 6 }),
+            Q('A「あした いっしょに えいがを み（　）。」B「ええ、いいですね。」', ['ません', 'ました', 'ませんでした', 'ませんか'], 4, 'Bài 6: V ませんか là lời rủ (xem phim cùng nhé?), và B đồng ý bằng いいですね. ません, ました, ませんでした không có nghĩa rủ rê và không hợp với あした.', { lesson: 6 }),
+            Q('はし（　）ごはんを たべます。', ['に', 'を', 'で', 'が'], 3, 'Bài 7: công cụ, phương tiện làm việc gì dùng で: はしで たべます (ăn bằng đũa). に, を, が không chỉ công cụ.', { lesson: 7 }),
+            Q('わたしは ミラーさん（　）はなを もらいました。', ['を', 'に', 'で', 'へ'], 2, 'Bài 7: もらいます nhận từ ai thì người cho đi với に: ミラーさんに はなを もらいました (nhận hoa từ anh Miller). を đã dùng cho はな, で và へ không dùng với người cho.', { lesson: 7 }),
+            Q('ここは きれい（　）まちです。', ['な', 'の', 'い', 'に'], 1, 'Bài 8: tính từ đuôi な đứng trước danh từ thì giữ な: きれいな まち. の dùng giữa hai danh từ, い là đuôi của tính từ い, に không đứng trước danh từ.', { lesson: 8 }),
+            Q('A「どんな スポーツ（　）すきですか。」B「サッカーが すきです。」', ['を', 'に', 'が', 'の'], 3, 'Bài 9: đối tượng của すきです được đánh dấu bằng が: スポーツが すきです. を, に, の không đi với すき.', { lesson: 9 }),
+            Q('あした しごとが あります（　）、きょうは はやく ねます。', ['まで', 'ごろ', 'ぐらい', 'から'], 4, 'Bài 9: ～から nêu lý do (vì ngày mai có việc nên hôm nay đi ngủ sớm). まで chỉ giới hạn, ごろ và ぐらい là khoảng thời gian, không nêu lý do.', { lesson: 9 }),
+            Q('つくえの うえに ほん（　）ノートが あります。', ['の', 'や', 'を', 'で'], 2, 'Bài 10: N1 や N2 liệt kê một vài thứ tiêu biểu: ほんや ノート (sách, vở...). の, を, で không dùng để liệt kê hai danh từ.', { lesson: 10 }),
+            Q('へやには だれ（　）いません。', ['も', 'が', 'を', 'に'], 1, 'Bài 10: từ để hỏi + も + phủ định nghĩa là không có ai cả: だれも いません. が, を, に không tạo nghĩa toàn phần phủ định này.', { lesson: 10 }),
+            Q('テレビが いち（　）あります。', ['まい', 'ほん', 'だい', 'かい'], 3, 'Bài 11: máy móc, xe cộ đếm bằng だい: いちだい. まい là vật mỏng, ほん là vật dài, かい là số lần hoặc tầng.', { lesson: 11 }),
+            Q('わたしは いっしゅうかん（　）にかい えいがを みます。', ['を', 'が', 'と', 'に'], 4, 'Bài 11: khoảng thời gian + に + số lần: いっしゅうかんに にかい (một tuần hai lần). を, が, と không dùng để chỉ tần suất.', { lesson: 11 }),
+            Q('A「きのうの パーティーは どうでしたか。」B「とても にぎやか（　）。」', ['です', 'でした', 'ました', 'じゃ ありません'], 2, 'Bài 12: きのう là quá khứ nên câu tính từ đuôi な dùng でした: にぎやかでした. です là hiện tại, ました chỉ dùng cho động từ, じゃ ありません là phủ định.', { lesson: 12 }),
+            Q('とうきょうは おおさか（　）おおきいです。', ['より', 'から', 'まで', 'ほど'], 1, 'Bài 12: N1 は N2 より Tính từ: N1 hơn N2. から và まで chỉ điểm bắt đầu, kết thúc; ほど đi với phủ định nên không hợp ở đây.', { lesson: 12 }),
+            Q('わたしは あした にほんへ いき（　）です。', ['たく', 'たかった', 'たい', 'ます'], 3, 'Bài 13: V ます bỏ ます + たいです là muốn làm V: いきたいです. たく cần theo sau bằng ない/なる, たかった là quá khứ, còn ます không đi với です.', { lesson: 13 }),
+            Q('あした デパートへ くつを かい（　）いきます。', ['で', 'を', 'が', 'に'], 4, 'Bài 13: đi đến đâu để làm gì thì dùng V ます (bỏ ます) + に いきます: かいに いきます (đi mua). で, を, が không nối động từ với いきます theo nghĩa mục đích.', { lesson: 13 }),
+            Q('ここに なまえを（　）ください。', ['かきて', 'かいて', 'かって', 'かいで'], 2, 'Bài 14: động từ nhóm I có đuôi き chuyển sang て-form thành いて: かきます → かいて. かきて là cách chia sai; かって là て-form của かいます (mua); かいで là dạng chia của およぎます kiểu ぎ → いで.', { lesson: 14 }),
+            Q('A「その にもつ、おもいですね。もち（　）か。」B「ありがとう ございます。」', ['ましょう', 'ます', 'ました', 'て'], 1, 'Bài 14: V ましょうか là lời đề nghị giúp đỡ (để tôi mang cho nhé?). ますか và ましたか là câu hỏi thông thường, て đứng trước か không tạo thành câu hợp lý.', { lesson: 14 }),
+            Q('せんせい、ここで しゃしんを とっ（　）いいですか。', ['ては', 'ないで', 'ながら', 'ても'], 4, 'Bài 15: V て も いいですか là xin phép làm V. ては đi với いけません (cấm), ないで và ながら không tạo thành mẫu xin phép này.', { lesson: 15 }),
+            Q('びょういんでは たばこを すって（　）いけません。', ['も', 'は', 'が', 'を'], 2, 'Bài 15: V て は いけません là cấm làm V. も dùng trong てもいいです (được phép); が và を không đứng sau V て trong mẫu này.', { lesson: 15 }),
+            Q('ごはんを たべて（　）、テレビを みます。', ['まで', 'ごろ', 'から', 'ぐらい'], 3, 'Bài 16: V1 て から、V2 nghĩa là làm V1 xong rồi mới làm V2. まで, ごろ, ぐらい không đứng sau thể て theo kiểu này.', { lesson: 16 }),
+            Q('あしたは やすみですから、はやく おき（　）いいです。', ['なくても', 'なければ', 'ないで', 'なくて'], 1, 'Bài 17: V ない + なくても いいです là không cần phải làm V. なければ đi với なりません (phải làm), ないで và なくて không kết hợp với いいです theo nghĩa này.', { lesson: 17 }),
+            Q('しゅくだいは あした（　）だして ください。', ['まで', 'までに', 'から', 'ごろ'], 2, 'Bài 17: N までに V chỉ hạn chót, nộp trước ngày mai. まで dùng cho hành động kéo dài tới thời điểm đó, から chỉ điểm bắt đầu, ごろ là khoảng chừng một thời điểm.', { lesson: 17 }),
+            Q('ミラーさんは ピアノを ひく（　）が できます。', ['もの', 'ところ', 'こと', 'ため'], 3, 'Bài 18: V nguyên dạng + こと が できます là có thể làm V. もの, ところ, ため mang nghĩa khác (đồ vật, nơi chốn/lúc, vì mục đích).', { lesson: 18 }),
+            Q('ねる（　）、ほんを よみます。', ['あとで', 'ときに', 'ながら', 'まえに'], 4, 'Bài 18: V nguyên dạng + まえに: trước khi làm V (trước khi ngủ thì đọc sách). あとで đi với thể た, ときに và ながら không hợp nghĩa ở đây.', { lesson: 18 }),
+            Q('にちようびは ほんを よんだり、テレビを（　）します。', ['みたり', 'みて', 'みた', 'みる'], 1, 'Bài 19: V1 たり、V2 たり します là liệt kê các việc làm tiêu biểu, nên vế sau cũng phải là みたり. みて, みた, みる không tạo mẫu liệt kê này.', { lesson: 19 }),
+            Q('もう はるですね。だんだん あたたかく（　）。', ['します', 'なります', 'あります', 'います'], 2, 'Bài 19: Tính từ い bỏ い + くなります: trở nên (thay đổi tự nhiên). Tính từ い + くします là làm cho thành, あります/います là tồn tại.', { lesson: 19 }),
+            Q('ともだちと はなして います。A「きのう パーティーに（　）？」', ['いく', 'いって', 'いった', 'いかない'], 3, 'Bài 20: nói chuyện với bạn bè dùng thể thông thường; きのう (hôm qua) nên cần thể quá khứ thông thường: いった. いく là hiện tại, いって là thể て, いかない là phủ định hiện tại.', { lesson: 20 }),
+            Q('ともだちと はなして います。A「きのうの しゅくだい、むずかし（　）？」', ['い', 'かった', 'くない', 'かったら'], 2, 'Bài 20: tính từ い ở thể thông thường quá khứ là ～かった (むずかしかった). むずかしい là hiện tại nên không hợp với きのう, むずかしくない là phủ định hiện tại, ～かったら là mệnh đề điều kiện (chưa học).', { lesson: 20 }),
+            Q('ミラーさんは あした パーティーに（　）と おもいます。', ['きます', 'くる', 'きて', 'きた'], 2, 'Bài 21: trước と おもいます dùng thể thông thường; あした (tương lai) nên là くる. きます là thể lịch sự, きて là thể て, きた là quá khứ.', { lesson: 21 }),
+            Q('ちょっと おちゃ（　）のみませんか。', ['でも', 'から', 'まで', 'より'], 1, 'Bài 21: N でも V là rủ rê một cách nhẹ nhàng, nêu ví dụ (trà hay gì đó cũng được). から, まで, より không tạo nghĩa này.', { lesson: 21 }),
+            Q('これは きのう ミラーさんが（　）ケーキです。', ['つくります', 'つくって', 'つくった', 'つくる'], 3, 'Bài 22: mệnh đề bổ nghĩa cho danh từ dùng thể thông thường; きのう là quá khứ nên là つくった ケーキ. つくります là lịch sự, つくって là thể て, つくる là hiện tại.', { lesson: 22 }),
+            Q('この ボタンを おす（　）、きっぷが でます。', ['が', 'を', 'に', 'と'], 4, 'Bài 23: V nguyên dạng + と、～ nghĩa là hễ làm V thì (kết quả đương nhiên): おすと きっぷが でます. が, を, に không tạo nghĩa điều kiện tự nhiên này.', { lesson: 23 }),
+            Q('ミラーさんは わたしに ほんを かして（　）。', ['くれました', 'あげました', 'もらいました', 'やりました'], 1, 'Bài 24: V て くれます là người khác làm gì cho mình (わたしに). あげました là mình làm cho người khác, もらいました phải đổi chủ thể thành mình, やりました là cho người dưới.', { lesson: 24 }),
+            Q('もし おかねが（　）、りょこうに いきたいです。', ['あっても', 'あったり', 'あるが', 'あったら'], 4, 'Bài 25: もし + V たら nêu điều kiện giả định (nếu có tiền thì muốn đi du lịch). あっても nghĩa là dù có, あったり là liệt kê, あるが là có nhưng.', { lesson: 25 }),
+          ],
+};
+
+export default { sections: [g1] };

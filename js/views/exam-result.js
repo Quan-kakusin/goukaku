@@ -14,7 +14,7 @@ import { LESSONS } from '../../data/lessons.js';
 import { KANJI } from '../../data/kanji-n5.js';
 import { formulaBox, examplesList } from './parts.js';
 import { launchFromIds, launchMock } from './launch.js';
-import { scoreMock, findMockQuestion, PASS } from '../mock.js';
+import { scoreMock, findMockQuestion, getPaper, PASS } from '../mock.js';
 
 const STATUS = {
   right: { mark: '✓', label: 'Đúng' },
@@ -190,8 +190,11 @@ export function mount(root, params = []) {
   const [onlyLesson] = lessonSet;
   const backToLesson = !entry.paper && lessonSet.size === 1 && onlyLesson > 0 ? onlyLesson : 0;
 
-  const mock = entry.paper ? scoreMock(entry.items) : null;
-  const mockPanel = mock?.partial
+  const isReview = Boolean(entry.paper && getPaper(entry.paper)?.review);
+  const mock = entry.paper && !isReview ? scoreMock(entry.items) : null;
+  const mockPanel = isReview
+    ? h('section', { class: 'panel mock-score' }, h('h2', null, 'Bộ đề ôn tập'), h('p', { class: 'muted' }, 'Bộ này để nhớ lại kiến thức theo bài nên không quy ra điểm đậu/rớt của JLPT. Xem phần "Theo bài" bên dưới: bài nào dưới 70% thì mở bài đó ôn lại rồi làm lại những câu sai. Sẵn sàng thì sang các đề thi thử.'))
+    : mock?.partial
     ? h(
         'section',
         { class: 'panel mock-score' },

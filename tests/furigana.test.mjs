@@ -60,6 +60,7 @@ test('đề thi: câu đọc/viết kanji (問題1, 問題2) không hiện furig
   for (const p of PAPERS) {
     const qs = buildPaper(p).questions;
     for (const q of qs) assert.equal(q.plain, q.kind === 'moji' && /:m[12]-/.test(q.id), q.id);
-    assert.ok(qs.some(q => q.plain) && qs.some(q => !q.plain));
+    // Bộ ôn tập không có kanji nên không có câu đọc/viết kanji
+    assert.ok((p.review || qs.some(q => q.plain)) && qs.some(q => !q.plain));
   }
 });

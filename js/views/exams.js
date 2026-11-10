@@ -113,8 +113,11 @@ export function mount(root, params) {
     paintVoice();
     paintVoiceFns.push(paintVoice);
     const attempts = s.exams.filter(e => e.paper === paper.id);
-    const lastTry = attempts[0] ? scoreMock(attempts[0].items) : null;
-    const lastLine = !lastTry
+    const lastTry = attempts[0] && !paper.review ? scoreMock(attempts[0].items) : null;
+    const lastReview = attempts[0] && paper.review ? attempts[0] : null;
+    const lastLine = lastReview
+      ? h('p', null, h('strong', null, 'Lần gần nhất: '), `${lastReview.percent}% đúng (${lastReview.items.filter(i => i.ok).length}/${lastReview.items.length} câu) · `, h('a', { href: `#/exam/result/${lastReview.id}` }, 'Xem lại và xem bài yếu'))
+      : !lastTry
       ? null
       : lastTry.partial
         ? h('p', null, h('strong', null, 'Lần gần nhất: '), `${lastTry.partScores.map(p => `${p.label} ${p.correct}/${p.total} câu`).join(' · ')} (làm một phần) `, h('a', { href: `#/exam/result/${attempts[0].id}` }, 'Xem lại'))
@@ -134,7 +137,7 @@ export function mount(root, params) {
     return h(
       'section',
       { class: 'panel mock-card' },
-      h('p', { class: 'eyebrow' }, 'Như thi thật'),
+      h('p', { class: 'eyebrow' }, paper.review ? 'Ôn tập trước khi thi thử' : 'Như thi thật'),
       h('h2', null, paper.title),
       h('p', { class: 'muted' }, `${full.questions.length} câu, ${full.parts.length} phần thi nối tiếp, mỗi phần có giờ riêng. Bạn có thể làm cả đề hoặc chỉ từng phần. Nộp phần nào rồi thì không quay lại được. ${paper.desc ?? ''}`),
       h(
@@ -142,7 +145,9 @@ export function mount(root, params) {
         { class: 'mock-parts' },
         ...full.parts.map(p => h('li', null, h('strong', { lang: 'ja' }, p.name), ` · ${p.vi} · ${p.to - p.from + 1} câu · ${Math.round(p.limitSec / 60)} phút`)),
       ),
-      h('p', { class: 'muted' }, hasListening
+      paper.review
+        ? h('p', { class: 'muted' }, 'Không tính điểm đậu/rớt của JLPT: bộ này chỉ để nhớ lại kiến thức. Mỗi câu gắn với một bài, kết quả cho biết bài nào dưới 70% để bạn ôn lại. Giờ làm rộng rãi, làm cả bộ hoặc từng phần đều được.')
+        : h('p', { class: 'muted' }, hasListening
         ? `Chấm theo thang 180 điểm của JLPT N5: đậu khi tổng từ ${PASS.total}/180, phần chữ・ngữ pháp・đọc hiểu từ ${PASS.written}/120 và phần nghe từ ${PASS.listening}/60. Điểm là ước tính theo tỉ lệ câu đúng, không phải điểm quy đổi chính thức.`
         : `Đề này chưa có phần nghe 聴解. Chấm phần chữ・ngữ pháp・đọc hiểu theo thang 120 điểm, mức sàn của JLPT N5 là ${PASS.written}/120. Điểm là ước tính theo tỉ lệ câu đúng, không phải điểm quy đổi chính thức.`),
       hasListening && h('label', { class: 'check', for: `f-listen-${index}` }, listenBox, h('span', null, needsVoice ? 'Có phần nghe 聴解 (dùng giọng đọc của trình duyệt)' : 'Có phần nghe 聴解 (file âm thanh của đề)')),
@@ -157,6 +162,6 @@ export function mount(root, params) {
     );
   }
 
-  show(root, testTabs('exams'), h('h1', null, 'Thi thử N5'), ...PAPERS.map(paperCard), statsPanel, history);
+  show(root, testTabs('exams'), h('h1', null, 'Thi thử N5'), ...PAPERS.filter(x => x.review).map(x => paperCard(x, PAPERS.indexOf(x))), ...PAPERS.filter(x => !x.review).map(x => paperCard(x, PAPERS.indexOf(x))), statsPanel, history);
   return undefined;
 }
