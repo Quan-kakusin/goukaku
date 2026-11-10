@@ -2,8 +2,11 @@
 
 import de01 from '../data/jlpt/de-01.js';
 import de02 from '../data/jlpt/de-02.js';
+import de03 from '../data/jlpt/de-03.js';
+import de04 from '../data/jlpt/de-04.js';
+import de05 from '../data/jlpt/de-05.js';
 
-export const PAPERS = [de01, de02];
+export const PAPERS = [de01, de02, de03, de04, de05];
 export const getPaper = id => PAPERS.find(p => p.id === id) ?? null;
 
 // Thang điểm N5: 言語知識(文字・語彙・文法)・読解 120 điểm, 聴解 60 điểm. Đậu khi tổng ≥ 80 và mỗi phần ≥ mức sàn.
