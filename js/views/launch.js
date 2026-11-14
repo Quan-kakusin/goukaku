@@ -55,7 +55,8 @@ export function launchFromIds({ ids, title, mode = 'practice', minutes, record =
 
 // Thi thử N5 theo đề thật: các phần thi nối tiếp, mỗi phần có giờ riêng, nộp phần này mới sang phần sau.
 // partKeys: chỉ làm những phần này (không truyền thì làm cả đề).
-export function launchMock({ paperId, includeListening = true, partKeys = null }) {
+// instant: giải từng câu (chế độ luyện tập): chọn xong hiện đúng/sai và lời giải ngay, không chia phần có giờ, không đổi được đáp án.
+export function launchMock({ paperId, includeListening = true, partKeys = null, instant = false }) {
   const paper = getPaper(paperId);
   if (!paper) {
     toast('Không tìm thấy đề này.');
@@ -68,6 +69,10 @@ export function launchMock({ paperId, includeListening = true, partKeys = null }
   }
   const subset = parts.length < buildPaper(paper, { includeListening }).parts.length;
   const title = subset ? `${paper.title} · ${parts.map(p => p.name).join(' + ')}` : paper.title;
+  if (instant) {
+    startExam({ title, questions, mode: 'practice', paper: paper.id, record: true, returnHash: '#/exams' });
+    return true;
+  }
   startExam({ title, questions, mode: 'exam', parts, paper: paper.id, record: true });
   return true;
 }

@@ -1,6 +1,6 @@
 // Trang Thi thử N5: đề thi thử đầy đủ, thống kê và lịch sử các lần làm. Luyện tập theo bài nằm trong trang từng bài.
 
-import { h, show, toast, testTabs } from '../ui.js';
+import { h, show, toast, testTabs, setPressed } from '../ui.js';
 import { getState, save, clearExams } from '../storage.js';
 import { SECTIONS } from '../questions.js';
 import { historyStats, verdict, formatDuration, PASS_PERCENT } from '../exam.js';
@@ -124,6 +124,21 @@ export function mount(root, params) {
         : lastTry.total !== null
         ? h('p', null, h('strong', null, 'Lần gần nhất: '), `${lastTry.total}/${lastTry.max} điểm · `, h('span', { class: `verdict ${lastTry.passed ? 'pass' : 'fail'}` }, lastTry.passed ? 'Đạt' : 'Chưa đạt'), ' ', h('a', { href: `#/exam/result/${attempts[0].id}` }, 'Xem lại'))
         : h('p', null, h('strong', null, 'Lần gần nhất: '), `${lastTry.written.score}/${lastTry.written.max} điểm (phần chữ・ngữ pháp・đọc hiểu) · `, h('span', { class: `verdict ${lastTry.written.pass ? 'pass' : 'fail'}` }, lastTry.written.pass ? 'Đạt mức sàn' : 'Dưới mức sàn'), ' ', h('a', { href: `#/exam/result/${attempts[0].id}` }, 'Xem lại'));
+    // Cách làm: giải từng câu (chọn xong hiện đúng/sai và lời giải ngay, không tính giờ) hoặc như thi thật (nộp rồi mới xem đáp án, có giờ)
+    // Bộ ôn tập mặc định giải từng câu vì mục đích là nhớ kiến thức; đề thi thử mặc định như thi thật.
+    let instant = Boolean(paper.review);
+    const modeNote = h('p', { class: 'muted', role: 'status', 'aria-live': 'polite' });
+    const modeBtns = [
+      [true, 'Giải từng câu'],
+      [false, 'Như thi thật'],
+    ].map(([value, label]) => h('button', { class: 'seg', type: 'button', onclick: () => { instant = value; paintMode(); } }, label));
+    function paintMode() {
+      modeBtns.forEach((b, i) => setPressed(b, (i === 0) === instant));
+      modeNote.textContent = instant
+        ? 'Chọn đáp án xong là thấy đúng/sai và lời giải ngay, không tính giờ, không đổi được đáp án. Cuối cùng vẫn có kết quả toàn bộ.'
+        : 'Không báo đúng/sai trong lúc làm, có đồng hồ từng phần; nộp phần nào rồi thì không quay lại. Đáp án và lời giải xem sau khi nộp.';
+    }
+    paintMode();
     // partKeys: null là làm cả đề, ngược lại chỉ làm các phần có key này
     function start(partKeys) {
       const chosen = full.parts.filter(p => !partKeys || partKeys.includes(p.key));
@@ -132,7 +147,7 @@ export function mount(root, params) {
       const voiceNeeded = includeListening && chosen.some(p => p.listening && !p.audioFiles);
       if (voiceNeeded && !hasJapaneseVoice() && !confirm('Chưa phát hiện giọng đọc tiếng Nhật nên phần nghe sẽ không phát được. Bỏ phần nghe và thi các phần còn lại?')) return;
       if (voiceNeeded && !hasJapaneseVoice()) includeListening = false;
-      launchMock({ paperId: paper.id, includeListening, partKeys });
+      launchMock({ paperId: paper.id, includeListening, partKeys, instant });
     }
     return h(
       'section',
@@ -153,6 +168,9 @@ export function mount(root, params) {
       hasListening && h('label', { class: 'check', for: `f-listen-${index}` }, listenBox, h('span', null, needsVoice ? 'Có phần nghe 聴解 (dùng giọng đọc của trình duyệt)' : 'Có phần nghe 聴解 (file âm thanh của đề)')),
       needsVoice && voiceNote,
       lastLine,
+      h('p', { class: 'eyebrow' }, 'Cách làm'),
+      h('div', { class: 'segmented', role: 'group', 'aria-label': 'Cách làm' }, ...modeBtns),
+      modeNote,
       h(
         'div',
         { class: 'row mock-start' },

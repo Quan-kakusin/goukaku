@@ -269,7 +269,7 @@ export function mount(root, params = []) {
     h(
       'div',
       { class: 'row result-actions' },
-      h('button', { class: 'btn primary', type: 'button', onclick: () => (entry.paper ? launchMock({ paperId: entry.paper, includeListening: entry.items.some(i => i.section === 'choukai'), partKeys: [...new Set(entry.items.map(i => findMockQuestion(i.qid)?.partKey).filter(Boolean))] }) : launchFromIds({ ids: entry.items.map(i => i.qid), title: entry.title, mode: entry.mode, minutes: entry.limit ? entry.limit / 60 : undefined })) }, 'Làm lại đề này'),
+      h('button', { class: 'btn primary', type: 'button', onclick: () => (entry.paper ? launchMock({ paperId: entry.paper, instant: entry.mode === 'practice', includeListening: entry.items.some(i => i.section === 'choukai'), partKeys: [...new Set(entry.items.map(i => findMockQuestion(i.qid)?.partKey).filter(Boolean))] }) : launchFromIds({ ids: entry.items.map(i => i.qid), title: entry.title, mode: entry.mode, minutes: entry.limit ? entry.limit / 60 : undefined })) }, 'Làm lại đề này'),
       h('button', { class: 'btn', type: 'button', disabled: wrongIds.length === 0, onclick: () => launchFromIds({ ids: wrongIds, title: `Luyện lại câu sai: ${entry.title}`, mode: 'practice' }) }, `Luyện lại câu sai (${wrongIds.length})`),
       h('a', { class: 'btn', href: '#/notebook' }, 'Sổ lỗi sai'),
       backToLesson && h('a', { class: 'btn', href: `#/lesson/${backToLesson}/exercise` }, `Bài tập Bài ${backToLesson}`),
