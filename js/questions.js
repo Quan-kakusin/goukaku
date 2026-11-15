@@ -10,6 +10,7 @@ import { GRAMMAR } from '../data/lessons.js';
 import { KANJI } from '../data/kanji-n5.js';
 import { KANJI_NOTES, CONFUSABLE } from '../data/kanji-notes.js';
 import { KATAKANA } from '../data/katakana-n5.js';
+import { toRomaji } from './romaji.js';
 import { findMockQuestion } from './mock.js';
 import { EX_KINDS, exerciseQuestion } from './exercises.js';
 
@@ -188,7 +189,7 @@ const kataLike = (a, b) => {
 };
 
 function kataNote(k) {
-  return `${k.kana} nghĩa là "${k.vi}" (từ gốc: ${k.en}).${k.note ? ` ${k.note}` : ''}`;
+  return `${k.kana} (đọc: ${toRomaji(k.kana)}) nghĩa là "${k.vi}" (từ gốc: ${k.en}).${k.note ? ` ${k.note}` : ''}`;
 }
 
 // Nhìn katakana, chọn nghĩa đúng
@@ -323,11 +324,11 @@ export function choiceNote(q, text, words) {
   }
   if (q.kind === 'kataword') {
     const k = KATA_BY_KANA.get(text);
-    return k ? `${k.kana} nghĩa là "${k.vi}".` : null;
+    return k ? `${k.kana} (đọc: ${toRomaji(k.kana)}) nghĩa là "${k.vi}".` : null;
   }
   if (q.kind === 'katameaning') {
     const k = KATAKANA.find(x => x.vi === text);
-    return k ? `"${text}" là nghĩa của ${k.kana}.` : null;
+    return k ? `"${text}" là nghĩa của ${k.kana} (đọc: ${toRomaji(k.kana)}).` : null;
   }
   if (q.kind === 'kanjihv') {
     const k = KANJI_BY_CHAR.get(text);
