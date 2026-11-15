@@ -2968,6 +2968,11 @@ rt {
   border-bottom: var(--border-width) solid var(--color-border-subtle);
 }
 
+.kata-word-cell {
+  display: flex;
+  flex-direction: column;
+}
+
 .kata-word {
   font-size: var(--font-size-md);
   font-weight: var(--font-weight-strong);

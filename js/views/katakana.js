@@ -8,6 +8,7 @@ import { startExam } from '../exam-session.js';
 import { defaultMinutes } from '../exam.js';
 import { buildSession, sessionQuestions, srsSummary } from '../katakana-study.js';
 import { INTERVAL_DAYS } from '../srs.js';
+import { toRomaji } from '../romaji.js';
 
 const COUNTS = [10, 20, 30, 59];
 const NEW_COUNTS = [0, 5, 10, 20];
@@ -49,7 +50,7 @@ export function mount(root, params = []) {
         'li',
         { class: 'kata-row' },
         speakButton(k.kana),
-        h('span', { class: 'kata-word', lang: 'ja' }, k.kana),
+        h('span', { class: 'kata-word-cell' }, h('span', { class: 'kata-word', lang: 'ja' }, k.kana), h('small', { class: 'kata-romaji muted' }, toRomaji(k.kana))),
         reveal
           ? h('span', { class: 'kata-meaning' }, h('span', null, k.vi), h('small', { class: 'muted' }, `${k.en}${k.note ? ` · ${k.note}` : ''}`))
           : h('button', { class: 'btn small', type: 'button', onclick: () => { opened.add(k.kana); draw(); } }, 'Hiện nghĩa'),
@@ -64,7 +65,7 @@ export function mount(root, params = []) {
         groupSelect(state.group, v => { state.group = v; draw(); }),
         h('label', { class: 'check', for: 'kata-hide' }, h('input', { type: 'checkbox', id: 'kata-hide', checked: state.hide, onchange: e => { state.hide = e.target.checked; opened.clear(); draw(); } }), h('span', null, 'Che nghĩa để tự kiểm tra')),
       ),
-      h('p', { class: 'muted' }, `${shown.length} từ. Bấm biểu tượng loa để nghe. Phần "từ gốc" là tiếng Anh (hoặc tiếng nước ngoài) mà từ này mượn: đoán nghĩa từ đó sẽ nhớ nhanh hơn.`),
+      h('p', { class: 'muted' }, `${shown.length} từ. Dưới mỗi từ là cách đọc bằng romaji (ー đọc kéo dài: koohii = コーヒー). Bấm biểu tượng loa để nghe. Phần "từ gốc" là tiếng Anh (hoặc tiếng nước ngoài) mà từ này mượn: đoán nghĩa từ đó sẽ nhớ nhanh hơn.`),
       h('ul', { class: 'kata-list' }, ...rows),
     );
   }
