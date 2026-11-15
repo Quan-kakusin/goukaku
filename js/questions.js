@@ -4,11 +4,12 @@
 //   type = phần của đề: 'vocab' | 'grammar' | 'kanji' | 'moji' | 'bunpou' | 'dokkai' | 'choukai' (bốn loại cuối là đề thi thử N5).   kind = dạng câu hỏi (xem KINDS).
 //   ref  = nơi tra lại kiến thức liên quan khi giải thích: { patternId } | { wordId } | { word }.
 // id ổn định để sổ lỗi sai và lịch sử đề dựng lại được câu hỏi:
-//   'v:<id từ>' chọn nghĩa · 'w:<id từ>' chọn từ theo nghĩa · 'g:<id câu>' ngữ pháp · 'k:<từ>' đọc kanji · 'p:<từ>' chọn chữ Hán · 'h:<chữ>' Hán Việt → chữ · 'j:<đề>:<mục>-<số>' đề thi thử N5 · 'x:<bài>:<dạng>:<mã>' bài tập của bài (js/exercises.js).
+//   'v:<id từ>' chọn nghĩa · 'w:<id từ>' chọn từ theo nghĩa · 'g:<id câu>' ngữ pháp · 'k:<từ>' đọc kanji · 'p:<từ>' chọn chữ Hán · 'h:<chữ>' Hán Việt → chữ · 'kam:<từ>' / 'kaw:<từ>' katakana · 'j:<đề>:<mục>-<số>' đề thi thử N5 · 'x:<bài>:<dạng>:<mã>' bài tập của bài (js/exercises.js).
 
 import { GRAMMAR } from '../data/lessons.js';
 import { KANJI } from '../data/kanji-n5.js';
 import { KANJI_NOTES, CONFUSABLE } from '../data/kanji-notes.js';
+import { KATAKANA } from '../data/katakana-n5.js';
 import { findMockQuestion } from './mock.js';
 import { EX_KINDS, exerciseQuestion } from './exercises.js';
 
@@ -30,6 +31,8 @@ export const KINDS = {
   kanji: { section: 'kanji', label: 'Kanji: đọc từ', short: 'Đọc kanji' },
   kanjipick: { section: 'kanji', label: 'Kanji: chọn chữ Hán', short: 'Chọn chữ Hán' },
   kanjihv: { section: 'kanji', label: 'Kanji: Hán Việt → chữ', short: 'Hán Việt → chữ' },
+  katameaning: { section: 'vocab', label: 'Katakana: chọn nghĩa', short: 'Katakana → nghĩa' },
+  kataword: { section: 'vocab', label: 'Katakana: chọn từ theo nghĩa', short: 'Nghĩa → katakana' },
   // Bài tập của từng bài (js/exercises.js)
   ...Object.fromEntries(Object.entries(EX_KINDS).map(([k, v]) => [k, { section: v.section, label: v.label, short: v.short }])),
   // Đề thi thử N5 đầy đủ (js/mock.js)
@@ -175,6 +178,59 @@ export function kanjiHvQuestion(k, rng) {
   };
 }
 
+// ---- Katakana hay gặp trong đề N5 (data/katakana-n5.js, 59 từ) ----
+export const KATA_BY_KANA = new Map(KATAKANA.map(k => [k.kana, k]));
+
+// Độ giống nhau của hai từ katakana: chữ chung, cùng nhóm chủ đề, độ dài gần nhau (để đáp án nhiễu dễ nhầm như アパート / デパート)
+const kataLike = (a, b) => {
+  const shared = [...new Set(a.kana)].filter(c => b.kana.includes(c)).length;
+  return shared + (a.group === b.group ? 1 : 0) - Math.abs([...a.kana].length - [...b.kana].length) * 0.3;
+};
+
+function kataNote(k) {
+  return `${k.kana} nghĩa là "${k.vi}" (từ gốc: ${k.en}).${k.note ? ` ${k.note}` : ''}`;
+}
+
+// Nhìn katakana, chọn nghĩa đúng
+export function kataMeaningQuestion(k, rng) {
+  const others = shuffle(KATAKANA.filter(x => x.kana !== k.kana && x.vi !== k.vi), rng);
+  const wrong = firstUnique([...others].sort((a, b) => kataLike(k, b) - kataLike(k, a)), x => x.vi, 3).map(x => x.vi);
+  return {
+    id: `kam:${k.kana}`,
+    type: 'vocab',
+    kind: 'katameaning',
+    prompt: k.kana,
+    hint: 'Chọn nghĩa đúng',
+    choices: shuffle([k.vi, ...wrong], rng),
+    answer: k.vi,
+    explain: kataNote(k),
+    tag: 'Katakana',
+    promptLang: 'ja',
+    plain: true,
+    ref: { kana: k.kana },
+  };
+}
+
+// Nhìn nghĩa tiếng Việt, chọn đúng chữ katakana (đáp án nhiễu là từ giống hình hoặc cùng nhóm)
+export function kataWordQuestion(k, rng) {
+  const others = shuffle(KATAKANA.filter(x => x.kana !== k.kana), rng);
+  const wrong = [...others].sort((a, b) => kataLike(k, b) - kataLike(k, a)).slice(0, 3).map(x => x.kana);
+  return {
+    id: `kaw:${k.kana}`,
+    type: 'vocab',
+    kind: 'kataword',
+    prompt: k.vi,
+    hint: 'Chọn từ katakana đúng',
+    choices: shuffle([k.kana, ...wrong], rng),
+    answer: k.kana,
+    explain: kataNote(k),
+    tag: 'Katakana',
+    plain: true,
+    choiceLang: 'ja',
+    ref: { kana: k.kana },
+  };
+}
+
 // ---- Từ vựng ----
 // Đáp án nhiễu ưu tiên cùng bài để dễ nhầm hơn; loại các từ trùng nghĩa với đáp án.
 function distractorWords(w, deck, rng, filter) {
@@ -232,6 +288,11 @@ export function resolveQuestion(id, { deck = [], rng } = {}) {
   if (kind === 'g') return grammarQuestion(key, rng);
   if (kind === 'j') return findMockQuestion(id);
   if (kind === 'x') return exerciseQuestion(id, choices => shuffle(choices, rng));
+  if (kind === 'kam' || kind === 'kaw') {
+    const k = KATA_BY_KANA.get(key);
+    if (!k) return null;
+    return kind === 'kam' ? kataMeaningQuestion(k, rng) : kataWordQuestion(k, rng);
+  }
   if (kind === 'h') {
     const k = KANJI_BY_CHAR.get(key);
     return k ? kanjiHvQuestion(k, rng) : null;
@@ -259,6 +320,14 @@ export function choiceNote(q, text, words) {
   if (q.kind === 'word') {
     const w = words.find(x => x.word === text);
     return w ? `${show(w)} nghĩa là "${w.vi}".` : null;
+  }
+  if (q.kind === 'kataword') {
+    const k = KATA_BY_KANA.get(text);
+    return k ? `${k.kana} nghĩa là "${k.vi}".` : null;
+  }
+  if (q.kind === 'katameaning') {
+    const k = KATAKANA.find(x => x.vi === text);
+    return k ? `"${text}" là nghĩa của ${k.kana}.` : null;
   }
   if (q.kind === 'kanjihv') {
     const k = KANJI_BY_CHAR.get(text);

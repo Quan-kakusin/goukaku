@@ -2949,3 +2949,43 @@ rt {
   padding: var(--space-2) 0;
   border-bottom: var(--border-width) solid var(--color-border-subtle);
 }
+
+/* ---- Katakana thi ---- */
+.kata-list {
+  display: flex;
+  flex-direction: column;
+  margin: var(--space-3) 0;
+  padding: 0;
+  list-style: none;
+}
+
+.kata-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 11rem) minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) 0;
+  border-bottom: var(--border-width) solid var(--color-border-subtle);
+}
+
+.kata-word {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-strong);
+  overflow-wrap: anywhere;
+}
+
+.kata-meaning {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 520px) {
+  .kata-row {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .kata-row .kata-meaning,
+  .kata-row > .btn {
+    grid-column: 1 / -1;
+  }
+}

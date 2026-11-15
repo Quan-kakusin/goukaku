@@ -7,6 +7,7 @@ import * as exams from './views/exams.js';
 import * as exam from './views/exam.js';
 import * as vocab from './views/vocab.js';
 import * as counting from './views/counting.js';
+import * as katakana from './views/katakana.js';
 import * as lessons from './views/lessons.js';
 import * as lesson from './views/lesson.js';
 import * as kanji from './views/kanji.js';
@@ -28,6 +29,7 @@ const routes = {
   flash: { view: flash, title: 'Thẻ flash', nav: 'words' },
   typing: { view: typing, title: 'Gõ romaji', nav: 'words' },
   counting: { view: counting, title: 'Số đếm', nav: 'words' },
+  katakana: { view: katakana, title: 'Katakana', nav: 'words' },
   kanji: { view: kanji, title: 'Kanji', nav: 'write' },
   kana: { view: kana, title: 'Kana', nav: 'write' },
   notebook: { view: notebook, title: 'Sổ lỗi sai', nav: 'test' },

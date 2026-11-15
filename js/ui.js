@@ -137,7 +137,7 @@ function tabRow(label, items, active) {
 }
 
 export const wordsTabs = active =>
-  tabRow('Các phần của mục Từ vựng', [['flash', 'Thẻ flash'], ['typing', 'Gõ romaji'], ['vocab', 'Tra từ'], ['counting', 'Số đếm']], active);
+  tabRow('Các phần của mục Từ vựng', [['flash', 'Thẻ flash'], ['typing', 'Gõ romaji'], ['vocab', 'Tra từ'], ['counting', 'Số đếm'], ['katakana', 'Katakana']], active);
 export const writeTabs = active =>
   tabRow('Các phần của mục Chữ viết', [['kana', 'Kana'], ['kanji', 'Kanji']], active);
 export const testTabs = active =>

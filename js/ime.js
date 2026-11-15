@@ -1,4 +1,4 @@
-import { toKatakana } from './kana-data.js';
+import { toKatakana, toHiragana } from './kana-data.js';
 
 // Gõ romaji, ô nhập tự đổi sang hiragana như bàn phím tiếng Nhật: "hoteru" → ほてる, "kyou" → きょう, "n" + phụ âm → ん, "-" → ー.
 // Hàm thuần nên test được. Phần còn dở (vd "k", "sh", "n" ở cuối) giữ nguyên dạng chữ Latin cho tới khi gõ đủ.
@@ -128,9 +128,19 @@ export function convertInput(value, prev = { raw: '', text: '' }, { target = '' 
 const KATA = /^[ァ-ヺー]$/;
 
 // Ký tự thứ i của text lấy chữ viết (hiragana/katakana) giống ký tự thứ i của từ đích; phần dư hoặc chưa đổi được giữ nguyên
+// Nếu từ đích có ー (コーヒー) mà người học gõ nguyên âm kéo dài (koohii → こおひい), chỗ đó hiện ー, nhưng chỉ khi các chữ đứng trước đã khớp từ đích
+// (nếu không khớp, vị trí giữa chữ đã gõ và từ đích bị lệch, ví dụ ティ gõ "ti" thành ち, thì giữ nguyên).
+const VOWEL_KANA = /^[ぁあぃいぅうぇえぉおァアィイゥウェエォオ]$/;
+const sameKana = (a, b) => [...a].map(toHiragana).join('') === [...b].map(toHiragana).join('');
 export function matchScript(text, target) {
   if (!target) return text;
-  return [...text].map((c, i) => (KATA.test(target[i] ?? '') ? toKatakana(c) : c)).join('');
+  const t = [...target];
+  const out = [];
+  [...text].forEach((c, i) => {
+    if (t[i] === 'ー' && VOWEL_KANA.test(c) && sameKana(out.join(''), t.slice(0, i).join(''))) out.push('ー');
+    else out.push(KATA.test(t[i] ?? '') ? toKatakana(c) : c);
+  });
+  return out.join('');
 }
 
 // 'kata' nếu cả từ là katakana, 'mixed' nếu có xen katakana (コピーします), còn lại 'hira'

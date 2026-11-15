@@ -10,9 +10,10 @@ import { verdict } from '../exam.js';
 import { praise, miss } from '../insights.js';
 import { shuffle, KANJI_WORDS } from '../questions.js';
 import { recordKey } from '../kanji-study.js';
+import { KATAKANA, KATAKANA_GROUPS } from '../../data/katakana-n5.js';
 import { wordSetup } from './word-setup.js';
 
-// Đường dẫn: #/typing (chọn bộ), #/typing/vocab/<bài>, #/typing/sentence/<bài> (câu ví dụ của bài), #/typing/count (số đếm, ngày, tháng), #/typing/kanji (nhìn từ kanji, gõ cách đọc).
+// Đường dẫn: #/typing (chọn bộ), #/typing/vocab/<bài>, #/typing/sentence/<bài> (câu ví dụ của bài), #/typing/count (số đếm, ngày, tháng), #/typing/kanji (nhìn từ kanji, gõ cách đọc), #/typing/kata (59 từ katakana hay gặp trong đề).
 export function mount(root, params = []) {
   // Thời gian hiện đáp án (mili giây) trước khi tự sang từ kế, và trước khi ẩn đáp án để gõ lại
   const SHOW_CORRECT_MS = 1800;
@@ -38,7 +39,9 @@ export function mount(root, params = []) {
     ['sentence', 'Câu ví dụ'],
     ['count', 'Số đếm・ngày tháng'],
     ['kanji', 'Đọc kanji'],
+    ['kata', 'Katakana thi'],
   ];
+  const KATA_GROUPS = KATAKANA_GROUPS.map(g => ({ id: g.id, label: g.label, words: KATAKANA.filter(k => k.group === g.id).map(k => ({ word: k.kana, kana: k.kana, vi: k.vi, alts: k.alts })) }));
   const KANJI_GROUPS = [...new Set(KANJI_WORDS.map(w => w.group))].map((name, i) => ({ id: `k${i}`, label: name, words: KANJI_WORDS.filter(w => w.group === name) }));
   let mode = MODES.some(([id]) => id === params[0]) ? params[0] : 'vocab';
   const initialLesson = Number(params[1]);
@@ -100,6 +103,13 @@ export function mount(root, params = []) {
             label: 'Số đếm・ngày tháng',
             intro: h('p', { class: 'muted' }, 'Xem nghĩa (số, ngày, tháng, năm, giờ, số lượng) rồi gõ cách đọc bằng romaji, ví dụ "ngày 4" → よっか, "3 người" → さんにん, "2 tờ" → にまい. Những số có hai cách đọc (4 = よん/し, 7 = なな/しち) gõ cách nào cũng đúng. Cần xem lại cách đọc thì mở ', h('a', { href: '#/counting' }, 'bảng tra số đếm'), '.'),
           })
+        : mode === 'kata'
+          ? groupSetup({
+              groups: KATA_GROUPS,
+              label: 'Katakana thi',
+              extra: { kata: true },
+              intro: h('p', { class: 'muted' }, 'Xem nghĩa tiếng Việt rồi gõ từ katakana bằng romaji, ô nhập tự đổi sang katakana (ví dụ "depaato" → デパート, "-" → ー). 59 từ katakana hay gặp trong đề N5, chia theo nhóm. Cần xem lại nghĩa và từ gốc tiếng Anh thì mở ', h('a', { href: '#/katakana' }, 'danh sách Katakana thi'), '.'),
+            })
         : mode === 'kanji'
           ? groupSetup({
               groups: KANJI_GROUPS,
@@ -162,6 +172,7 @@ export function mount(root, params = []) {
       recorded = true;
       results.push({ word: words[idx], outcome, tries });
       if (opts.kanji) recordKey(`kw:${words[idx].word}`, outcome === 'first'); // gõ đúng ngay mới tính là nhớ
+      if (opts.kata) recordKey(`kk:${words[idx].kana}`, outcome === 'first');
     }
 
     function next() {

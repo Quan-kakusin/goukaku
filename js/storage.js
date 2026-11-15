@@ -101,7 +101,7 @@ export function normalize(raw) {
 
   if (isObj(raw.srs)) {
     for (const [key, s] of entries(raw.srs).slice(0, MAX_SRS)) {
-      if (/^k[wc]:.{1,20}$/.test(key) && isObj(s) && Number.isInteger(s.box) && s.box >= 1 && s.box <= 5 && num(s.due)) {
+      if (/^k[wck]:.{1,20}$/.test(key) && isObj(s) && Number.isInteger(s.box) && s.box >= 1 && s.box <= 5 && num(s.due)) {
         out.srs[key] = { box: s.box, due: s.due, ok: num(s.ok) ? Math.max(0, s.ok) : 0, ng: num(s.ng) ? Math.max(0, s.ng) : 0 };
       }
     }

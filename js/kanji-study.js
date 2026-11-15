@@ -16,6 +16,7 @@ export function keyOfQuestion(qid) {
   const rest = qid.slice(sep + 1);
   if (kind === 'k' || kind === 'p') return `kw:${rest}`;
   if (kind === 'h') return `kc:${rest}`;
+  if (kind === 'kam' || kind === 'kaw') return `kk:${rest}`; // katakana: js/katakana-study.js
   return null;
 }
 
