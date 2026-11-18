@@ -48,13 +48,14 @@ export function mount(root, params = []) {
   let initial = Number.isInteger(initialLesson) && initialLesson >= 1 ? [initialLesson] : undefined;
 
   // Chọn nhóm rồi gõ: dùng cho số đếm・ngày tháng và cho từ kanji (mỗi nhóm là một danh sách từ)
-  function groupSetup({ groups, intro, label, extra }) {
-    const chosen = new Set(groups.map(g => g.id));
-    const mix = h('input', { type: 'checkbox', id: 'cnt-shuffle', checked: true });
+  // preselect: false thì mặc định không tích nhóm nào (Đọc kanji, Katakana thi: người học tự chọn nhóm cần luyện)
+  function groupSetup({ groups, intro, label, extra, preselect = true }) {
+    const chosen = new Set(preselect ? groups.map(g => g.id) : []);
+    const mix = h('input', { type: 'checkbox', id: 'cnt-shuffle', checked: false }); // mặc định giữ thứ tự
     const note = h('p', { class: 'muted', role: 'status', 'aria-live': 'polite' });
     const startBtn = h('button', { class: 'btn primary', type: 'button', onclick: begin }, 'Bắt đầu gõ');
     const boxes = groups.map(g =>
-      h('label', { class: 'check', for: `cnt-${g.id}` }, h('input', { type: 'checkbox', id: `cnt-${g.id}`, checked: true, onchange: e => { if (e.target.checked) chosen.add(g.id); else chosen.delete(g.id); update(); } }), h('span', null, `${g.label} · ${g.words.length}`)),
+      h('label', { class: 'check', for: `cnt-${g.id}` }, h('input', { type: 'checkbox', id: `cnt-${g.id}`, checked: preselect, onchange: e => { if (e.target.checked) chosen.add(g.id); else chosen.delete(g.id); update(); } }), h('span', null, `${g.label} · ${g.words.length}`)),
     );
     const words = () => groups.filter(g => chosen.has(g.id)).flatMap(g => g.words);
     function update() {
@@ -81,7 +82,7 @@ export function mount(root, params = []) {
       h('p', { class: 'eyebrow' }, 'Chọn nhóm cần luyện'),
       h('div', { class: 'count-groups' }, ...boxes),
       h('div', { class: 'row' }, h('button', { class: 'btn small', type: 'button', onclick: setAll(true) }, 'Chọn tất cả'), h('button', { class: 'btn small', type: 'button', onclick: setAll(false) }, 'Bỏ chọn')),
-      h('label', { class: 'check', for: 'cnt-shuffle' }, mix, h('span', null, 'Trộn thứ tự (bỏ tích để luyện theo thứ tự)')),
+      h('label', { class: 'check', for: 'cnt-shuffle' }, mix, h('span', null, 'Trộn thứ tự (mặc định giữ nguyên thứ tự)')),
       note,
       startBtn,
     );
@@ -108,6 +109,7 @@ export function mount(root, params = []) {
               groups: KATA_GROUPS,
               label: 'Katakana thi',
               extra: { kata: true },
+              preselect: false,
               intro: h('p', { class: 'muted' }, 'Xem nghĩa tiếng Việt rồi gõ từ katakana bằng romaji, ô nhập tự đổi sang katakana (ví dụ "depaato" → デパート, "-" → ー). 59 từ katakana hay gặp trong đề N5, chia theo nhóm. Cần xem lại nghĩa và từ gốc tiếng Anh thì mở ', h('a', { href: '#/katakana' }, 'danh sách Katakana thi'), '.'),
             })
         : mode === 'kanji'
@@ -115,6 +117,7 @@ export function mount(root, params = []) {
               groups: KANJI_GROUPS,
               label: 'Đọc kanji',
               extra: { kanji: true },
+              preselect: false,
               intro: h('p', { class: 'muted' }, 'Nhìn một từ viết bằng kanji (kèm nghĩa gợi ý) rồi gõ cách đọc bằng romaji, ví dụ 日曜日 → にちようび. Từ lấy từ 80 chữ trong tab ', h('a', { href: '#/kanji' }, 'Kanji'), '. Muốn nhớ mặt chữ thì làm thêm bài "Chọn chữ Hán" ở đó.'),
             })
         : mode === 'sentence'

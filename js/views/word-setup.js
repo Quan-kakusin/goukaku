@@ -79,7 +79,7 @@ export function wordSetup({ intro, extra = [], startLabel, onStart, source, init
     nums.forEach(n => selected.add(n));
     update();
   };
-  const mix = h('input', { type: 'checkbox', id: 'w-shuffle', checked: true });
+  const mix = h('input', { type: 'checkbox', id: 'w-shuffle', checked: false }); // mặc định giữ thứ tự trong sách
   const note = h('p', { class: 'muted', role: 'status', 'aria-live': 'polite' });
   const startBtn = h('button', { class: 'btn primary', type: 'button', onclick: start }, startLabel);
 
@@ -119,7 +119,7 @@ export function wordSetup({ intro, extra = [], startLabel, onStart, source, init
     mainFilter && !source && h('p', { class: 'eyebrow', id: 'w-scope-label' }, 'Bộ từ'),
     mainFilter && !source && h('div', { class: 'segmented', role: 'group', 'aria-labelledby': 'w-scope-label' }, ...scopeBtns),
     mainFilter && !source && scopeNote,
-    h('label', { class: 'check', for: 'w-shuffle' }, mix, h('span', null, 'Trộn thứ tự (bỏ tích để luyện theo thứ tự trong sách)')),
+    h('label', { class: 'check', for: 'w-shuffle' }, mix, h('span', null, 'Trộn thứ tự (mặc định giữ nguyên thứ tự trong sách)')),
     note,
     startBtn,
   );
