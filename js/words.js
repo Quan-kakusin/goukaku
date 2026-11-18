@@ -3,14 +3,16 @@
 
 import { shuffle } from './questions.js';
 import { matchesWord } from './romaji.js';
+import { isMainWord } from '../data/vocab-skip.js';
 
 // Chọn từ để luyện: lọc theo bài, bỏ từ trùng cách đọc (gõ romaji sẽ không phân biệt được), xáo trộn rồi lấy `count` từ
 // shuffle=false: giữ thứ tự trong sách (theo bài, theo thứ tự từ trong bài)
-export function pickWords({ deck, lessons, count, rng, shuffle: mix = true }) {
+// mainOnly: chỉ từ vựng chính, bỏ câu dài, trợ từ và hậu tố đếm (data/vocab-skip.js)
+export function pickWords({ deck, lessons, count, rng, shuffle: mix = true, mainOnly = false }) {
   const inScope = new Set(lessons);
   const seen = new Set();
   const pool = deck.filter(w => {
-    if (!inScope.has(w.lesson) || seen.has(w.kana)) return false;
+    if (!inScope.has(w.lesson) || seen.has(w.kana) || (mainOnly && !isMainWord(w))) return false;
     seen.add(w.kana);
     return true;
   });
@@ -18,7 +20,7 @@ export function pickWords({ deck, lessons, count, rng, shuffle: mix = true }) {
   return count === 'all' ? ordered : ordered.slice(0, Number(count));
 }
 
-export const poolSize = (deck, lessons) => pickWords({ deck, lessons, count: 'all', rng: () => 0 }).length;
+export const poolSize = (deck, lessons, mainOnly = false) => pickWords({ deck, lessons, count: 'all', rng: () => 0, mainOnly }).length;
 
 // ---- Thẻ flash: mỗi thẻ "nhớ" hoặc "chưa nhớ" ----
 export function scoreFlash(results) {

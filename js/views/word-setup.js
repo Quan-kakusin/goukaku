@@ -25,12 +25,31 @@ const savePick = set => {
   }
 };
 
+const MAIN_KEY = 'nihongo-n5:word-main-only';
+const loadMain = () => {
+  try {
+    return localStorage.getItem(MAIN_KEY) !== 'off';
+  } catch {
+    return true;
+  }
+};
+const saveMain = on => {
+  try {
+    localStorage.setItem(MAIN_KEY, on ? 'on' : 'off');
+  } catch {
+    // không lưu được thì lần sau về mặc định (bật), không sao
+  }
+};
+
 // extra: các phần tử form thêm riêng cho từng kiểu luyện. onStart(words, { label }).
+// mainFilter: hiện ô "Chỉ từ vựng chính" (bỏ câu dài, trợ từ, hậu tố đếm), mặc định bật.
 // source: nguồn khác ngoài từ vựng, { size(lessons), pick(lessons, shuffle), unit } (vd các câu ví dụ). initial: số bài chọn sẵn (vd mở từ trang Bài tập).
-export function wordSetup({ intro, extra = [], startLabel, onStart, source, initial }) {
+export function wordSetup({ intro, extra = [], startLabel, onStart, source, initial, mainFilter = false }) {
   const selected = new Set(initial?.length ? initial : loadPick());
   const unit = source?.unit ?? 'từ';
-  const sizeOf = lessons => (source ? source.size(lessons) : poolSize(getDeck(), lessons));
+  const mainBox = h('input', { type: 'checkbox', id: 'w-main', checked: loadMain(), onchange: () => { saveMain(mainBox.checked); update(); } });
+  const mainOnly = () => mainFilter && !source && mainBox.checked;
+  const sizeOf = lessons => (source ? source.size(lessons) : poolSize(getDeck(), lessons, mainOnly()));
 
   const chips = Array.from({ length: LESSON_COUNT }, (_, i) => {
     const n = i + 1;
@@ -69,7 +88,7 @@ export function wordSetup({ intro, extra = [], startLabel, onStart, source, init
     note.textContent = selected.size === 0 ? 'Hãy chọn ít nhất một bài.' : `${lessonsLabel(lessons())}: ${n} ${unit}.`;
   }
   function start() {
-    const words = source ? source.pick(lessons(), mix.checked) : pickWords({ deck: getDeck(), lessons: lessons(), count: 'all', rng: Math.random, shuffle: mix.checked });
+    const words = source ? source.pick(lessons(), mix.checked) : pickWords({ deck: getDeck(), lessons: lessons(), count: 'all', rng: Math.random, shuffle: mix.checked, mainOnly: mainOnly() });
     if (!words.length) return toast(`Các bài đã chọn chưa có ${unit} nào để luyện.`);
     return onStart(words, { label: lessonsLabel(lessons()), shuffle: mix.checked });
   }
@@ -87,6 +106,7 @@ export function wordSetup({ intro, extra = [], startLabel, onStart, source, init
       h('button', { class: 'btn small', type: 'button', onclick: set([]) }, 'Bỏ chọn'),
     ),
     ...extra,
+    mainFilter && !source && h('label', { class: 'check', for: 'w-main' }, mainBox, h('span', null, 'Chỉ từ vựng chính (bỏ câu dài, trợ từ, hậu tố đếm và từ cảm thán)')),
     h('label', { class: 'check', for: 'w-shuffle' }, mix, h('span', null, 'Trộn thứ tự (bỏ tích để luyện theo thứ tự trong sách)')),
     note,
     startBtn,

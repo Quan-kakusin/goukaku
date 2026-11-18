@@ -129,6 +129,7 @@ export function mount(root, params = []) {
               intro: 'Xem nghĩa tiếng Việt rồi gõ từ tiếng Nhật tương ứng bằng bàn phím romaji, ô nhập tự đổi sang chữ Nhật (hoteru → ほてる, "-" → ー, gõ đôi phụ âm → っ). Gõ sai thì gõ lại, không nhớ thì bỏ qua hoặc xem đáp án. Cuối lượt có chấm điểm.',
               startLabel: 'Bắt đầu gõ',
               initial,
+              mainFilter: true,
               onStart: (words, info) => session(words, info),
             });
     show(root, wordsTabs('typing'), h('h1', null, 'Gõ romaji'), switcher, form);
