@@ -11,18 +11,18 @@ const kanaOf = list => new Set(list.map(w => w.kana));
 test('bỏ các câu và cụm câu dài, trợ từ, từ cảm thán, hậu tố đếm', () => {
   for (const k of ['どうぞよろしくおねがいします', 'それはおもしろいですね', 'しんごうをみぎへまがってください', 'わかりました', 'でものみませんか', 'いってらっしゃい']) assert.ok(isSentence(k), k);
   for (const k of ['が', 'から', 'まで', 'と', 'だけ', 'はい', 'えっ', 'さん', 'じん', 'がつ', 'にん']) assert.ok(FUNCTION_WORDS.has(k) || SUFFIX_WORDS.has(k), k);
-  const main = kanaOf(pickWords({ deck: VOCAB, lessons, count: 'all', rng: () => 0, mainOnly: true }));
+  const main = kanaOf(pickWords({ deck: VOCAB, lessons, count: 'all', rng: () => 0, scope: 'main' }));
   for (const k of ['どうぞよろしくおねがいします', 'こちらはさんです', 'が', 'から', 'さん', 'ふん', 'はい']) assert.ok(!main.has(k), `${k} lẽ ra bị bỏ`);
 });
 
 test('giữ từ vựng chính: động từ (kể cả します dài), danh từ, tính từ, trạng từ, từ để hỏi, từ mượn', () => {
-  const main = kanaOf(pickWords({ deck: VOCAB, lessons, count: 'all', rng: () => 0, mainOnly: true }));
+  const main = kanaOf(pickWords({ deck: VOCAB, lessons, count: 'all', rng: () => 0, scope: 'main' }));
   for (const k of ['たべます', 'べんきょうします', 'しゅっちょうします', 'ほん', 'いぬ', 'ねこ', 'おいしい', 'しずか', 'もう', 'まだ', 'なに', 'どこ', 'いつ', 'これ', 'ここ', 'エレベーター', 'コーヒー', 'けんきゅうしゃ']) assert.ok(main.has(k), `${k} lẽ ra được giữ`);
 });
 
 test('số từ: bỏ khoảng 110 mục, vẫn còn trên 850 từ; không bỏ thì giữ nguyên như cũ', () => {
   const all = pickWords({ deck: VOCAB, lessons, count: 'all', rng: () => 0 });
-  const main = pickWords({ deck: VOCAB, lessons, count: 'all', rng: () => 0, mainOnly: true });
+  const main = pickWords({ deck: VOCAB, lessons, count: 'all', rng: () => 0, scope: 'main' });
   assert.equal(poolSize(VOCAB, lessons), all.length);
   assert.equal(poolSize(VOCAB, lessons, true), main.length);
   const removed = all.length - main.length;

@@ -4,15 +4,20 @@
 import { shuffle } from './questions.js';
 import { matchesWord } from './romaji.js';
 import { isMainWord } from '../data/vocab-skip.js';
+import { N5_COMMON } from '../data/n5-common.js';
 
 // Chọn từ để luyện: lọc theo bài, bỏ từ trùng cách đọc (gõ romaji sẽ không phân biệt được), xáo trộn rồi lấy `count` từ
 // shuffle=false: giữ thứ tự trong sách (theo bài, theo thứ tự từ trong bài)
-// mainOnly: chỉ từ vựng chính, bỏ câu dài, trợ từ và hậu tố đếm (data/vocab-skip.js)
-export function pickWords({ deck, lessons, count, rng, shuffle: mix = true, mainOnly = false }) {
+// scope: 'all' (mọi từ) · 'main' (từ vựng chính: bỏ câu dài, trợ từ, hậu tố đếm: data/vocab-skip.js) · 'common' (từ hay gặp trong đề N5: data/n5-common.js)
+// mainOnly: viết tắt của scope 'main'. Từ riêng của người dùng (chưa xếp bài) luôn được giữ.
+export const WORD_SCOPES = ['common', 'main', 'all'];
+const inScopeOf = (w, scope) => scope === 'all' || !w.lesson || (isMainWord(w) && (scope !== 'common' || N5_COMMON.has(w.kana)));
+
+export function pickWords({ deck, lessons, count, rng, shuffle: mix = true, mainOnly = false, scope = mainOnly ? 'main' : 'all' }) {
   const inScope = new Set(lessons);
   const seen = new Set();
   const pool = deck.filter(w => {
-    if (!inScope.has(w.lesson) || seen.has(w.kana) || (mainOnly && !isMainWord(w))) return false;
+    if (!inScope.has(w.lesson) || seen.has(w.kana) || !inScopeOf(w, scope)) return false;
     seen.add(w.kana);
     return true;
   });
@@ -20,7 +25,7 @@ export function pickWords({ deck, lessons, count, rng, shuffle: mix = true, main
   return count === 'all' ? ordered : ordered.slice(0, Number(count));
 }
 
-export const poolSize = (deck, lessons, mainOnly = false) => pickWords({ deck, lessons, count: 'all', rng: () => 0, mainOnly }).length;
+export const poolSize = (deck, lessons, scope = 'all') => pickWords({ deck, lessons, count: 'all', rng: () => 0, scope: scope === true ? 'main' : scope || 'all' }).length;
 
 // ---- Thẻ flash: mỗi thẻ "nhớ" hoặc "chưa nhớ" ----
 export function scoreFlash(results) {

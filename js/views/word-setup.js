@@ -25,30 +25,38 @@ const savePick = set => {
   }
 };
 
-const MAIN_KEY = 'nihongo-n5:word-main-only';
-const loadMain = () => {
+const SCOPE_KEY = 'nihongo-n5:word-scope';
+const SCOPES = {
+  common: ['Hay gặp trong đề N5', 'Từ hay gặp trong đề N5: gọn nhất, nên học trước kỳ thi.'],
+  main: ['Từ vựng chính', 'Mọi từ vựng chính của bài: bỏ câu dài, trợ từ, từ cảm thán và hậu tố đếm.'],
+  all: ['Tất cả', 'Toàn bộ từ vựng của bài, kể cả câu dài, trợ từ và hậu tố.'],
+};
+const loadScope = () => {
   try {
-    return localStorage.getItem(MAIN_KEY) !== 'off';
+    const v = localStorage.getItem(SCOPE_KEY);
+    return v in SCOPES ? v : 'common';
   } catch {
-    return true;
+    return 'common';
   }
 };
-const saveMain = on => {
+const saveScope = v => {
   try {
-    localStorage.setItem(MAIN_KEY, on ? 'on' : 'off');
+    localStorage.setItem(SCOPE_KEY, v);
   } catch {
-    // không lưu được thì lần sau về mặc định (bật), không sao
+    // không lưu được thì lần sau về mặc định, không sao
   }
 };
 
 // extra: các phần tử form thêm riêng cho từng kiểu luyện. onStart(words, { label }).
-// mainFilter: hiện ô "Chỉ từ vựng chính" (bỏ câu dài, trợ từ, hậu tố đếm), mặc định bật.
+// mainFilter: hiện mục "Bộ từ" (hay gặp trong đề N5 / từ vựng chính / tất cả), mặc định "hay gặp trong đề N5".
 // source: nguồn khác ngoài từ vựng, { size(lessons), pick(lessons, shuffle), unit } (vd các câu ví dụ). initial: số bài chọn sẵn (vd mở từ trang Bài tập).
 export function wordSetup({ intro, extra = [], startLabel, onStart, source, initial, mainFilter = false }) {
   const selected = new Set(initial?.length ? initial : loadPick());
   const unit = source?.unit ?? 'từ';
-  const mainBox = h('input', { type: 'checkbox', id: 'w-main', checked: loadMain(), onchange: () => { saveMain(mainBox.checked); update(); } });
-  const mainOnly = () => mainFilter && !source && mainBox.checked;
+  let scope = loadScope();
+  const scopeBtns = Object.entries(SCOPES).map(([id, [label]]) => h('button', { class: 'seg', type: 'button', dataset: { scope: id }, onclick: () => { scope = id; saveScope(id); update(); } }, label));
+  const scopeNote = h('p', { class: 'muted' });
+  const mainOnly = () => (mainFilter && !source ? scope : 'all');
   const sizeOf = lessons => (source ? source.size(lessons) : poolSize(getDeck(), lessons, mainOnly()));
 
   const chips = Array.from({ length: LESSON_COUNT }, (_, i) => {
@@ -82,13 +90,15 @@ export function wordSetup({ intro, extra = [], startLabel, onStart, source, init
   };
   function update() {
     chips.forEach((c, i) => c.setAttribute('aria-pressed', String(selected.has(i + 1))));
+    scopeBtns.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.scope === scope)));
+    scopeNote.textContent = SCOPES[scope][1];
     savePick(selected);
     const n = selected.size ? sizeOf(lessons()) : 0;
     startBtn.disabled = n === 0;
     note.textContent = selected.size === 0 ? 'Hãy chọn ít nhất một bài.' : `${lessonsLabel(lessons())}: ${n} ${unit}.`;
   }
   function start() {
-    const words = source ? source.pick(lessons(), mix.checked) : pickWords({ deck: getDeck(), lessons: lessons(), count: 'all', rng: Math.random, shuffle: mix.checked, mainOnly: mainOnly() });
+    const words = source ? source.pick(lessons(), mix.checked) : pickWords({ deck: getDeck(), lessons: lessons(), count: 'all', rng: Math.random, shuffle: mix.checked, scope: mainOnly() });
     if (!words.length) return toast(`Các bài đã chọn chưa có ${unit} nào để luyện.`);
     return onStart(words, { label: lessonsLabel(lessons()), shuffle: mix.checked });
   }
@@ -106,7 +116,9 @@ export function wordSetup({ intro, extra = [], startLabel, onStart, source, init
       h('button', { class: 'btn small', type: 'button', onclick: set([]) }, 'Bỏ chọn'),
     ),
     ...extra,
-    mainFilter && !source && h('label', { class: 'check', for: 'w-main' }, mainBox, h('span', null, 'Chỉ từ vựng chính (bỏ câu dài, trợ từ, hậu tố đếm và từ cảm thán)')),
+    mainFilter && !source && h('p', { class: 'eyebrow', id: 'w-scope-label' }, 'Bộ từ'),
+    mainFilter && !source && h('div', { class: 'segmented', role: 'group', 'aria-labelledby': 'w-scope-label' }, ...scopeBtns),
+    mainFilter && !source && scopeNote,
     h('label', { class: 'check', for: 'w-shuffle' }, mix, h('span', null, 'Trộn thứ tự (bỏ tích để luyện theo thứ tự trong sách)')),
     note,
     startBtn,
