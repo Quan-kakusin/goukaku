@@ -3,6 +3,8 @@ import assert from 'node:assert/strict';
 import { KANJI } from '../data/kanji-n5.js';
 import { KANJI_NOTES, CONFUSABLE } from '../data/kanji-notes.js';
 import { kanjiHvQuestion, resolveQuestion, confusablesOf, KINDS, KANJI_WORDS } from '../js/questions.js';
+import { KANJI_PICS } from '../data/kanji-pics.js';
+import { picLine } from '../js/questions.js';
 import { normalize, defaults } from '../js/storage.js';
 import { kanjiSet, kataSet, clampCount } from '../js/quiz-set.js';
 
@@ -82,4 +84,14 @@ test('kataSet: đủ số câu, không trùng, hai chiều trộn lẫn', () => 
 test('lưu trữ: dữ liệu cũ còn khoá srs vẫn nhập được, khoá đó bị bỏ', () => {
   assert.equal('srs' in defaults(), false);
   assert.equal('srs' in normalize({ custom: [], srs: { 'kw:日': { box: 1, due: 1 } } }), false);
+});
+
+test('hình gợi nhớ: đủ 80 chữ, không thừa, có hiện trong lời giải câu kanji', () => {
+  const chars = KANJI.map(k => k.char);
+  assert.deepEqual(chars.filter(c => !KANJI_PICS[c]), []);
+  assert.deepEqual(Object.keys(KANJI_PICS).filter(c => !chars.includes(c)), []);
+  assert.equal(picLine('日本'), ' Hình gợi nhớ: 日 ☀️, 本 📕.');
+  assert.equal(picLine('ひと'), '');
+  for (const k of KANJI) assert.ok(kanjiHvQuestion(k).explain.includes(KANJI_PICS[k.char]), k.char);
+  for (const q of kanjiSet(80)) assert.ok(q.explain.includes('Hình gợi nhớ'), q.id);
 });
