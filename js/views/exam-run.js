@@ -9,7 +9,6 @@ import { takePending, setLast } from '../exam-session.js';
 import { toItem, makeEntry, formatDuration, spokenDuration } from '../exam.js';
 import { addExam, recordLessonScore, save } from '../storage.js';
 import { recordAnswer } from '../mistakes.js';
-import { recordQuestion as recordKanjiSrs } from '../kanji-study.js';
 import { praise, miss } from '../insights.js';
 import { KINDS } from '../questions.js';
 import { lessonTitle } from '../deck.js';
@@ -372,7 +371,6 @@ export function mount(root) {
     questions.forEach((q, i) => {
       if (answers[i] !== null) {
         recordAnswer(q, items[i].ok);
-        recordKanjiSrs(q.id, items[i].ok); // câu kanji còn đi vào lịch ôn lặp lại
       }
     });
 

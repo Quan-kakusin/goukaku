@@ -13,7 +13,7 @@
 <body>
   <a class="skip-link" href="#app">Bỏ qua tới nội dung</a>
   <div class="shell">
-    <!-- Thanh điều hướng: cột icon kèm nhãn (desktop) / thanh tab dưới (điện thoại). 5 mục theo luồng học: bài học, từ vựng, chữ viết, luyện thi, cài đặt -->
+    <!-- Thanh điều hướng: cột icon kèm nhãn (desktop) / thanh tab dưới (điện thoại). 6 mục theo luồng học: bài học, từ vựng, chữ viết, kanji và katakana, luyện thi, cài đặt -->
     <header class="rail">
       <nav aria-label="Điều hướng chính">
         <a href="#/lessons" data-route="learn" aria-label="Bài học" title="Bài học và Bài tập: 25 bài của giáo trình">
@@ -24,9 +24,13 @@
           <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M6 4.5h12"/><path d="M8 13h8M8 16h5"/></svg>
           <span class="nav-label">Từ vựng</span>
         </a>
-        <a href="#/kana" data-route="write" aria-label="Chữ viết" title="Chữ viết: Kana và 80 chữ Kanji">
+        <a href="#/kana" data-route="write" aria-label="Chữ viết" title="Chữ viết: bảng Kana">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1-4L16 5l3 3L8 19z"/><path d="M13.5 7.5l3 3"/></svg>
           <span class="nav-label">Chữ viết</span>
+        </a>
+        <a href="#/kanji" data-route="kanji" aria-label="Kanji và Katakana" title="Kanji (80 chữ) và Katakana (59 từ hay gặp trong đề)">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16"/><path d="M12 4v16"/><path d="M7 11h10"/><path d="M6 20l3-6M18 20l-3-6"/></svg>
+          <span class="nav-label">Kanji/Kata</span>
         </a>
         <a href="#/exams" data-route="test" aria-label="Luyện thi" title="Luyện thi: thi thử N5 và sổ lỗi sai">
           <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4h6v3H9z"/><path d="M9 14l2 2 4-4"/></svg>

@@ -2933,24 +2933,19 @@ rt {
   }
 }
 
-/* ---- Ôn lặp lại kanji ---- */
-.srs-boxes {
-  display: flex;
-  flex-direction: column;
-  margin: var(--space-3) 0;
-  padding: 0;
-  list-style: none;
-}
-
-.srs-boxes li {
-  display: flex;
-  justify-content: space-between;
-  gap: var(--space-3);
-  padding: var(--space-2) 0;
-  border-bottom: var(--border-width) solid var(--color-border-subtle);
-}
-
 /* ---- Katakana thi ---- */
+.count-picker .picker {
+  align-items: center;
+}
+
+.count-picker label.row {
+  align-items: center;
+}
+
+.panel + h2 {
+  margin-top: var(--space-5);
+}
+
 .kata-list {
   display: flex;
   flex-direction: column;

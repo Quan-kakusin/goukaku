@@ -9,7 +9,6 @@ import { isCorrect, scoreTyping } from '../words.js';
 import { verdict } from '../exam.js';
 import { praise, miss } from '../insights.js';
 import { shuffle, KANJI_WORDS } from '../questions.js';
-import { recordKey } from '../kanji-study.js';
 import { KATAKANA, KATAKANA_GROUPS } from '../../data/katakana-n5.js';
 import { wordSetup } from './word-setup.js';
 
@@ -175,8 +174,6 @@ export function mount(root, params = []) {
       if (recorded) return;
       recorded = true;
       results.push({ word: words[idx], outcome, tries });
-      if (opts.kanji) recordKey(`kw:${words[idx].word}`, outcome === 'first'); // gõ đúng ngay mới tính là nhớ
-      if (opts.kata) recordKey(`kk:${words[idx].kana}`, outcome === 'first');
     }
 
     function next() {

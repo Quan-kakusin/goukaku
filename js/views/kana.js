@@ -1,4 +1,4 @@
-import { h, toast, setPressed, writeTabs, meme } from '../ui.js';
+import { h, toast, setPressed, meme } from '../ui.js';
 import { praise, miss } from '../insights.js';
 import { speak } from '../tts.js';
 import { getState, save } from '../storage.js';
@@ -25,7 +25,7 @@ export function mount(root) {
     ['practice', 'Luyện tập'],
   ].map(([id, label]) => h('button', { type: 'button', class: 'seg', dataset: { tab: id }, onclick: () => setTab(id) }, label));
 
-  root.append(writeTabs('kana'), h('h1', null, 'Kana'), h('div', { class: 'segmented', role: 'group', 'aria-label': 'Chế độ' }, ...tabBtns), body);
+  root.append(h('h1', null, 'Kana'), h('div', { class: 'segmented', role: 'group', 'aria-label': 'Chế độ' }, ...tabBtns), body);
 
   function setTab(id) {
     tab = id;
