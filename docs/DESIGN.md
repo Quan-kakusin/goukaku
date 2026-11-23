@@ -184,3 +184,6 @@ Ngắn gọn, rõ ràng, nói thẳng hành động. Dùng tiếng Việt, thu�
 - [ ] Mở app lần đầu (không dữ liệu) thấy ngay danh sách bài và biết bấm vào đâu để học.
 - [ ] Không có chữ `false`/`undefined`/`null` rò rỉ ra giao diện ở bất kỳ trang nào, kể cả khi làm đúng hết.
 - [ ] Nhãn nút mô tả hành động; ô nhập có nhãn; lỗi có thông báo văn bản.
+
+### Câu nghe có đáp án là tranh (đề 6 đến 9)
+Đề chép từ web có nhiều câu nghe mà 4 đáp án là tranh. App không chép tranh (bản quyền), thay bằng chữ: câu có `viChoices: true` hiện 4 mô tả tiếng Việt (`Tranh 1: ...`) thay cho 1 2 3 4, ngôn ngữ lựa chọn là tiếng Việt nên không gắn furigana; câu có tranh ở đầu bài (mũi tên chỉ người nói) có `hint` mô tả tình huống, hiện dưới đề. Hai trường này nằm ở dữ liệu câu (js/mock.js chuyển thành `choiceLang` và `hint`).
