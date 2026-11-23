@@ -758,6 +758,28 @@ ruby rt {
   overflow-wrap: anywhere;
 }
 
+/* Hình gợi nhớ kanji trong câu hỏi: dưới đề (từng chữ kèm hình) và cạnh đáp án */
+.q-pics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 0 0 var(--space-2);
+}
+
+.q-pic {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-inset);
+  font-size: var(--font-size-md);
+}
+
+.choice-pic {
+  font-size: var(--font-size-md);
+}
+
 .q-hint {
   margin-bottom: var(--space-4);
 }

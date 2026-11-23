@@ -4,7 +4,7 @@ import { KANJI } from '../data/kanji-n5.js';
 import { KANJI_NOTES, CONFUSABLE } from '../data/kanji-notes.js';
 import { kanjiHvQuestion, resolveQuestion, confusablesOf, KINDS, KANJI_WORDS } from '../js/questions.js';
 import { KANJI_PICS } from '../data/kanji-pics.js';
-import { picLine } from '../js/questions.js';
+import { picLine, picsOf, kanjiQuestion, kanjiPickQuestion } from '../js/questions.js';
 import { normalize, defaults } from '../js/storage.js';
 import { kanjiSet, kataSet, clampCount } from '../js/quiz-set.js';
 
@@ -94,4 +94,17 @@ test('hình gợi nhớ: đủ 80 chữ, không thừa, có hiện trong lời g
   assert.equal(picLine('ひと'), '');
   for (const k of KANJI) assert.ok(kanjiHvQuestion(k).explain.includes(KANJI_PICS[k.char]), k.char);
   for (const q of kanjiSet(80)) assert.ok(q.explain.includes('Hình gợi nhớ'), q.id);
+});
+
+test('hình gợi nhớ trong câu hỏi: nhìn kanji thì có hình từng chữ dưới đề, chọn chữ Hán thì mọi đáp án đều có hình (không lộ đáp án)', () => {
+  assert.deepEqual(picsOf('先週'), [['先', '👨‍🏫'], ['週', '📅']]);
+  for (const w of KANJI_WORDS) {
+    const r = kanjiQuestion(w);
+    assert.deepEqual(r.promptPics, picsOf(w.word), w.word);
+    const p = kanjiPickQuestion(w);
+    for (const c of p.choices) assert.ok(c in p.choicePics, c);
+    // đáp án đúng không được đứng riêng là lựa chọn duy nhất có hình
+    const withPic = p.choices.filter(c => p.choicePics[c]);
+    assert.ok(withPic.length > 1 || !p.choicePics[p.answer], w.word);
+  }
 });

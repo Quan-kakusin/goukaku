@@ -104,6 +104,11 @@ export const KANJI_WORDS = firstUnique(
   Infinity,
 );
 
+// Hình gợi nhớ hiện ngay trong câu hỏi: promptPics = [[chữ, hình], ...] dưới đề, choicePics = { đáp án: hình } cạnh từng đáp án.
+// Chỉ chữ Hán nằm trong 80 chữ N5 mới có hình.
+export const picsOf = text => [...new Set([...text])].filter(c => KANJI_PICS[c]).map(c => [c, KANJI_PICS[c]]);
+export const picsInline = text => picsOf(text).map(([, p]) => p).join('');
+
 // Dòng hình gợi nhớ của các chữ Hán có trong một từ: " Hình gợi nhớ: 日 ☀️, 本 📕."
 export const picLine = text => {
   const pics = [...new Set([...text])].filter(c => KANJI_PICS[c]).map(c => `${c} ${KANJI_PICS[c]}`);
@@ -127,6 +132,7 @@ export function kanjiQuestion(kw, rng) {
     explain: `${kw.word} đọc là ${kw.kana}, nghĩa là "${kw.vi}".${picLine(kw.word)}`,
     tag: 'Kanji',
     plain: true, // furigana trên chữ Hán chính là đáp án nên không hiện
+    promptPics: picsOf(kw.word), // nhìn chữ Hán thì kèm hình từng chữ để nhớ nghĩa
     promptLang: 'ja',
     choiceLang: 'ja',
     ref: { word: kw.word },
@@ -151,6 +157,7 @@ export function kanjiPickQuestion(kw, rng) {
     explain: `${kw.kana} (${kw.vi}) viết là ${kw.word}.${picLine(kw.word)}`,
     tag: 'Kanji',
     plain: true,
+    choicePics: Object.fromEntries([kw.word, ...wrong.map(x => x.word)].map(w => [w, picsInline(w)])), // hình cạnh từng đáp án: ai cũng có hình nên không lộ đáp án
     choiceLang: 'ja',
     ref: { word: kw.word },
   };
