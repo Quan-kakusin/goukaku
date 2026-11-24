@@ -2,7 +2,6 @@ import { h, furigana, speakButton, setPressed, show, kanjiTabs } from '../ui.js'
 import { KANJI } from '../../data/kanji-n5.js';
 import { confusablesOf, KANJI_BY_CHAR } from '../questions.js';
 import { KANJI_NOTES } from '../../data/kanji-notes.js';
-import { KANJI_PICS } from '../../data/kanji-pics.js';
 import { kanjiSet } from '../quiz-set.js';
 import { startExam } from '../exam-session.js';
 import { mainReading } from '../furigana.js';
@@ -53,7 +52,7 @@ export function mount(root) {
     return h(
       'div',
       { class: 'panel kanji-detail' },
-      h('div', { class: 'k-side' }, h('div', { class: 'k-big', lang: 'ja' }, h('ruby', null, k.char, h('rp', null, '('), h('rt', null, mainReading(k)), h('rp', null, ')'))), h('div', { class: 'k-pic-big', role: 'img', 'aria-label': `Hình gợi nhớ: ${k.vi}` }, KANJI_PICS[k.char])),
+      h('div', { class: 'k-big', lang: 'ja' }, h('ruby', null, k.char, h('rp', null, '('), h('rt', null, mainReading(k)), h('rp', null, ')'))),
       h(
         'dl',
         null,
@@ -97,7 +96,6 @@ export function mount(root) {
             },
           },
           h('ruby', { class: 'k', lang: 'ja' }, k.char, h('rp', null, '('), h('rt', null, mainReading(k)), h('rp', null, ')')),
-          h('span', { class: 'k-pic', 'aria-hidden': 'true' }, KANJI_PICS[k.char]),
           h('small', null, k.hv),
         ),
       );
@@ -114,7 +112,7 @@ export function mount(root) {
       'div',
       null,
       h('div', { class: 'toolbar' }, select),
-      h('p', { class: 'muted' }, `${shown.length} chữ. Chữ hiragana nhỏ phía trên là cách đọc chính. Hình emoji dưới mỗi chữ là hình gợi nhớ nghĩa. Bấm vào một chữ để xem Hán Việt, mọi âm đọc, mẹo nhớ và từ ví dụ.`),
+      h('p', { class: 'muted' }, `${shown.length} chữ. Chữ hiragana nhỏ phía trên là cách đọc chính. Bấm vào một chữ để xem Hán Việt, mọi âm đọc, mẹo nhớ và từ ví dụ.`),
       detailBox,
       h('div', { class: 'kanji-grid' }, ...cells.values()),
     );

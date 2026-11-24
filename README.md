@@ -25,7 +25,7 @@ Luôn mở đúng địa chỉ này: tiến độ lưu trong `localStorage` theo
 1. Mở app là vào **Bài học**: chọn bài bằng dải số 1–25 (không có trang chủ).
 2. Mỗi bài có 4 tab: **Tổng quan** (mục tiêu, hướng dẫn cách học, bảng công thức, lưu ý), **Từ vựng**, **Ngữ pháp** (công thức, giải thích, ví dụ, lưu ý) và **Luyện đề**.
 3. App không có trạng thái "đang học" hay "đã học xong", không theo dõi từng từ, không đếm chuỗi ngày, không nhắc nhở: nhịp học do bạn quyết định. Chỉ lưu điểm luyện tập cao nhất của từng bài.
-4. Chữ Hán học riêng ở mục **Kanji**: đúng 80 chữ, một trang đơn giản: trên cùng là **Trắc nghiệm** (4 đáp án, chọn xong thấy đúng sai và giải thích ngay; hai dạng trộn lẫn: nhìn kanji chọn cách đọc hiragana, hoặc nhìn cách đọc chọn kanji; số câu chọn bất kỳ từ 1 đến 80 bằng nút gợi ý 10/20/40, nút Tất cả hoặc gõ số; mỗi chữ ra tối đa một câu), bên dưới là danh sách 80 chữ, mỗi chữ có một **hình emoji gợi nhớ nghĩa** (`data/kanji-pics.js`; chữ trừu tượng dùng mũi tên hoặc cảnh quen thuộc, chỉ để gợi nhớ, không phải nguồn gốc chữ), cấu tạo, mẹo nhớ và các chữ dễ nhầm. Hình cũng hiện ngay trong câu hỏi để vừa làm vừa nhớ: câu nhìn kanji chọn cách đọc hiện từng chữ kèm hình dưới đề; câu nhìn cách đọc chọn kanji hiện hình cạnh mỗi đáp án (đáp án nào cũng có hình nên không lộ đáp án). Lời giải ghi lại hình gợi nhớ của các chữ trong từ. Không có lịch ôn hằng ngày. Muốn gõ cách đọc thì dùng **Gõ romaji → Đọc kanji**.
+4. Chữ Hán học riêng ở mục **Kanji**: đúng 80 chữ, một trang đơn giản: trên cùng là **Trắc nghiệm** (4 đáp án, chọn xong thấy đúng sai và giải thích ngay; hai dạng trộn lẫn: nhìn kanji chọn cách đọc hiragana, hoặc nhìn cách đọc chọn kanji; số câu chọn bất kỳ từ 1 đến 80 bằng nút gợi ý 10/20/40, nút Tất cả hoặc gõ số; mỗi chữ ra tối đa một câu), bên dưới là danh sách 80 chữ, mỗi chữ có cấu tạo, mẹo nhớ và các chữ dễ nhầm. Không có lịch ôn hằng ngày. Muốn gõ cách đọc thì dùng **Gõ romaji → Đọc kanji**.
 5. Vào **Luyện đề** để làm đề, được chấm điểm và xem giải thích chi tiết từng câu. Câu sai tự vào **Sổ lỗi sai**.
 
 ## Tính năng
@@ -132,7 +132,6 @@ data/lessons.js     ghép 25 bài thành LESSONS, VOCAB, GRAMMAR
 data/kanji-n5.js    kanji N5
 data/katakana-n5.js 59 từ katakana hay gặp trong đề N5 (nghĩa, từ gốc, nhóm)
 data/kanji-notes.js cấu tạo + mẹo nhớ của 80 chữ, nhóm chữ dễ nhầm
-data/kanji-pics.js  hình emoji gợi nhớ nghĩa của 80 chữ
 vite.config.js      cấu hình Vite (thư mục public/, plugin danh sách meme)
 js/main.js          router (có tham số)
 js/progress.js      ngưỡng điểm "đạt"

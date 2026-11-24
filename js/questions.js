@@ -9,7 +9,6 @@
 import { GRAMMAR } from '../data/lessons.js';
 import { KANJI } from '../data/kanji-n5.js';
 import { KANJI_NOTES, CONFUSABLE } from '../data/kanji-notes.js';
-import { KANJI_PICS } from '../data/kanji-pics.js';
 import { KATAKANA } from '../data/katakana-n5.js';
 import { toRomaji } from './romaji.js';
 import { findMockQuestion } from './mock.js';
@@ -104,17 +103,6 @@ export const KANJI_WORDS = firstUnique(
   Infinity,
 );
 
-// Hình gợi nhớ hiện ngay trong câu hỏi: promptPics = [[chữ, hình], ...] dưới đề, choicePics = { đáp án: hình } cạnh từng đáp án.
-// Chỉ chữ Hán nằm trong 80 chữ N5 mới có hình.
-export const picsOf = text => [...new Set([...text])].filter(c => KANJI_PICS[c]).map(c => [c, KANJI_PICS[c]]);
-export const picsInline = text => picsOf(text).map(([, p]) => p).join('');
-
-// Dòng hình gợi nhớ của các chữ Hán có trong một từ: " Hình gợi nhớ: 日 ☀️, 本 📕."
-export const picLine = text => {
-  const pics = [...new Set([...text])].filter(c => KANJI_PICS[c]).map(c => `${c} ${KANJI_PICS[c]}`);
-  return pics.length ? ` Hình gợi nhớ: ${pics.join(', ')}.` : '';
-};
-
 export function kanjiQuestion(kw, rng) {
   const n = len(kw.kana);
   const pool = shuffle(KANJI_WORDS.filter(x => x.kana !== kw.kana), rng);
@@ -129,10 +117,9 @@ export function kanjiQuestion(kw, rng) {
     hint: 'Chọn cách đọc đúng',
     choices: shuffle([kw.kana, ...wrong], rng),
     answer: kw.kana,
-    explain: `${kw.word} đọc là ${kw.kana}, nghĩa là "${kw.vi}".${picLine(kw.word)}`,
+    explain: `${kw.word} đọc là ${kw.kana}, nghĩa là "${kw.vi}".`,
     tag: 'Kanji',
     plain: true, // furigana trên chữ Hán chính là đáp án nên không hiện
-    promptPics: picsOf(kw.word), // nhìn chữ Hán thì kèm hình từng chữ để nhớ nghĩa
     promptLang: 'ja',
     choiceLang: 'ja',
     ref: { word: kw.word },
@@ -154,10 +141,9 @@ export function kanjiPickQuestion(kw, rng) {
     hint: 'Chọn từ viết bằng kanji đúng',
     choices: shuffle([kw.word, ...wrong.map(x => x.word)], rng),
     answer: kw.word,
-    explain: `${kw.kana} (${kw.vi}) viết là ${kw.word}.${picLine(kw.word)}`,
+    explain: `${kw.kana} (${kw.vi}) viết là ${kw.word}.`,
     tag: 'Kanji',
     plain: true,
-    choicePics: Object.fromEntries([kw.word, ...wrong.map(x => x.word)].map(w => [w, picsInline(w)])), // hình cạnh từng đáp án: ai cũng có hình nên không lộ đáp án
     choiceLang: 'ja',
     ref: { word: kw.word },
   };
@@ -185,7 +171,7 @@ export function kanjiHvQuestion(k, rng) {
     hint: 'Chọn chữ Hán đúng',
     choices: shuffle([k.char, ...wrong], rng),
     answer: k.char,
-    explain: `${k.char} là ${k.hv}, nghĩa là "${k.vi}".${picLine(k.char)}${note?.[1] ? ` Cách nhớ: ${note[1]}` : ''}${mateText}`,
+    explain: `${k.char} là ${k.hv}, nghĩa là "${k.vi}".${note?.[1] ? ` Cách nhớ: ${note[1]}` : ''}${mateText}`,
     tag: 'Kanji',
     plain: true,
     choiceLang: 'ja',

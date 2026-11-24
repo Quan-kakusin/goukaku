@@ -216,7 +216,7 @@ export function mount(root) {
     const locked = !exam && answers[idx] !== null;
     // bare: lựa chọn là hình hoặc chỉ nghe được, trên nút chỉ ghi số
     const buttons = q.choices.map((c, i) =>
-      h('button', { type: 'button', class: `choice${q.bare ? ' bare' : ''}`, 'data-choice': c, onclick: () => choose(c) }, h('kbd', null, String(i + 1)), h('span', { lang: q.choiceLang }, q.bare ? `Đáp án ${c}` : q.choiceLang === 'ja' ? ja(q, c) : [c]), q.choicePics?.[c] && h('span', { class: 'choice-pic', 'aria-hidden': 'true' }, q.choicePics[c]), h('span', { class: 'mark', 'aria-hidden': 'true' })),
+      h('button', { type: 'button', class: `choice${q.bare ? ' bare' : ''}`, 'data-choice': c, onclick: () => choose(c) }, h('kbd', null, String(i + 1)), h('span', { lang: q.choiceLang }, q.bare ? `Đáp án ${c}` : q.choiceLang === 'ja' ? ja(q, c) : [c]), h('span', { class: 'mark', 'aria-hidden': 'true' })),
     );
     const feedback = h('div', { class: 'feedback', role: 'status', 'aria-live': 'polite' });
     const flagBtn = h('button', { class: 'btn small', type: 'button', 'aria-pressed': String(flags[idx]), onclick: toggleFlag }, flags[idx] ? '⚑ Đã đánh dấu' : '⚐ Đánh dấu xem lại');
@@ -229,7 +229,6 @@ export function mount(root) {
       q.audio && audioBox(q),
       q.image && h('img', { class: 'q-image', src: q.image, alt: `Hình của câu ${q.prompt}` }),
       h('p', { class: `q-prompt${q.audio || q.prompt.length > 30 ? ' long' : ''}`, lang: q.promptLang }, ...(q.promptLang === 'ja' ? ja(q, q.prompt) : [q.prompt])),
-      q.promptPics?.length > 0 && h('p', { class: 'q-pics', 'aria-hidden': 'true' }, ...q.promptPics.map(([c, p]) => h('span', { class: 'q-pic' }, h('span', { lang: 'ja' }, c), p))),
       q.hint && h('p', { class: 'q-hint muted' }, q.hint),
       h('div', { class: 'choices', role: 'group', 'aria-label': 'Các đáp án' }, ...buttons),
       feedback,
