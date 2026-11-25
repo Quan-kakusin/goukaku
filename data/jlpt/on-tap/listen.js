@@ -96,7 +96,7 @@ export default {
             ['ナ', 'おとこの ひとは まず、なにを しますか。'],
           ] }),
         Q('8ばん', ['りょうりを つくる こと', 'ほんを よむ こと', 'ピアノを ひく こと', 'うたを うたう こと'], 3,
-          'Bài 18 (しゅみは V る こと). Sở thích của Maria là chơi piano (「ピアノを ひく ことです」). Hát thì 「へた」 (dở), nấu ăn 「あまり じょうずじゃ ありません」, còn đọc sách thì cô 「よみません」. Đáp án 3.',
+          'Bài 18 (しゅみは V る こと). Câu hỏi là sở thích của Maria. Cô nói thẳng 「ピアノを ひく ことです」 (sở thích là chơi piano). Nam hỏi thêm các việc khác nhưng cô đều từ chối: hát 「うたは へたです」 (hát dở), nấu ăn 「あまり じょうずじゃ ありません」 (không giỏi lắm), đọc sách 「ほんは よみません」 (không đọc). Đáp án 3.',
           { lesson: 18, audio: [
             ['ナ', '8ばん。おんなの ひとの しゅみは なんですか。'],
             ['男', 'マリアさんの しゅみは なんですか。'],
@@ -133,7 +133,7 @@ export default {
       instrVi: 'Nghe câu hỏi trước, rồi nghe hội thoại, chọn đáp án đúng nhất trong 1-4 (các đáp án in bằng chữ). Nghe 2 lần.',
       questions: [
         Q('1ばん', ['さんがつ ふつか', 'ごがつ みっか', 'ごがつ ふつか', 'さんがつ みっか'], 3,
-          'Bài 5 (ngày tháng). Miller phủ nhận tháng 3 (「さんがつじゃ ありません」), nói tháng 5 (ごがつ). Rồi phủ nhận ngày mồng 3 (みっか), nói là mồng 2 (ふつか). Vậy sinh nhật là ごがつ ふつか, đáp án 3.',
+          'Bài 5 (ngày tháng). Nữ đoán sai hai lần và Miller sửa cả hai. Đoán tháng 3, anh nói 「さんがつじゃ ありません。ごがつです」 (không phải tháng 3, là tháng 5). Đoán mồng 3, anh nói 「みっかじゃ ありません。ふつかです」 (không phải mồng 3, là mồng 2). Vậy là ごがつ ふつか, đáp án 3. Ba đáp án kia đều lẫn tháng 3 hoặc mồng 3 vừa bị phủ nhận.',
           { lesson: 5, audio: [
             ['ナ', '1ばん。おとこの ひとの たんじょうびは いつですか。'],
             ['女', 'ミラーさんの たんじょうびは さんがつですか。'],
@@ -143,7 +143,7 @@ export default {
             ['ナ', 'おとこの ひとの たんじょうびは いつですか。'],
           ] }),
         Q('2ばん', ['はは', 'せんせい', 'ちち', 'ともだち'], 2,
-          'Bài 7 (あげます, tặng ai). Mẹ được tặng áo sơ mi, bố được tặng cà vạt, bạn được tặng sô cô la. Còn hoa thì 「はなは せんせいに あげます」 (tặng cho thầy cô). Đáp án 2.',
+          'Bài 7 (あげます, tặng ai). Nữ hỏi có tặng hoa cho mẹ không, nam nói 「いいえ」 rồi kể quà của từng người: mẹ được áo sơ mi, bố được cà vạt, bạn được sô cô la. Cuối cùng 「はなは せんせいに あげます」 (hoa thì tặng thầy cô). Mẹ, bố, bạn đều nhận quà khác nên bị loại. Đáp án 2.',
           { lesson: 7, audio: [
             ['ナ', '2ばん。おとこの ひとは はなを だれに あげますか。'],
             ['女', 'すてきな はなですね。おかあさんに あげますか。'],
@@ -177,7 +177,7 @@ export default {
             ['ナ', 'おんなの ひとは ぜんぶで いくらですか。'],
           ] }),
         Q('5ばん', ['カメラ', 'くるま', 'パソコン', 'とけい'], 1,
-          'Bài 13 (ほしい). Nam muốn xe hơi nhưng đắt, máy tính thì đã có ở nhà (「うちに あります」), đồng hồ thì 「あまり ほしくないです」. Thứ anh thực sự muốn là máy ảnh (「カメラが ほしいです」). Đáp án 1.',
+          'Bài 13 (ほしい). Câu hỏi là thứ nam muốn nhân sinh nhật. Xe hơi 「ほしいですが、たかいです」 (muốn nhưng đắt), máy tính 「うちに あります」 (đã có ở nhà), đồng hồ 「あまり ほしくないです」 (không muốn lắm). Thứ anh nói thẳng là muốn: 「カメラが ほしいです」 (muốn máy ảnh). Đáp án 1.',
           { lesson: 13, audio: [
             ['ナ', '5ばん。おとこの ひとは たんじょうびに なにが ほしいですか。'],
             ['女', 'ミラーさん、たんじょうびに なにが ほしいですか。'],
@@ -189,7 +189,7 @@ export default {
             ['ナ', 'おとこの ひとは たんじょうびに なにが ほしいですか。'],
           ] }),
         Q('6ばん', ['しゃしんを とる', 'たばこを すう', 'ジュースを のむ', 'でんわを かける'], 3,
-          'Bài 15 (V てもいいです / V てはいけません). Chụp ảnh 「いけません」, hút thuốc 「いけません」, gọi điện cũng 「いけません」. Chỉ có nước ép là được: 「ジュースは のんでも いいですよ」. Đáp án 3.',
+          'Bài 15 (V ても いいです / V ては いけません). Nam hỏi lần lượt bốn việc. Nữ trả lời: chụp ảnh 「いけません」, hút thuốc 「いけません」, gọi điện 「いけません」 (đều cấm). Chỉ có nước ép là được: 「ジュースは のんでも いいですよ」 (uống nước ép thì được). Đáp án 3.',
           { lesson: 15, audio: [
             ['ナ', '6ばん。おとこの ひとは ここで なにを しても いいですか。'],
             ['男', 'すみません、ここで しゃしんを とっても いいですか。'],
@@ -213,7 +213,7 @@ export default {
             ['ナ', 'おとこの ひとは なにを しなくても いいですか。'],
           ] }),
         Q('8ばん', ['ふじさんに のぼった こと', 'かぶきを みた こと', 'てんぷらを たべた こと', 'すもうを みた こと'], 4,
-          'Bài 19 (V た ことが あります). Cô đã leo núi Phú Sĩ một lần (いちど), đã xem kabuki, đã ăn tempura. Còn sumo thì 「いちども ありません」 (chưa lần nào). Đáp án 4.',
+          'Bài 19 (V た ことが あります). Câu hỏi là việc cô chưa từng làm. Cô đã leo núi Phú Sĩ 「いちど あります」 (một lần), đã xem kabuki 「かぶきも あります」, đã ăn tempura 「たべた ことが ありますよ」. Chỉ sumo là 「いちども ありません」 (chưa lần nào, いちども đi với phủ định). Đáp án 4.',
           { lesson: 19, audio: [
             ['ナ', '8ばん。おんなの ひとは なにを した ことが ありませんか。'],
             ['男', 'ワットさんは ふじさんに のぼった ことが ありますか。'],

@@ -31,18 +31,18 @@ export default {
           instr: '【　】の ことばは ひらがなで どう かきますか。1・2・3・4から いちばん いい ものを ひとつ えらんで ください。',
           instrVi: 'Chọn cách đọc bằng hiragana đúng của từ gạch chân.',
           questions: [
-            Q('あの 学校は 【今週】の 土よう日に おまつりを します。', ['きんしゅう', 'こんしゅう', 'こんしゅ', 'こんじゅう'], 2, '今週 đọc là こんしゅう (tuần này). 今 ghép với 週 đọc là こん, 週 là しゅう.'),
-            Q('【八月】に おおきな おまつりが あります。', ['はつがつ', 'はちげつ', 'はっがつ', 'はちがつ'], 4, '八月 đọc là はちがつ (tháng tám). Tháng đọc là がつ, không phải げつ.'),
-            Q('ラケットを 【右手】で もちます。', ['みぎて', 'みぎしゅ', 'うて', 'みぎで'], 1, '右手 đọc là みぎて (tay phải). 右 là みぎ, 手 là て.'),
-            Q('きょうの サッカーは 【十人】で しました。', ['じゅうひと', 'じっにん', 'じゅうにん', 'じゅにん'], 3, '十人 đọc là じゅうにん (10 người). Chỉ một người, hai người là ひとり, ふたり, từ 3 người trở đi dùng にん; 4 người là よにん.'),
-            Q('【南口】で 会いましょう。', ['なんぐち', 'みなみぐち', 'みなみくち', 'みなみこう'], 2, '南口 đọc là みなみぐち (cửa nam). 口 đọc là ぐち khi ghép phía sau (biến âm đục).'),
-            Q('【先月】、ミラーさんと おまつりに 行きました。', ['せんげつ', 'さきつき', 'せんがつ', 'せんつき'], 1, '先月 đọc là せんげつ (tháng trước). Tên tháng như 八月 là がつ, nhưng 先月 (tháng trước) là げつ.'),
-            Q('日よう日は 【休み】ですから、うちで テレビを 見ます。', ['きゅうみ', 'やずみ', 'やすみ', 'ゆすみ'], 3, '休み đọc là やすみ (ngày nghỉ). 休む là やすむ.'),
-            Q('【小さい】 かばんを 買いました。', ['しょうさい', 'ちさい', 'こさい', 'ちいさい'], 4, '小さい đọc là ちいさい (nhỏ). Đừng quên chữ い kéo dài: ちいさい.'),
-            Q('リンさんは テニスが 【上手】です。', ['うわて', 'じょうず', 'じょうしゅ', 'かみて'], 2, '上手 đọc là じょうず (giỏi). Đây là từ đọc đặc biệt, không đọc theo âm thông thường.'),
-            Q('【四人】で プールに 行きました。', ['よにん', 'しにん', 'よんにん', 'よつにん'], 1, '四人 đọc là よにん (4 người). 4 người là よにん (không phải しにん hay よんにん).'),
-            Q('【来年】、日本へ 行きたいです。', ['くるとし', 'こねん', 'らいねん', 'きねん'], 3, '来年 đọc là らいねん (năm sau). 来 ghép với 年 đọc là らい.'),
-            Q('あした 【何時】に うちを 出ますか。', ['なにじ', 'なんとき', 'なにとき', 'なんじ'], 4, '何時 đọc là なんじ (mấy giờ). 何 đọc là なん khi đứng trước じ.'),
+            Q('あの 学校は 【今週】の 土よう日に おまつりを します。', ['きんしゅう', 'こんしゅう', 'こんしゅ', 'こんじゅう'], 2, '今週 đọc là こんしゅう (tuần này), 今 đọc こん và 週 đọc しゅう (có trường âm). きんしゅう sai vì きん là âm của 金 chứ không phải 今. こんしゅ thiếu trường âm ゆう nên không đủ âm. こんじゅう sai vì 週 không bị biến đục. Nhớ thêm: 今月 là こんげつ (tháng này), 来週 là らいしゅう.'),
+            Q('【八月】に おおきな おまつりが あります。', ['はつがつ', 'はちげつ', 'はっがつ', 'はちがつ'], 4, '八月 đọc là はちがつ (tháng tám): 八 đọc はち, tên tháng dùng 月 đọc がつ. はつがつ và はっがつ sai vì 八 trong 八月 không bị ngắt âm hay đổi thành はつ/はっ. はちげつ sai vì げつ chỉ dùng cho 先月 (tháng trước), 今月 (tháng này), 来月 (tháng sau), còn khi nói tháng thứ mấy thì luôn là がつ.'),
+            Q('ラケットを 【右手】で もちます。', ['みぎて', 'みぎしゅ', 'うて', 'みぎで'], 1, '右手 đọc là みぎて (tay phải): 右 đọc みぎ, 手 đọc て (cả hai đều là âm Kun, đọc theo kiểu thuần Nhật). みぎしゅ sai vì しゅ là âm On của 手, chỉ gặp trong từ Hán như 歌手 (かしゅ, ca sĩ). うて không phải cách đọc của từ này. みぎで sai vì 手 không bị biến đục. Từ liên quan: 左手 là ひだりて (tay trái).'),
+            Q('きょうの サッカーは 【十人】で しました。', ['じゅうひと', 'じっにん', 'じゅうにん', 'じゅにん'], 3, '十人 đọc là じゅうにん (10 người). Đếm người: 1 người ひとり, 2 người ふたり, từ 3 người trở đi dùng にん (さんにん, よにん...). じゅうひと sai vì ひと chỉ nằm trong ひとり. じっにん sai vì 十 chỉ ngắt âm thành じっ trước hàng か, さ, た, ぱ (じっぷん). じゅにん sai vì thiếu trường âm: phải là じゅう.'),
+            Q('【南口】で 会いましょう。', ['なんぐち', 'みなみぐち', 'みなみくち', 'みなみこう'], 2, '南口 đọc là みなみぐち (cửa nam): 南 đọc みなみ, 口 đọc くち nhưng khi đứng sau một từ khác thì biến đục thành ぐち, giống 出口 (でぐち, lối ra). なんぐち sai vì dùng âm On なん của 南 trong khi cả từ này đọc theo Kun. みなみくち sai vì quên biến đục. みなみこう sai vì こう là âm On của 口 (như 人口 じんこう, dân số).'),
+            Q('【先月】、ミラーさんと おまつりに 行きました。', ['せんげつ', 'さきつき', 'せんがつ', 'せんつき'], 1, '先月 đọc là せんげつ (tháng trước): 先 đọc せん, 月 đọc げつ. Khi nói tháng thứ mấy (八月, 九月...) mới dùng がつ, còn 先月, 今月 (こんげつ), 来月 (らいげつ) thì dùng げつ. せんがつ sai vì dùng nhầm がつ. さきつき và せんつき là cách đọc không tồn tại cho từ này.'),
+            Q('日よう日は 【休み】ですから、うちで テレビを 見ます。', ['きゅうみ', 'やずみ', 'やすみ', 'ゆすみ'], 3, '休み đọc là やすみ (ngày nghỉ, kỳ nghỉ). Câu: Chủ nhật là ngày nghỉ nên tôi ở nhà xem ti vi. Chữ 休 đọc theo Kun là やす (động từ 休む là やすむ, nghỉ ngơi). きゅうみ sai vì きゅう là âm On của 休 (như 休日 きゅうじつ) và không ghép với み. やずみ sai vì không biến đục, ゆすみ là từ không có.'),
+            Q('【小さい】 かばんを 買いました。', ['しょうさい', 'ちさい', 'こさい', 'ちいさい'], 4, '小さい đọc là ちいさい (nhỏ). Câu: Tôi đã mua một cái túi nhỏ. Cách đọc đúng có hai chữ い liền nhau: ちいさい. ちさい sai vì thiếu một âm い (hay mắc lỗi này khi viết). しょうさい sai vì しょう là âm On của 小 (như 小学校 しょうがっこう), mà 小さい là từ Kun. こさい sai vì こ chỉ dùng trong vài từ như 小鳥 (ことり).'),
+            Q('リンさんは テニスが 【上手】です。', ['うわて', 'じょうず', 'じょうしゅ', 'かみて'], 2, '上手 đọc là じょうず (giỏi, khéo). Câu: Anh Lin chơi quần vợt giỏi. Đây là từ đọc đặc biệt, không thể tách thành 上 + 手 để đọc thường. Trái nghĩa là 下手 (へた, kém). うわて (thế trên, hơn hẳn) và かみて (phía trên) là cách đọc khác của chữ 上手 nhưng nghĩa khác, không hợp câu này. じょうしゅ sai vì không có cách đọc đó.'),
+            Q('【四人】で プールに 行きました。', ['よにん', 'しにん', 'よんにん', 'よつにん'], 1, '四人 đọc là よにん (4 người). Số 4 trong đếm người đọc よ (không đọc し hay よん): よにん. しにん không dùng cho đếm người. よんにん sai vì 4 người luôn là よにん. よつにん sai vì よつ chỉ dùng trong cách đếm vật thông thường (よっつ, 4 cái). Nhớ: 1 người ひとり, 2 người ふたり, 3 người さんにん, 4 người よにん.'),
+            Q('【来年】、日本へ 行きたいです。', ['くるとし', 'こねん', 'らいねん', 'きねん'], 3, '来年 đọc là らいねん (năm sau). Câu: Năm sau tôi muốn đến Nhật. 来 đọc らい khi ghép với từ chỉ thời gian: 来週 らいしゅう, 来月 らいげつ, 来年 らいねん. くるとし và こねん chỉ là ghép bừa từ cách đọc của 来る (くる, こ), còn きねん nghe giống 記念 (kỷ niệm), cả ba đều không phải cách đọc của 来年.'),
+            Q('あした 【何時】に うちを 出ますか。', ['なにじ', 'なんとき', 'なにとき', 'なんじ'], 4, "何時 đọc là なんじ (mấy giờ). Câu: Ngày mai bạn rời nhà lúc mấy giờ? 何 đọc là なん khi đứng trước hàng đếm như じ (giờ), にん (người), がつ (tháng): なんじ, なんにん, なんがつ. なにじ sai vì なに dùng khi đứng riêng (なにを...). なんとき và なにとき sai vì khi hỏi giờ thì 時 đọc じ, còn とき là 'lúc'."),
           ],
         },
         {
@@ -54,14 +54,14 @@ export default {
           instr: '【　】の ことばは どう かきますか。1・2・3・4から いちばん いい ものを ひとつ えらんで ください。',
           instrVi: 'Chọn cách viết đúng (kanji) của từ gạch chân. Đáp án nhiễu là chữ na ná nhau.',
           questions: [
-            Q('母に 【でんわ】を かけます。', ['雪話', '電詁', '電話', '電語'], 3, 'でんわ viết là 電話 (điện thoại). 電 có bộ 雨, 話 có bộ 言 bên trái và 舌 bên phải.'),
-            Q('駅の 【でぐち】は あちらです。', ['出口', '山口', '出日', '凹口'], 1, 'でぐち viết là 出口 (lối ra). 出 giống như hai chữ 山 chồng lên nhau, còn 山 là やま.'),
-            Q('【らいしゅう】、おまつりに 行きます。', ['未週', '来周', '求週', '来週'], 4, 'らいしゅう viết là 来週 (tuần sau). 週 có bộ 辶 bên ngoài, khác với 周 hay 求.'),
-            Q('【あたらしい】 スポーツシューズを 買いました。', ['親しい', '新しい', '断しい', '薪しい'], 2, 'あたらしい viết là 新しい (mới). 親しい là したしい (thân thiết).'),
-            Q('あの 【みせ】で 本を 買いました。', ['庁', '店', '府', '庫'], 2, 'みせ viết là 店 (cửa hàng). Các chữ còn lại có bộ 广 giống nhưng nghĩa khác.'),
-            Q('ここに 【なまえ】を 書いて ください。', ['各前', '名箭', '名前', '名削'], 3, 'なまえ viết là 名前 (tên). 名 gồm 夕 và 口, 前 là phía trước.'),
-            Q('ベトナムは わたしの 【くに】です。', ['国', '圏', '困', '固'], 1, 'くに viết là 国 (đất nước). Bên trong khung 囗 là chữ 玉.'),
-            Q('【ちち】は 土よう日に ゴルフを します。', ['交', '文', '欠', '父'], 4, 'ちち viết là 父 (bố của mình). 交, 文, 欠 là các chữ khác có hình dạng gần giống.'),
+            Q('母に 【でんわ】を かけます。', ['雪話', '電詁', '電話', '電語'], 3, "でんわ viết là 電話 (điện thoại): 電 có bộ 雨 ở trên, 話 có bộ 言 bên trái và 舌 bên phải (nói bằng lưỡi). 雪話 sai vì 雪 là ゆき (tuyết), na ná 電 nhưng không phải. 電詁 sai vì 詁 là chữ hiếm có 古 bên phải. 電語 sai vì 語 đọc ご (日本語 にほんご, tiếng Nhật), không phải 'điện thoại'."),
+            Q('駅の 【でぐち】は あちらです。', ['出口', '山口', '出日', '凹口'], 1, 'でぐち viết là 出口 (lối ra): 出 (でる, ra) + 口 (くち, cửa miệng, lối). 出 trông giống hai chữ 山 chồng lên nhau. 山口 là やまぐち (tên người/địa danh Yamaguchi): chỉ có 山 là やま (núi). 出日 sai vì 日 là ひ/にち (mặt trời, ngày). 凹口 sai vì 凹 là chữ lõm, không dùng trong từ này.'),
+            Q('【らいしゅう】、おまつりに 行きます。', ['未週', '来周', '求週', '来週'], 4, "らいしゅう viết là 来週 (tuần sau). 週 có bộ 辶 bao quanh, bên trong là 周. 未週 sai vì 未 (み) có nghĩa 'chưa' (未来 みらい là tương lai), không phải 来. 来周 sai vì 周 (しゅう) nghĩa là 'xung quanh', thiếu bộ 辶 nên không phải 週 (tuần). 求週 sai vì 求 là きゅう/もとめる (yêu cầu)."),
+            Q('【あたらしい】 スポーツシューズを 買いました。', ['親しい', '新しい', '断しい', '薪しい'], 2, "あたらしい viết là 新しい (mới): 新 gồm 立 + 木 + 斤 (cái rìu), okurigana là しい. 親しい đọc là したしい (thân thiết), chỉ khác bộ bên trái là 親. 断しい sai vì 断 là だん/ことわる (từ chối, 断る). 薪しい sai vì 薪 là chữ có nghĩa 'củi' (まき), không dùng cho 'mới'."),
+            Q('あの 【みせ】で 本を 買いました。', ['庁', '店', '府', '庫'], 2, 'みせ viết là 店 (cửa hàng, tiệm). Câu: Tôi đã mua sách ở cửa hàng kia. 店 có bộ 广 (mái nhà) bên ngoài. Ba chữ còn lại cũng có bộ 广 nên nhìn dễ nhầm: 庁 là ちょう (cơ quan, 県庁 ủy ban tỉnh), 府 là ふ (phủ, 京都府), 庫 là こ (kho, 冷蔵庫 れいぞうこ tủ lạnh). Không chữ nào đọc là みせ.'),
+            Q('ここに 【なまえ】を 書いて ください。', ['各前', '名箭', '名前', '名削'], 3, 'なまえ viết là 名前 (tên). Câu: Hãy viết tên vào đây. 名 gồm 夕 (buổi tối) + 口 (miệng): tối trời gọi tên nhau vì không nhìn rõ. 前 là まえ (phía trước). 各前 sai vì 各 là かく (mỗi), 名箭 sai vì 箭 là chữ hiếm (mũi tên), 名削 sai vì 削 là さく/けずる (gọt, bào).'),
+            Q('ベトナムは わたしの 【くに】です。', ['国', '圏', '困', '固'], 1, 'くに viết là 国 (đất nước, quê hương). Câu: Việt Nam là đất nước của tôi. 国 gồm khung 囗 bao quanh chữ 玉 (ngọc) bên trong. Chữ nhiễu: 圏 là けん (khu vực), 困 là こま-る (khó khăn, bên trong là 木), 固 là かた-い (cứng, bên trong là 古). Cùng khung 囗 nhưng chỉ 国 mới đọc là くに.'),
+            Q('【ちち】は 土よう日に ゴルフを します。', ['交', '文', '欠', '父'], 4, 'ちち viết là 父 (bố của mình, nói với người ngoài). Câu: Bố tôi chơi golf vào thứ Bảy. Các chữ nhiễu có hình hơi giống: 交 đọc こう (giao, trao đổi), 文 đọc ぶん (câu văn), 欠 đọc けつ (thiếu, 欠席 けっせき vắng mặt). Cặp đối: 父 ちち (bố) và 母 はは (mẹ).'),
           ],
         },
         {
@@ -72,16 +72,16 @@ export default {
           instr: '（　　）に なにを いれますか。1・2・3・4から いちばん いい ものを ひとつ えらんで ください。',
           instrVi: 'Chọn từ thích hợp điền vào chỗ trống.',
           questions: [
-            Q('日よう日は あめでしたから、うちで DVDを （　　）。', ['聞きました', '書きました', '見ました', '飲みました'], 3, 'DVD thì xem: DVDを 見ました. 聞く là nghe, 書く là viết, 飲む là uống.'),
-            Q('ともだちと テニスを （　　）。', ['します', 'ひきます', 'のります', 'かきます'], 1, 'Thể thao đi với します: テニスを します (chơi quần vợt). ひく dùng cho nhạc cụ, のる là đi (xe), かく là viết hoặc vẽ.'),
-            Q('A「あした、たんじょうびパーティーに 行きますか。」B「はい。プレゼントを （　　）行きます。」', ['もらって', 'あげて', 'くれて', 'もって'], 4, 'V て 行く: làm V rồi đi. プレゼントを もって 行きます là mang quà đi. もらう, あげる, くれる không đi với 行きます trong ngữ cảnh này.'),
-            Q('この へやは あついですから、まどを （　　）。', ['しめます', 'あけます', 'つけます', 'けします'], 2, 'Phòng nóng nên mở cửa sổ: まどを あけます. しめる là đóng, つける là bật, けす là tắt.'),
-            Q('まいあさ 六時に （　　）、あさごはんを 食べます。', ['ねて', 'やすんで', 'おきて', 'おくれて'], 3, 'Buổi sáng 6 giờ thức dậy rồi ăn sáng: 六時に おきて. ねる là ngủ, やすむ là nghỉ, おくれる là trễ.'),
-            Q('かいものの あとで、きっさてんで コーヒーを （　　）。', ['飲みました', '食べました', '読みました', '聞きました'], 1, 'Cà phê thì uống: コーヒーを 飲みました. 食べる là ăn, 読む là đọc, 聞く là nghe.'),
-            Q('あしたは おまつりが （　　）。人が たくさん 来ます。', ['なります', 'います', 'します', 'あります'], 4, 'Sự kiện (lễ hội, tiệc) diễn ra dùng あります: おまつりが あります. います dành cho người và động vật.'),
-            Q('やすみの 日に、ジョギングを して、（　　）を あびます。', ['バス', 'シャワー', 'プール', 'ベッド'], 2, 'シャワーを あびます: tắm vòi sen. あびる đi với シャワー.'),
-            Q('クラスは 九時に はじまって、十一時に （　　）。', ['かえります', 'でかけます', 'おわります', 'はいります'], 3, 'はじまる (bắt đầu) đối với おわる (kết thúc): lớp học bắt đầu lúc 9 giờ và kết thúc lúc 11 giờ.'),
-            Q('A「すみません、えきは どこですか。」B「あの かどを （　　）、まっすぐ 行って ください。」', ['まがって', 'わたって', 'のぼって', 'おりて'], 1, 'かどを まがる: rẽ ở góc đường. わたる là băng qua, のぼる là leo lên, おりる là xuống.'),
+            Q('日よう日は あめでしたから、うちで DVDを （　　）。', ['聞きました', '書きました', '見ました', '飲みました'], 3, '日よう日は あめでしたから、うちで DVDを 見ました: Chủ nhật trời mưa nên tôi ở nhà xem DVD. DVD đi với động từ 見る (xem). 聞きました (ききました) là nghe (nhạc, tin tức), 書きました (かきました) là viết, 飲みました (のみました) là uống, cả ba đều không đi với DVD.'),
+            Q('ともだちと テニスを （　　）。', ['します', 'ひきます', 'のります', 'かきます'], 1, 'ともだちと テニスを します: tôi chơi quần vợt với bạn. Thể thao và trò chơi đi với します (サッカーを します, ゲームを します). ひきます dùng cho nhạc cụ (ギターを ひきます, chơi đàn guitar), のります là đi/lên xe (でんしゃに のります), かきます là viết hoặc vẽ, đều không đi với テニス.'),
+            Q('A「あした、たんじょうびパーティーに 行きますか。」B「はい。プレゼントを （　　）行きます。」', ['もらって', 'あげて', 'くれて', 'もって'], 4, 'A hỏi: ngày mai bạn đi tiệc sinh nhật chứ? B: Vâng, tôi mang quà đi. V て 行きます là làm V rồi đi, nên プレゼントを もって 行きます nghĩa là mang quà đến dự tiệc. もらって (nhận), あげて (tặng), くれて (cho mình) nói về việc cho nhận, không hợp với ý mang quà đến buổi tiệc.'),
+            Q('この へやは あついですから、まどを （　　）。', ['しめます', 'あけます', 'つけます', 'けします'], 2, 'この へやは あついですから、まどを あけます: phòng này nóng nên tôi mở cửa sổ. あける là mở, hợp với việc muốn mát hơn. しめます (đóng) làm phòng nóng thêm, つけます là bật (điện, máy lạnh) và けします là tắt (điện), đều không dùng với まど (cửa sổ).'),
+            Q('まいあさ 六時に （　　）、あさごはんを 食べます。', ['ねて', 'やすんで', 'おきて', 'おくれて'], 3, 'まいあさ 六時に おきて、あさごはんを 食べます: mỗi sáng tôi dậy lúc 6 giờ rồi ăn sáng. おきる (起きる) là thức dậy, て-form nối hai hành động liên tiếp. ねて là ngủ (không hợp vì ngủ rồi mới ăn sáng thì vô lý), やすんで là nghỉ, おくれて là trễ (không hợp thói quen mỗi sáng).'),
+            Q('かいものの あとで、きっさてんで コーヒーを （　　）。', ['飲みました', '食べました', '読みました', '聞きました'], 1, 'かいものの あとで、きっさてんで コーヒーを 飲みました: sau khi mua sắm, tôi uống cà phê ở quán cà phê. Đồ uống dùng động từ 飲む (のむ). 食べました (たべました) là ăn, 読みました (よみました) là đọc, 聞きました (ききました) là nghe, không đi với コーヒー.'),
+            Q('あしたは おまつりが （　　）。人が たくさん 来ます。', ['なります', 'います', 'します', 'あります'], 4, 'あしたは おまつりが あります。人が たくさん 来ます: ngày mai có lễ hội, sẽ có nhiều người đến. Sự kiện (lễ hội, tiệc, buổi họp) diễn ra thì dùng あります (có, diễn ra). います chỉ người và động vật. なります là trở thành (cần に: ～に なります). します là làm, đi với を (おまつりを します), không đi với が.'),
+            Q('やすみの 日に、ジョギングを して、（　　）を あびます。', ['バス', 'シャワー', 'プール', 'ベッド'], 2, 'やすみの 日に、ジョギングを して、シャワーを あびます: ngày nghỉ tôi chạy bộ rồi tắm vòi sen. あびる (tắm, dội nước) đi với シャワー. バス là xe buýt (バスに のります), プール là hồ bơi (プールで およぎます), ベッド là giường (ベッドで ねます), không đi với あびます.'),
+            Q('クラスは 九時に はじまって、十一時に （　　）。', ['かえります', 'でかけます', 'おわります', 'はいります'], 3, "クラスは 九時に はじまって、十一時に おわります: lớp bắt đầu lúc 9 giờ và kết thúc lúc 11 giờ. はじまる (bắt đầu) đi cặp với おわる (kết thúc). かえります là về, でかけます là ra ngoài, はいります là vào; lớp đã bắt đầu rồi nên 'vào lớp lúc 11 giờ' không hợp ý nghĩa."),
+            Q('A「すみません、えきは どこですか。」B「あの かどを （　　）、まっすぐ 行って ください。」', ['まがって', 'わたって', 'のぼって', 'おりて'], 1, 'A hỏi đường đến ga. B: あの かどを まがって、まっすぐ 行って ください nghĩa là hãy rẽ ở góc đường kia rồi đi thẳng. かどを まがる là rẽ ở góc. わたる là băng qua (はしを わたる, qua cầu), のぼる là leo lên (やまに のぼる), おりる là xuống (でんしゃを おりる), không đi với かど.'),
           ],
         },
         {
@@ -92,11 +92,11 @@ export default {
           instr: '【　】の ぶんと だいたい おなじ いみの ぶんが あります。1・2・3・4から いちばん いい ものを ひとつ えらんで ください。',
           instrVi: 'Chọn câu có nghĩa gần giống câu gạch chân.',
           questions: [
-            Q('【おとといは 金よう日でした】。', ['きょうは 土よう日です。', 'きょうは 日よう日です。', 'きょうは 月よう日です。', 'きょうは 金よう日です。'], 2, 'おとといは 金よう日 (hôm kia là thứ Sáu) thì hôm qua là thứ Bảy, hôm nay là Chủ nhật (日よう日).'),
-            Q('【この 本は ミラーさんに もらいました】。', ['わたしが ミラーさんに この 本を あげました。', 'ミラーさんが わたしに この 本を かりました。', 'ミラーさんが この 本を かって くれました。', 'ミラーさんが わたしに この 本を くれました。'], 4, 'N に もらう (nhận từ N) tương đương N が くれる (N cho tôi). Câu 1 là chiều ngược lại, câu 3 nói "mua giúp", khác nghĩa.'),
-            Q('【わたしは テニスより サッカーが すきです】。', ['わたしは サッカーより テニスの ほうが すきです。', 'わたしは テニスも サッカーも すきでは ありません。', 'わたしは テニスより サッカーの ほうが すきです。', 'わたしは テニスと サッカーが ぜんぜん できません。'], 3, 'より nghĩa là hơn: テニスより サッカーが すき nghĩa là thích bóng đá hơn quần vợt, giống với サッカーの ほうが すき. Câu 1 có nghĩa ngược lại.'),
-            Q('【この へやは せまいです】。', ['この へやは ひろく ありません。', 'この へやは あかるく ありません。', 'この へやは しずかでは ありません。', 'この へやは きれいでは ありません。'], 1, 'せまい (hẹp) nghĩa là ひろく ありません (không rộng). Các câu còn lại nói về độ sáng, độ yên tĩnh, độ sạch, khác nghĩa.'),
-            Q('【ここで しゃしんを とっては いけません】。', ['ここで しゃしんを とっても いいです。', 'ここは しゃしんを とる ことが できません。', 'ここで しゃしんを とらなければ なりません。', 'ここで しゃしんを とって ください。'], 2, 'V てはいけません (cấm làm V) gần nghĩa với "không thể chụp ảnh ở đây". Câu 1 là cho phép, câu 3 là bắt buộc, câu 4 là nhờ chụp.'),
+            Q('【おとといは 金よう日でした】。', ['きょうは 土よう日です。', 'きょうは 日よう日です。', 'きょうは 月よう日です。', 'きょうは 金よう日です。'], 2, 'おとといは 金よう日でした: hôm kia là thứ Sáu. Hôm qua là thứ Bảy nên hôm nay là Chủ nhật (日よう日): đáp án 2. Câu 1 (thứ Bảy) sẽ có hôm kia là thứ Năm, câu 3 (thứ Hai) có hôm kia là thứ Bảy, câu 4 (thứ Sáu) có hôm kia là thứ Tư, đều không khớp.'),
+            Q('【この 本は ミラーさんに もらいました】。', ['わたしが ミラーさんに この 本を あげました。', 'ミラーさんが わたしに この 本を かりました。', 'ミラーさんが この 本を かって くれました。', 'ミラーさんが わたしに この 本を くれました。'], 4, 'この 本は ミラーさんに もらいました: tôi đã nhận quyển sách này từ Miller. N に もらう (nhận từ N) cùng nghĩa với N が わたしに くれる, tức câu 4 (Miller đã cho tôi quyển sách này). Câu 1 ngược chiều (tôi cho Miller), câu 2 là Miller mượn sách của tôi, câu 3 là Miller mua giúp tôi (かって くれました), đều khác nghĩa.'),
+            Q('【わたしは テニスより サッカーが すきです】。', ['わたしは サッカーより テニスの ほうが すきです。', 'わたしは テニスも サッカーも すきでは ありません。', 'わたしは テニスより サッカーの ほうが すきです。', 'わたしは テニスと サッカーが ぜんぜん できません。'], 3, 'わたしは テニスより サッカーが すきです: so với quần vợt, tôi thích bóng đá hơn. Câu 3 わたしは テニスより サッカーの ほうが すきです cùng nghĩa (ほうが nhấn mạnh bên được chọn). Câu 1 đảo ngược (thích quần vợt hơn), câu 2 là không thích cả hai, câu 4 là hoàn toàn không chơi được cả hai, đều sai.'),
+            Q('【この へやは せまいです】。', ['この へやは ひろく ありません。', 'この へやは あかるく ありません。', 'この へやは しずかでは ありません。', 'この へやは きれいでは ありません。'], 1, 'この へやは せまいです: phòng này chật (hẹp). Tính từ い đổi sang phủ định là ～く ありません: ひろく ありません là không rộng, tức là hẹp, nên câu 1 cùng nghĩa. Các câu còn lại nói về những mặt khác: あかるく ありません (không sáng), しずかでは ありません (không yên tĩnh), きれいでは ありません (không sạch đẹp).'),
+            Q('【ここで しゃしんを とっては いけません】。', ['ここで しゃしんを とっても いいです。', 'ここは しゃしんを とる ことが できません。', 'ここで しゃしんを とらなければ なりません。', 'ここで しゃしんを とって ください。'], 2, "ここで しゃしんを とっては いけません: ở đây không được chụp ảnh. V てはいけません là cấm, cùng nghĩa với 'ここは しゃしんを とる ことが できません' (ở đây không thể chụp ảnh) ở câu 2. Câu 1 là ても いいです (cho phép), câu 3 là なければ なりません (phải chụp), câu 4 là ください (xin hãy chụp), nghĩa ngược lại."),
           ],
         },
       ],
@@ -116,22 +116,22 @@ export default {
           instr: '（　　）に なにを いれますか。1・2・3・4から いちばん いい ものを ひとつ えらんで ください。',
           instrVi: 'Chọn từ hoặc mẫu câu thích hợp điền vào chỗ trống.',
           questions: [
-            Q('わたしは 日よう日に デパート（　　）かいものに 行きます。', ['を', 'で', 'が', 'へ'], 4, 'Điểm đến của động từ di chuyển dùng へ (hoặc に): デパートへ かいものに 行きます.'),
-            Q('わたしは あたらしい ラケット（　　）ほしいです。', ['で', 'が', 'に', 'と'], 2, 'Vật mình muốn có dùng が: N が ほしいです.'),
-            Q('A「あしたは 休みですね。いっしょに テニスを （　　）。」B「ええ、しましょう。」', ['しません', 'しました', 'しましょうか', 'しています'], 3, 'V ましょうか: đề nghị, rủ cùng làm. しません không rủ rê, しました là quá khứ, しています là đang làm.'),
-            Q('ベッドの 下に 小さい ねこが （　　）。', ['あります', 'います', 'おきます', 'ですか'], 2, 'Sinh vật (ở đây là mèo) dùng います, vật vô tri dùng あります.'),
-            Q('スーパーは ぎんこうと ほんやの （　　）に あります。', ['うえ', 'した', 'なか', 'あいだ'], 4, 'A と B の あいだ: ở giữa A và B. Siêu thị nằm giữa ngân hàng và hiệu sách.'),
-            Q('わたしは なつ（　　）ふゆの ほうが すきです。', ['から', 'より', 'まで', 'だけ'], 2, 'A より B の ほうが ～: B hơn A. Thích mùa đông hơn mùa hè.'),
-            Q('これは きのう わたしが （　　）スポーツシューズです。', ['買います', '買って', '買い', '買った'], 4, 'Mệnh đề bổ nghĩa danh từ dùng thể thường: きのう 買った スポーツシューズ (đôi giày thể thao đã mua hôm qua). Không dùng thể ます.'),
-            Q('わたしは たんじょうびに ともだち（　　）くつを もらいました。', ['を', 'が', 'で', 'に'], 4, 'N に もらう: nhận từ N. Người cho đi kèm に.'),
-            Q('ひま（　　）とき、えいがを 見に 行きます。', ['な', 'の', 'だ', 'で'], 1, 'Tính từ đuôi な + な + とき: ひまな とき (lúc rảnh). Danh từ thì dùng の, ví dụ あめの とき.'),
-            Q('日本へ 行った（　　）、おみやげを 買いました。', ['とき', 'まえ', 'ごろ', 'ぐらい'], 1, 'V た とき: khi đã làm V (lúc đã đến Nhật thì mua quà). まえ đi với V る (V る まえに), ごろ và ぐらい đi với con số.'),
-            Q('ここは としょかんですから、おおきい こえで はなしては （　　）。', ['いいです', 'ください', 'いけません', 'ましょう'], 3, 'V てはいけません: cấm làm V. Ở thư viện không được nói to.'),
-            Q('ミラーさんは いま うちに （　　）と おもいます。', ['います', 'いました', 'いる', 'いて'], 3, 'Trước と おもいます dùng thể thường: いる と おもいます (tôi nghĩ là đang ở nhà). います (thể lịch sự) không dùng được trong mệnh đề này.'),
-            Q('あしたは いい てんきに なる（　　）。', ['でしょう', 'ですか', 'でした', 'ましょう'], 1, 'V る でしょう: chắc là, phỏng đoán. ましょう là rủ rê, でした là quá khứ.'),
-            Q('きょうは さむい（　　）、うちで ゲームを します。', ['から', 'まで', 'より', 'しか'], 1, '～から: vì ～ nên. Vế trước là lý do (trời lạnh), vế sau là kết quả (ở nhà chơi game).'),
-            Q('ミラーさんは ぎんこうの ちかくに （　　）います。', ['すみ', 'すむ', 'すんで', 'すんだ'], 3, 'V て います diễn tả trạng thái kéo dài: すんで います (đang sống, sống ở).'),
-            Q('しゅくだいを （　　）から、ともだちと あそびます。', ['する', 'して', 'した', 'します'], 2, 'V て から: sau khi làm V. しゅくだいを して から (làm bài tập xong rồi mới chơi với bạn).'),
+            Q('わたしは 日よう日に デパート（　　）かいものに 行きます。', ['を', 'で', 'が', 'へ'], 4, 'わたしは 日よう日に デパートへ かいものに 行きます: Chủ nhật tôi đi mua sắm ở cửa hàng bách hóa. Động từ di chuyển 行きます cần trợ từ chỉ đích đến, dùng へ (hoặc に). を chỉ đối tượng tác động (ごはんを 食べます), で chỉ nơi diễn ra hành động, が chỉ chủ ngữ, đều không dùng cho điểm đến.'),
+            Q('わたしは あたらしい ラケット（　　）ほしいです。', ['で', 'が', 'に', 'と'], 2, 'わたしは あたらしい ラケットが ほしいです: tôi muốn có một cây vợt mới. Mẫu N が ほしいです (muốn có N) dùng が cho thứ mình muốn. で chỉ phương tiện/nơi chốn, に chỉ đích hoặc người nhận, と nghĩa là cùng với hoặc và, không đi với ほしい.'),
+            Q('A「あしたは 休みですね。いっしょに テニスを （　　）。」B「ええ、しましょう。」', ['しません', 'しました', 'しましょうか', 'しています'], 3, "A: あしたは 休みですね。いっしょに テニスを しましょうか。B: ええ、しましょう。 Nghĩa: A rủ 'Ngày mai nghỉ nhỉ, cùng chơi quần vợt nhé?' B đáp 'Ừ, chơi đi'. V ましょうか là lời rủ rê, đề nghị. しません (không làm), しました (đã làm), しています (đang làm) không có nghĩa rủ nên không khớp câu đáp しましょう."),
+            Q('ベッドの 下に 小さい ねこが （　　）。', ['あります', 'います', 'おきます', 'ですか'], 2, "ベッドの 下に 小さい ねこが います: dưới giường có một con mèo nhỏ. Mèo là sinh vật sống nên dùng います (có, ở). あります dùng cho vật vô tri (つくえが あります). おきます (置く hoặc 起きる) không phải nghĩa 'có', còn ですか thì không đi sau trợ từ が để kết thúc câu thế này."),
+            Q('スーパーは ぎんこうと ほんやの （　　）に あります。', ['うえ', 'した', 'なか', 'あいだ'], 4, 'スーパーは ぎんこうと ほんやの あいだに あります: siêu thị nằm giữa ngân hàng và hiệu sách. Mẫu A と B の あいだ nghĩa là giữa A và B. うえ (trên), した (dưới), なか (trong) chỉ vị trí so với một vật, không hợp khi siêu thị cùng lúc liên hệ với hai nơi là ngân hàng và hiệu sách.'),
+            Q('わたしは なつ（　　）ふゆの ほうが すきです。', ['から', 'より', 'まで', 'だけ'], 2, 'わたしは なつより ふゆの ほうが すきです: tôi thích mùa đông hơn mùa hè. Mẫu A より B の ほうが ～: B hơn A, より đi sau vật dùng để so sánh (mùa hè). から là từ, まで là đến, だけ là chỉ, đều không tạo nên nghĩa so sánh.'),
+            Q('これは きのう わたしが （　　）スポーツシューズです。', ['買います', '買って', '買い', '買った'], 4, 'これは きのう わたしが 買った スポーツシューズです: đây là đôi giày thể thao tôi đã mua hôm qua. Mệnh đề bổ nghĩa cho danh từ dùng thể thường, và vì là chuyện hôm qua nên dùng thể quá khứ 買った. 買います là thể lịch sự (không đứng trước danh từ), 買って là thể て (dùng nối câu), 買い chỉ là gốc động từ.'),
+            Q('わたしは たんじょうびに ともだち（　　）くつを もらいました。', ['を', 'が', 'で', 'に'], 4, 'わたしは たんじょうびに ともだちに くつを もらいました: vào sinh nhật tôi nhận giày từ bạn. Mẫu N に もらう: nhận từ N, người cho đi với に. を chỉ vật được tác động (くつを), で chỉ nơi hoặc phương tiện. が sẽ biến bạn thành người nhận, vừa sai nghĩa vừa trùng chủ ngữ với わたしは.'),
+            Q('ひま（　　）とき、えいがを 見に 行きます。', ['な', 'の', 'だ', 'で'], 1, 'ひまな とき、えいがを 見に 行きます: lúc rảnh tôi đi xem phim. Tính từ đuôi な khi bổ nghĩa cho danh từ thì thêm な: ひまな とき. Còn の dùng cho danh từ (あめの とき, lúc trời mưa). だ là thể thường cuối câu, で là dạng nối, đều không đặt trực tiếp trước とき theo cách này.'),
+            Q('日本へ 行った（　　）、おみやげを 買いました。', ['とき', 'まえ', 'ごろ', 'ぐらい'], 1, '日本へ 行った とき、おみやげを 買いました: khi (đã) đến Nhật, tôi đã mua quà lưu niệm. V た とき là lúc đã làm V xong. まえ phải đi với V る (V る まえに), không đi với thể た. ごろ dùng với thời điểm (三時ごろ), ぐらい dùng với số lượng (三時間ぐらい), không đứng sau động từ.'),
+            Q('ここは としょかんですから、おおきい こえで はなしては （　　）。', ['いいです', 'ください', 'いけません', 'ましょう'], 3, 'ここは としょかんですから、おおきい こえで はなしては いけません: đây là thư viện nên không được nói to. V ては いけません là cấm làm V. いいです phải đi với ても (はなしても いいです là được phép), ください và ましょう không ghép được sau dạng ては như vậy.'),
+            Q('ミラーさんは いま うちに （　　）と おもいます。', ['います', 'いました', 'いる', 'いて'], 3, 'ミラーさんは いま うちに いる と おもいます: tôi nghĩ Miller bây giờ đang ở nhà. Trước と おもいます phải dùng thể thường, vì vậy いる. います là thể lịch sự, いました là quá khứ lịch sự (không hợp với いま), いて là thể て (nối câu), không đứng trước と おもいます.'),
+            Q('あしたは いい てんきに なる（　　）。', ['でしょう', 'ですか', 'でした', 'ましょう'], 1, "あしたは いい てんきに なる でしょう: ngày mai chắc thời tiết sẽ đẹp. V る でしょう là phỏng đoán 'chắc là'. ですか là câu hỏi, でした là quá khứ (không hợp với あした), ましょう là lời rủ và phải ghép với gốc động từ (なりましょう), không đi sau なる."),
+            Q('きょうは さむい（　　）、うちで ゲームを します。', ['から', 'まで', 'より', 'しか'], 1, 'きょうは さむいから、うちで ゲームを します: hôm nay lạnh nên tôi ở nhà chơi game. から đi sau vế lý do để nối với kết quả (vì... nên). まで (đến), より (hơn), しか (chỉ, đi với phủ định) đều không nối được lý do (lạnh) với kết quả (ở nhà chơi game).'),
+            Q('ミラーさんは ぎんこうの ちかくに （　　）います。', ['すみ', 'すむ', 'すんで', 'すんだ'], 3, 'ミラーさんは ぎんこうの ちかくに すんで います: Miller đang sống gần ngân hàng. すむ là sống. Trạng thái kéo dài (đang sống ở một nơi) diễn đạt bằng V て います: すんで います. すみ (gốc) và すむ (thể từ điển) và すんだ (thể quá khứ) đều không đứng trước います trong mẫu này.'),
+            Q('しゅくだいを （　　）から、ともだちと あそびます。', ['する', 'して', 'した', 'します'], 2, "しゅくだいを して から、ともだちと あそびます: làm bài tập xong rồi mới chơi với bạn. Mẫu V て から là sau khi làm V. する, した, します mà đứng trước から thì から mang nghĩa 'vì' (lý do), không diễn tả thứ tự 'làm xong rồi mới chơi' nên không hợp ý câu."),
           ],
         },
         {
@@ -143,11 +143,11 @@ export default {
           instrVi: 'Sắp xếp 4 cụm theo đúng thứ tự, chọn cụm nằm ở vị trí ★. Dưới đây hiện 4 cụm cần sắp xếp.',
           sort: true,
           questions: [
-            Q('これは ＿ ＿ ★ ＿ ケーキです。', ['母が', 'きのう', 'つくった', 'おいしい'], 3, 'Câu đúng: これは 母が きのう つくった おいしい ケーキです (đây là chiếc bánh ngon mà mẹ đã làm hôm qua). Mệnh đề bổ nghĩa dùng thể thường (つくった) đứng ngay trước danh từ. ★ là つくった.'),
-            Q('しゅくだいが ＿ ＿ ★ ＿ 行きます。', ['おわって', 'から', 'ともだちの', 'うちへ'], 3, 'Câu đúng: しゅくだいが おわって から ともだちの うちへ 行きます (làm xong bài tập rồi sẽ đến nhà bạn). V て から: sau khi làm V. ★ là ともだちの.'),
-            Q('キムさんは ＿ ＿ ★ ＿ あります。', ['日本の', 'おまつりを', '見た', 'ことが'], 3, 'Câu đúng: キムさんは 日本の おまつりを 見た ことが あります (anh Kim đã từng xem lễ hội của Nhật). V た ことが あります: đã từng. ★ là 見た.'),
-            Q('つくえの ＿ ＿ ★ ＿ あります。', ['上に', 'きのう', '買った', '本が'], 3, 'Câu đúng: つくえの 上に きのう 買った 本が あります (trên bàn có quyển sách mua hôm qua). Mệnh đề 買った đứng trước danh từ 本. ★ là 買った.'),
-            Q('わたしは ＿ ＿ ★ ＿ できます。', ['日本語で', 'メールを', '書く', 'ことが'], 3, 'Câu đúng: わたしは 日本語で メールを 書く ことが できます (tôi có thể viết email bằng tiếng Nhật). V る ことが できます: có thể làm V. ★ là 書く.'),
+            Q('これは ＿ ＿ ★ ＿ ケーキです。', ['母が', 'きのう', 'つくった', 'おいしい'], 3, 'Câu đúng: これは 母が きのう つくった おいしい ケーキです (đây là chiếc bánh ngon mà mẹ đã làm hôm qua). 母が きのう つくった là mệnh đề bổ nghĩa, dùng thể thường (つくった) và đứng ngay trước danh từ ケーキ, còn おいしい cũng bổ nghĩa cho ケーキ nên đứng sát nó. Thứ tự các ô là 母が, きのう, つくった, おいしい, nên ★ là つくった.'),
+            Q('しゅくだいが ＿ ＿ ★ ＿ 行きます。', ['おわって', 'から', 'ともだちの', 'うちへ'], 3, 'Câu đúng: しゅくだいが おわって から ともだちの うちへ 行きます (làm xong bài tập rồi tôi sẽ đến nhà bạn). V て から nghĩa là sau khi làm V, nên おわって và から đi liền nhau ngay sau しゅくだいが. ともだちの bổ nghĩa cho うちへ (đến nhà của bạn). Thứ tự các ô là おわって, から, ともだちの, うちへ, nên ★ là ともだちの.'),
+            Q('キムさんは ＿ ＿ ★ ＿ あります。', ['日本の', 'おまつりを', '見た', 'ことが'], 3, 'Câu đúng: キムさんは 日本の おまつりを 見た ことが あります (anh Kim đã từng xem lễ hội của Nhật). Mẫu V た ことが あります nghĩa là đã từng làm V (kinh nghiệm), nên 見た đứng trước ことが. 日本の bổ nghĩa cho おまつり. Thứ tự các ô là 日本の, おまつりを, 見た, ことが, nên ★ là 見た.'),
+            Q('つくえの ＿ ＿ ★ ＿ あります。', ['上に', 'きのう', '買った', '本が'], 3, 'Câu đúng: つくえの 上に きのう 買った 本が あります (trên bàn có quyển sách mua hôm qua). 上に chỉ nơi có vật nằm, đi ngay sau つくえの. 買った (kèm きのう) là mệnh đề bổ nghĩa nên đứng ngay trước danh từ 本. Thứ tự các ô là 上に, きのう, 買った, 本が, nên ★ là 買った.'),
+            Q('わたしは ＿ ＿ ★ ＿ できます。', ['日本語で', 'メールを', '書く', 'ことが'], 3, 'Câu đúng: わたしは 日本語で メールを 書く ことが できます (tôi có thể viết email bằng tiếng Nhật). Mẫu V る ことが できます nghĩa là có thể làm V, nên 書く đứng trước ことが. 日本語で (bằng tiếng Nhật) đứng đầu, rồi đến メールを (đối tượng của 書く). Thứ tự các ô là 日本語で, メールを, 書く, ことが, nên ★ là 書く.'),
           ],
         },
         {
@@ -162,11 +162,11 @@ export default {
           passageVi:
             'Sở thích của tôi là thể thao. Cuối tuần tôi luôn chơi quần vợt ở công viên với bạn. Hôm qua trời mưa nên tôi không chơi quần vợt được. Vì vậy tôi ở nhà xem ti vi. Trên ti vi đang có tin tức về lễ hội. Anh Miller nói "Lễ hội ở Nhật rất náo nhiệt". Tôi cũng muốn đến Nhật vào năm sau. Sau khi xem lễ hội, tôi muốn chơi quần vợt cùng anh Miller.',
           questions: [
-            Q('【1】に はいる ものは どれですか。', ['を', 'と', 'から', 'まで'], 2, 'N と V: làm V cùng với N. ともだちと テニスを します là chơi quần vợt với bạn.'),
-            Q('【2】に はいる ものは どれですか。', ['ことを', 'ものが', 'ことが', 'ことに'], 3, 'V る ことが できません: không thể làm V. テニスを する ことが できませんでした là đã không thể chơi quần vợt.'),
-            Q('【3】に はいる ものは どれですか。', ['が', 'を', 'に', 'と'], 4, 'Trích dẫn lời nói dùng と: ～と いいました (đã nói rằng ～).'),
-            Q('【4】に はいる ものは どれですか。', ['たい', 'たく', 'ます', 'て'], 1, 'V ます bỏ ます + たいです: muốn làm V. 行き + たい + です (muốn đi).'),
-            Q('【5】に はいる ものは どれですか。', ['まで', 'から', 'より', 'だけ'], 2, 'V て から: sau khi làm V. おまつりを 見て から là sau khi xem lễ hội.'),
+            Q('【1】に はいる ものは どれですか。', ['を', 'と', 'から', 'まで'], 2, 'Câu trong bài: しゅうまつは いつも ともだちと こうえんで テニスを します (cuối tuần tôi luôn chơi quần vợt ở công viên với bạn). Trợ từ と nghĩa là cùng với, chỉ người cùng làm hành động. を chỉ đối tượng nên không hợp với ともだち, から là từ (người cho), まで là đến, không hợp ý chơi cùng bạn.'),
+            Q('【2】に はいる ものは どれですか。', ['ことを', 'ものが', 'ことが', 'ことに'], 3, "Câu trong bài: テニスを する ことが できませんでした (tôi đã không chơi quần vợt được), vì hôm qua trời mưa. Mẫu V る ことが できません diễn tả không thể làm V, khả năng đi với が. ことを, ものが, ことに đều không tạo được mẫu 'có thể/không thể' này (ことに thì thường đi với なる, します khi quyết định)."),
+            Q('【3】に はいる ものは どれですか。', ['が', 'を', 'に', 'と'], 4, "Câu trong bài: ミラーさんは「日本の おまつりは にぎやかです」と いいました (anh Miller nói 'lễ hội ở Nhật rất náo nhiệt'). Khi trích dẫn lời nói, dùng と trước いいました. が, を, に đều không dùng để dẫn nguyên văn lời nói như vậy."),
+            Q('【4】に はいる ものは どれですか。', ['たい', 'たく', 'ます', 'て'], 1, 'Câu trong bài: わたしも 来年 日本へ 行きたいです (tôi cũng muốn đến Nhật vào năm sau). V ます bỏ ます + たいです là muốn làm V: 行き + たい + です. たく chỉ dùng khi chia tiếp (行きたくない, 行きたくて). ます đi liền です là sai ngữ pháp, 行きて cũng không tồn tại.'),
+            Q('【5】に はいる ものは どれですか。', ['まで', 'から', 'より', 'だけ'], 2, "Câu trong bài: おまつりを 見て から、ミラーさんと いっしょに テニスを したいです (sau khi xem lễ hội, tôi muốn chơi quần vợt cùng anh Miller). V て から là sau khi làm V. まで, より, だけ không ghép được sau て-form để tạo nghĩa 'sau khi' hoặc nối hai hành động."),
           ],
         },
         {
@@ -177,15 +177,15 @@ export default {
           instr: 'つぎの ぶんしょうを よんで、しつもんに こたえて ください。こたえは、1・2・3・4から いちばん いい ものを ひとつ えらんで ください。',
           instrVi: 'Đọc đoạn văn ngắn rồi trả lời câu hỏi.',
           questions: [
-            Q('キムさんは 何を もって 行きますか。', ['にくと やさい', 'おべんとう', 'のみもの', 'かさ'], 3, 'Trong thư: にくと やさいは わたしが 買います (Miller mua thịt và rau). キムさんは のみものを もって 来て ください nên Kim mang đồ uống.', {
+            Q('キムさんは 何を もって 行きますか。', ['にくと やさい', 'おべんとう', 'のみもの', 'かさ'], 3, 'Trong thư, Miller viết: にくと やさいは わたしが 買います (thịt và rau tôi sẽ mua), キムさんは のみものを もって 来て ください (Kim hãy mang đồ uống đến). Vì vậy Kim mang のみもの (đồ uống). Đáp án 1 là phần Miller mua, おべんとう (cơm hộp) không được nhắc đến, かさ (cái ô) cũng không có lời nhờ mang.', {
               passage: 'キムさんへ\n土よう日の バーベキューは あめですから、日よう日に します。十一時に 駅の 北口で 会いましょう。\nにくと やさいは わたしが 買います。キムさんは のみものを もって 来て ください。\nミラー',
               passageVi: 'Gửi Kim. Vì thứ Bảy trời mưa nên buổi tiệc nướng sẽ tổ chức vào Chủ nhật. 11 giờ chúng ta gặp nhau ở cửa bắc của ga nhé. Thịt và rau tôi sẽ mua. Kim hãy mang đồ uống đến nhé. Miller.',
             }),
-            Q('あした、水が 出ないのは 何時間ですか。', ['二時間', '一時間', '三時間', '五時間'], 1, 'Thông báo: ごご 三時から 五時まで 水が 出ません. Từ 3 giờ đến 5 giờ là 2 tiếng (二時間).', {
+            Q('あした、水が 出ないのは 何時間ですか。', ['二時間', '一時間', '三時間', '五時間'], 1, 'Thông báo ghi ごご 三時から 五時まで、水が 出ません: ngày mai từ 3 giờ đến 5 giờ chiều sẽ không có nước. Từ 3 đến 5 giờ là 2 tiếng (二時間). Đừng nhầm 三時 (3 giờ, mốc bắt đầu) hay 五時 (5 giờ, mốc kết thúc) với số giờ; thông báo còn dặn tắm trước 3 giờ (三時までに).', {
               passage: 'アパートの みなさんへ\nあした、ごご 三時から 五時まで、水が 出ません。シャワーを あびたい 人は、三時までに あびて ください。\nトイレは 一かいの を つかって ください。\nアパートの 人より',
               passageVi: 'Gửi mọi người trong khu căn hộ. Ngày mai từ 3 giờ đến 5 giờ chiều sẽ không có nước. Ai muốn tắm vòi sen thì hãy tắm trước 3 giờ. Hãy dùng nhà vệ sinh ở tầng một. Từ người quản lý khu căn hộ.',
             }),
-            Q('二十日が あめの 日は、おまつりは いつ ありますか。', ['十九日', '二十日', '二十一日', '二十二日'], 4, 'Thông báo: 二十日が あめの 日は、二日 あとに します. 二日 あと (hai ngày sau) của ngày 20 là ngày 22 (二十二日).', {
+            Q('二十日が あめの 日は、おまつりは いつ ありますか。', ['十九日', '二十日', '二十一日', '二十二日'], 4, 'Thông báo ghi 二十日が あめの 日は、二日 あとに します: nếu ngày 20 mưa thì dời sang hai ngày sau. 20 + 2 = 22 nên lễ hội sẽ diễn ra ngày 22 (二十二日). 十九日 là trước đó một ngày, 二十日 là ngày gốc bị mưa, 二十一日 mới chỉ là một ngày sau, chưa đủ hai ngày.', {
               passage: 'おまつりの おしらせ\n八月 二十日（土よう日）　ごご 五時から 九時まで\nところ：駅の 前の 道\n二十日が あめの 日は、二日 あとに します。\nこどもは お金が いりません。',
               passageVi: 'Thông báo lễ hội. Ngày 20 tháng 8 (thứ Bảy), từ 5 giờ đến 9 giờ tối. Địa điểm: con đường trước ga. Nếu ngày 20 mưa thì sẽ dời sang hai ngày sau. Trẻ em không mất tiền.',
             }),
@@ -199,13 +199,13 @@ export default {
           instr: 'つぎの ぶんしょうを よんで、しつもんに こたえて ください。こたえは、1・2・3・4から いちばん いい ものを ひとつ えらんで ください。',
           instrVi: 'Đọc đoạn văn vừa rồi trả lời câu hỏi.',
           questions: [
-            Q('わたしは どうして サントスさんに およぎかたを おしえて もらいましたか。', ['サントスさんが プールの 人だから', 'サントスさんが およぐのが 上手だから', 'サントスさんが 先生だから', 'サントスさんが ひまだから'], 2, 'Đoạn văn: サントスさんは およぐのが 上手ですから、およぎかたを おしえて もらいました. Lý do (から) là Santos bơi giỏi.', {
+            Q('わたしは どうして サントスさんに およぎかたを おしえて もらいましたか。', ['サントスさんが プールの 人だから', 'サントスさんが およぐのが 上手だから', 'サントスさんが 先生だから', 'サントスさんが ひまだから'], 2, 'Bài văn viết: サントスさんは およぐのが 上手ですから、わたしは サントスさんに およぎかたを おしえて もらいました (vì Santos bơi giỏi nên tôi được Santos dạy cách bơi). から chỉ lý do. Santos là bạn (ともだち), không phải nhân viên hồ bơi hay giáo viên, và bài không nói là Santos rảnh.', {
               passage:
                 'きのうは 日よう日でした。わたしは あさ 十時に おきて、ともだちの サントスさんと プールへ 行きました。プールは うちから 電車で 二十分です。\nサントスさんは およぐのが 上手ですから、わたしは サントスさんに およぎかたを おしえて もらいました。\nそれから、プールの 前の レストランで ひるごはんを 食べました。サントスさんは さかなを 食べましたが、わたしは にくを 食べました。うちへ かえって、すぐに ねました。',
               passageVi:
                 'Hôm qua là Chủ nhật. Sáng tôi dậy lúc 10 giờ rồi đi bơi với bạn Santos. Hồ bơi cách nhà 20 phút đi tàu điện. Vì Santos bơi giỏi nên tôi được Santos dạy cách bơi. Sau đó chúng tôi ăn trưa ở nhà hàng trước hồ bơi. Santos ăn cá, còn tôi ăn thịt. Về nhà tôi đi ngủ ngay.',
             }),
-            Q('パソコンは どこに ありますか。', ['つくえの 上', 'ベッドの 下', 'まどの 右', 'ベッドの 上'], 1, 'Đoạn văn: つくえの 上には パソコンと とけいが あります (trên bàn có máy tính và đồng hồ). ベッドの 下 là chỗ để sách.', {
+            Q('パソコンは どこに ありますか。', ['つくえの 上', 'ベッドの 下', 'まどの 右', 'ベッドの 上'], 1, 'Trong thư, Kim viết: つくえの 上には パソコンと とけいが あります (trên bàn có máy tính và đồng hồ). Vậy パソコン ở trên bàn (つくえの 上). Đáp án 2: ベッドの 下 là chỗ để nhiều sách, 3: まどの 右 là chỗ đặt giường, 4: ベッドの 上 không được nhắc đến.', {
               passage:
                 'リンさんへ\nおげんきですか。わたしは 先週から あたらしい へやに すんで います。えきから あるいて 五分です。へやは 二かいで、ひろくて あかるいです。\nまどの 左に つくえが あります。右に ベッドが あります。ベッドの 下には 本が たくさん あります。つくえの 上には パソコンと とけいが あります。\n来週の 土よう日に あそびに 来ませんか。\nキム',
               passageVi:
@@ -221,7 +221,7 @@ export default {
           instr: 'つぎの ぶんしょうを よんで、しつもんに こたえて ください。こたえは、1・2・3・4から いちばん いい ものを ひとつ えらんで ください。',
           instrVi: 'Đọc thông báo và tìm thông tin phù hợp với điều kiện trong câu hỏi.',
           questions: [
-            Q('リンさんは 土よう日は あさから よるまで いそがしいです。日よう日は ごごだけ ひまです。一か月 三百円までの クラスに 行きたいです。どの クラスに 行きますか。', ['Aクラス', 'Bクラス', 'Dクラス', 'どの クラスにも 行けません'], 3, 'Thứ Bảy bận cả ngày nên loại A, B. Chủ nhật chỉ rảnh buổi chiều nên loại C (buổi sáng, 500 yên). D học chiều Chủ nhật, 300 yên nên phù hợp.', {
+            Q('リンさんは 土よう日は あさから よるまで いそがしいです。日よう日は ごごだけ ひまです。一か月 三百円までの クラスに 行きたいです。どの クラスに 行きますか。', ['Aクラス', 'Bクラス', 'Dクラス', 'どの クラスにも 行けません'], 3, 'Lin bận cả ngày thứ Bảy nên loại lớp A và B (đều ở thứ Bảy). Chủ nhật chỉ rảnh buổi chiều nên loại lớp C (9 giờ đến 11 giờ sáng, lại 500 yên). Lớp D học bóng chày Chủ nhật từ 2 giờ đến 4 giờ chiều, 300 yên, đúng giờ rảnh và đúng ngân sách tối đa 300 yên. Vậy chọn lớp D.', {
               passage:
                 'しゅうまつの スポーツクラス（一か月の おかね）\nAクラス：テニス　土よう日　九時から 十一時　四百円\nBクラス：サッカー　土よう日　ごご 一時から 三時　三百円\nCクラス：プール　日よう日　九時から 十一時　五百円\nDクラス：やきゅう　日よう日　ごご 二時から 四時　三百円',
               passageVi:
@@ -268,7 +268,7 @@ export default {
                 ['ナ', 'おんなの ひとは これから どこへ いきますか。'],
               ],
             }),
-            Q('3ばん', ['ジュースと おちゃ', 'にくと やさい', 'おさらと コップ', 'おさけ'], 1, 'Hội thoại: người nam mua thịt và rau, mang đĩa và cốc. Rượu không cần. Người nữ được nhờ mang nước ép và trà, nên đáp án là ジュースと おちゃ (đáp án 1).', {
+            Q('3ばん', ['ジュースと おちゃ', 'にくと やさい', 'おさらと コップ', 'おさけ'], 1, 'Hội thoại: người nam nói にくと やさい và おさら là mình chuẩn bị (mua, mang đi), おさけは いりません (không cần rượu), rồi nhờ ジュースと おちゃ を おねがいします (nhờ mang nước ép và trà), コップ cũng do anh ấy mang. Vậy người nữ mang ジュースと おちゃ. Các đáp án 2, 3, 4 là thứ anh ấy lo hoặc không cần.', {
               audio: [
                 ['ナ', 'さんばん。おんなの ひとは あしたの バーベキューに なにを もって いきますか。'],
                 ['女', 'あしたの バーベキューには なにを もって いきましょうか。'],
@@ -338,7 +338,7 @@ export default {
                 ['ナ', 'おとこの ひとは スポーツクラブに いっかげつ いくら かかりますか。'],
               ],
             }),
-            Q('2ばん', ['ごぜん じゅうじ', 'ごぜん くじ', 'ごぜん じゅういちじ', 'ごご いちじ'], 1, 'Hội thoại: cuộc họp về lễ hội ban đầu là 9 giờ sáng, nhưng đã đổi sang 10 giờ sáng (không phải 11 giờ). Bữa trưa là từ 1 giờ chiều. Đáp án là ごぜん じゅうじ (đáp án 1).', {
+            Q('2ばん', ['ごぜん じゅうじ', 'ごぜん くじ', 'ごぜん じゅういちじ', 'ごご いちじ'], 1, 'Hội thoại: người nam nhớ cuộc họp lúc 9 giờ sáng (くじ), người nữ sửa: đã đổi thành ごぜん じゅうじ (10 giờ sáng). Anh ấy hỏi lại 11 giờ (じゅういちじ) thì chị ấy phủ nhận, nhắc lại là じゅうじ. ごご いちじ (1 giờ chiều) là giờ ăn trưa, không phải giờ họp. Đáp án là 1.', {
               audio: [
                 ['ナ', 'にばん。おまつりの かいぎは なんじからですか。'],
                 ['男', 'あしたの おまつりの かいぎは ごぜん くじからですね。'],
@@ -349,7 +349,7 @@ export default {
                 ['ナ', 'おまつりの かいぎは なんじからですか。'],
               ],
             }),
-            Q('3ばん', ['しごとが あるから', 'かぜを ひいて いるから', 'プールが やすみだから', 'ははの たんじょうびだから'], 4, 'Hội thoại: người nam rủ đi bơi. Hồ bơi ngày mai vẫn mở, chị ấy không bận việc, cũng không bị cảm. Lý do là ngày mai là sinh nhật mẹ nên cả nhà cùng ăn cơm (đáp án 4).', {
+            Q('3ばん', ['しごとが あるから', 'かぜを ひいて いるから', 'プールが やすみだから', 'ははの たんじょうびだから'], 4, 'Hội thoại: người nam rủ đi bơi, người nữ từ chối. Người nam đoán và chị ấy loại từng lý do: プールは あしたも あいて います (chính người nam nói hồ bơi ngày mai vẫn mở, loại 3), しごとは やすみ (không bận việc, loại 1), げんきです (khỏe, không phải bị cảm, loại 2). Lý do thật là ははの たんじょうびですから (vì ngày mai sinh nhật mẹ), cả nhà ăn cơm cùng nhau. Đáp án 4.', {
               audio: [
                 ['ナ', 'さんばん。おんなの ひとは どうして あした プールへ いけませんか。'],
                 ['男', 'あした プールへ いきませんか。'],
@@ -362,7 +362,7 @@ export default {
                 ['ナ', 'おんなの ひとは どうして あした プールへ いけませんか。'],
               ],
             }),
-            Q('4ばん', ['よにん', 'ごにん', 'ろくにん', 'さんにん'], 2, 'Hội thoại: ngoài hai người nói chuyện còn có Miller và Kim, Santos bận nên không đến, Lin đến muộn nhưng vẫn đến. Tổng cộng 2 + 2 + 1 = 5 người (ごにん, đáp án 2).', {
+            Q('4ばん', ['よにん', 'ごにん', 'ろくにん', 'さんにん'], 2, 'Hội thoại: người nam nói ngoài hai người đang nói chuyện còn có ミラーさん và キムさん (2 + 2 = 4). サントスさん bận nên không đến. リンさん đến muộn nhưng vẫn đến, thêm 1 người nữa, tổng là 5 người (ごにん). よにん là nếu quên Lin, ろくにん là nếu tính cả Santos, さんにん thì thiếu hẳn. Đáp án 2.', {
               audio: [
                 ['ナ', 'よんばん。パーティーに ぜんぶで なんにん きますか。'],
                 ['女', 'あしたの パーティーに だれが きますか。'],
@@ -384,7 +384,7 @@ export default {
                 ['ナ', 'おまつりは なんがつ なんにちですか。'],
               ],
             }),
-            Q('6ばん', ['みっつ', 'ふたつ', 'よっつ', 'ひとつ'], 1, 'Hội thoại: trước bàn có 1 cái, cạnh giường có 1 cái, ngoài ra còn 1 cái sau cửa để dùng khi có bạn đến. Tổng cộng là 3 cái (みっつ, đáp án 1).', {
+            Q('6ばん', ['みっつ', 'ふたつ', 'よっつ', 'ひとつ'], 1, 'Hội thoại: người nam đoán có khoảng 4 cái ghế (よっつ), rồi đoán 2 cái (ふたつ), nhưng người nữ đều sửa lại. Thực tế có: 1 cái trước bàn, 1 cái cạnh giường, và thêm 1 cái sau cửa để dùng khi có bạn đến chơi. Tổng cộng 3 cái ghế (みっつ). ひとつ (1) và ふたつ (2) là con số chưa đủ, よっつ (4) là con số người nam đoán dư. Đáp án 1.', {
               audio: [
                 ['ナ', 'ろくばん。おんなの ひとの へやに いすは いくつ ありますか。'],
                 ['男', 'へやに いすが よっつぐらい ありますか。'],
