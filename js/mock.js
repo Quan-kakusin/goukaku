@@ -10,6 +10,7 @@ import de07 from '../data/jlpt/de-07.js';
 import de08 from '../data/jlpt/de-08.js';
 import de09 from '../data/jlpt/de-09.js';
 import onTap from '../data/jlpt/on-tap.js';
+import SCRIPT_VI from '../data/jlpt/script-vi.js';
 
 export const PAPERS = [de01, de02, de03, de04, de05, de06, de07, de08, de09, onTap];
 export const getPaper = id => PAPERS.find(p => p.id === id) ?? null;
@@ -62,7 +63,8 @@ function toQuestion(paper, part, section, raw, n) {
     audioSrc: section.audioSrc,
     image: raw.image,
     bare: raw.bare ?? section.bare ?? false,
-    scriptVi: raw.scriptVi,
+    script: raw.script, // lời chép của file âm thanh thật (đề có file nghe)
+    scriptVi: SCRIPT_VI[id] ?? raw.scriptVi, // bản dịch từng dòng lời thoại
     plays: section.plays,
     // 問題1 (đọc kanji) và 問題2 (viết kanji) kiểm tra chính cách đọc/viết, nên không được hiện furigana
     plain: section.kind === 'moji' && ['m1', 'm2'].includes(section.id),

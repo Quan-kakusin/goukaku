@@ -13,6 +13,7 @@ import { praise, miss } from '../insights.js';
 import { KINDS } from '../questions.js';
 import { lessonTitle } from '../deck.js';
 import { speakScript, hasJapaneseVoice } from '../tts.js';
+import { scriptBlock } from './script-block.js';
 
 const newId = () => `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 6)}`;
 
@@ -149,9 +150,10 @@ export function mount(root) {
       btn.disabled = true;
       btn.textContent = '♪ Đang phát…';
       status.textContent = 'Đang phát, hãy lắng nghe.';
-      player = speakScript(q.audio);
-      player.done.then(() => {
-        player = null;
+      const mine = speakScript(q.audio);
+      player = mine;
+      mine.done.then(() => {
+        if (player === mine) player = null;
         if (finished || questions[idx] !== q) return;
         const now = playsLeft.get(q.id);
         btn.disabled = now <= 0;
@@ -160,6 +162,16 @@ export function mount(root) {
       });
     });
     return h('div', { class: 'audio-box' }, h('div', { class: 'row' }, btn), status);
+  }
+
+  // Nghe lại sau khi đã trả lời (luyện tập): không tính lượt, sang câu khác thì dừng
+  function replayScript(lines) {
+    stopAudio();
+    const mine = speakScript(lines);
+    player = mine;
+    mine.done.then(() => {
+      if (player === mine) player = null;
+    });
   }
 
   function showGate() {
@@ -272,6 +284,8 @@ export function mount(root) {
           h('p', { class: `result ${ok ? 'ok' : 'ng'}` }, meme(ok ? praise(answeredCount() - 1) : miss(answeredCount() - 1))),
           h('div', { class: 'feedback-text' }, !ok && h('p', { class: 'right-answer', lang: q.choiceLang }, `Đáp án: ${q.answer}`), h('p', null, q.explain)),
         ),
+        // Câu nghe: đã chọn xong thì đưa lời thoại ra để đọc
+        scriptBlock(q, { replay: replayScript }),
       );
     }
   }

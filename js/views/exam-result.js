@@ -13,6 +13,7 @@ import { speakScript } from '../tts.js';
 import { LESSONS } from '../../data/lessons.js';
 import { KANJI } from '../../data/kanji-n5.js';
 import { formulaBox, examplesList } from './parts.js';
+import { scriptBlock } from './script-block.js';
 import { launchFromIds, launchMock } from './launch.js';
 import { scoreMock, findMockQuestion, getPaper, PASS } from '../mock.js';
 
@@ -126,15 +127,7 @@ function reviewItem({ it, i, q }, words, furi) {
       q?.passageVi && h('details', { class: 'translation' }, h('summary', null, 'Xem bản dịch'), h('p', null, q.passageVi)),
       q?.audioSrc && h('audio', { class: 'review-audio', controls: true, preload: 'none', src: q.audioSrc, 'aria-label': `File nghe ${q.mondai}` }),
       q?.image && h('img', { class: 'q-image', src: q.image, alt: `Hình của câu ${q.prompt}` }),
-      q?.audio &&
-        h(
-          'div',
-          { class: 'script' },
-          h('h3', null, 'Lời thoại'),
-          ...q.audio.map(([who, line]) => h('p', { lang: 'ja' }, h('strong', null, `${who}: `), line)),
-          q.scriptVi && h('p', { class: 'muted' }, q.scriptVi),
-          h('button', { class: 'btn small', type: 'button', onclick: () => speakScript(q.audio) }, '▶ Nghe lại'),
-        ),
+      q && scriptBlock(q, { replay: speakScript }),
       q ? h('p', { class: 'q-prompt', lang: q.promptLang }, ...(q.promptLang === 'ja' ? ja(q.prompt) : [q.prompt])) : h('p', { class: 'muted' }, 'Câu hỏi này không còn trong dữ liệu (nội dung đã bị xóa hoặc đổi), nên không có giải thích.'),
       q?.hint && h('p', { class: 'muted' }, q.hint),
       choices,

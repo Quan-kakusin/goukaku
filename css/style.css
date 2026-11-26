@@ -2181,6 +2181,20 @@ input[type="radio"] {
   margin: 0 0 var(--space-1);
 }
 
+.script-lines {
+  margin: 0 0 var(--space-2);
+  padding: 0;
+  list-style: none;
+}
+
+.script-lines li {
+  margin-bottom: var(--space-2);
+}
+
+.practice-feedback + .script {
+  text-align: left;
+}
+
 .translation {
   margin: 0 0 var(--space-3);
 }

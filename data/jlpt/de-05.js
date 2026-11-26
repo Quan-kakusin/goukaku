@@ -349,7 +349,7 @@ export default {
                 ['ナ', 'おまつりの かいぎは なんじからですか。'],
               ],
             }),
-            Q('3ばん', ['しごとが あるから', 'かぜを ひいて いるから', 'プールが やすみだから', 'ははの たんじょうびだから'], 4, 'Hội thoại: người nam rủ đi bơi, người nữ từ chối. Người nam đoán và chị ấy loại từng lý do: プールは あしたも あいて います (chính người nam nói hồ bơi ngày mai vẫn mở, loại 3), しごとは やすみ (không bận việc, loại 1), げんきです (khỏe, không phải bị cảm, loại 2). Lý do thật là ははの たんじょうびですから (vì ngày mai sinh nhật mẹ), cả nhà ăn cơm cùng nhau. Đáp án 4.', {
+            Q('3ばん', ['しごとが あるから', 'かぜを ひいて いるから', 'プールが やすみだから', 'ははの たんじょうびだから'], 4, 'Hội thoại: người nam rủ đi bơi, người nữ từ chối. Người nam đoán và chị ấy loại từng lý do: プールは あしたも あいて います (chính người nam nói hồ bơi ngày mai vẫn mở, loại 3), しごとは やすみ (không bận việc, loại 1), げんきです (khỏe, không phải bị cảm, loại 2). Lý do thật là ははの たんじょうびですから (vì ngày mai sinh nhật mẹ) nên sẽ ăn cơm cùng nhau. Đáp án 4.', {
               audio: [
                 ['ナ', 'さんばん。おんなの ひとは どうして あした プールへ いけませんか。'],
                 ['男', 'あした プールへ いきませんか。'],

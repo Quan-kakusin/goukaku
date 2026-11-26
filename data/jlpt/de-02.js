@@ -1,16 +1,17 @@
 // Đề thi thử JLPT N5 số 2: đề chép từ file PDF của người học (文字 · 文法 · 読解) kèm bảng đáp án.
 // Phần nghe 聴解: 4 file âm thanh (audio/de-02/N5Q1-4.mp3, mỗi file một もんだい) kèm hình đề cắt từ file PDF (audio/de-02/c1-q*.jpg, c3-q*.jpg).
-//  - Đáp án phần nghe lấy từ bảng 正答表. Chưa chép lời thoại của file nghe nên phần giải thích chỉ nêu đáp án đúng.
+//  - Đáp án phần nghe lấy từ bảng 正答表. Lời chép và lời giải từng câu nghe ở de-02-nghe.js.
 //  - Nội dung chép từ ảnh scan nên có thể sai sót nhỏ; riêng đáp án nhiễu của 問題2 (chữ Hán na ná nhau) ảnh mờ nên có chỗ phải dựng lại.
 //  - Câu hỏi dựa vào hình minh họa được mô tả bằng chữ trong dấu [ ].
 //  - Phần giải thích và bản dịch tiếng Việt do app soạn.
+
+import NGHE from './de-02-nghe.js';
 
 const Q = (prompt, choices, answer, explain, extra = {}) => ({ prompt, choices, answer, explain, ...extra });
 
 // Câu nghe: prompt là số thứ tự "Nばん"; choices là chữ in trên đề, hoặc chỉ số 1-4 (bare) khi lựa chọn là hình / chỉ nghe
 const AUDIO = 'audio/de-02';
-const L = (n, choices, answer, extra = {}) =>
-  Q(`${n}ばん`, choices, answer, extra.bare ? `Đáp án đúng là ${answer}, theo bảng đáp án của đề. Nghe lại file âm thanh để đối chiếu (chưa có lời thoại chép lại).` : `Đáp án đúng là ${answer}: 「${choices[answer - 1]}」, theo bảng đáp án của đề. Nghe lại file âm thanh để đối chiếu.`, extra);
+const L = (n, choices, answer, extra = {}) => Q(`${n}ばん`, choices, answer, '', extra); // lời giải gắn ở cuối phần này, lấy từ de-02-nghe.js
 const pics = (n, image, answer, count = 4) => L(n, Array.from({ length: count }, (_, i) => String(i + 1)), answer, { bare: true, image: `${AUDIO}/${image}` });
 
 const choukaiSections = [
@@ -70,6 +71,9 @@ const choukaiSections = [
     questions: [1, 1, 2, 3, 3, 1].map((a, i) => L(i + 1, ['1', '2', '3'], a, { bare: true })),
   },
 ];
+
+// Gắn lời chép (script) và lời giải của từng câu nghe
+for (const s of choukaiSections) s.questions.forEach((raw, i) => Object.assign(raw, NGHE[`${s.id}-${i + 1}`]));
 
 const mojiSections = [
   {

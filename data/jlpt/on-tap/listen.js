@@ -27,7 +27,7 @@ export default {
             ['ナ', 'おとこの ひとは あした なんじに おきますか。'],
           ] }),
         Q('2ばん', ['えいがを みます', 'サッカーを します', 'ほんを よみます', 'テニスを します'], 4,
-          'Bài 6 (V を, ませんか). Wang rủ xem phim, nam từ chối vì sáng mai chơi tennis với bạn (「ごぜんは ともだちと テニスを します」). Bóng đá thì 「しません」 (không chơi), còn đọc sách là việc buổi chiều ở nhà (ごご). Câu hỏi về buổi sáng nên đáp án 4.',
+          'Bài 6 (V を, ませんか). Người nữ rủ anh ワット xem phim, anh ấy từ chối vì sáng mai chơi tennis với bạn (「ごぜんは ともだちと テニスを します」). Bóng đá thì 「しません」 (không chơi), còn đọc sách là việc buổi chiều ở nhà (ごご). Câu hỏi về buổi sáng nên đáp án 4.',
           { lesson: 6, audio: [
             ['ナ', '2ばん。おとこの ひとは あしたの ごぜん、なにを しますか。'],
             ['女', 'ワットさん、あした いっしょに えいがを みませんか。'],
@@ -189,7 +189,7 @@ export default {
             ['ナ', 'おとこの ひとは たんじょうびに なにが ほしいですか。'],
           ] }),
         Q('6ばん', ['しゃしんを とる', 'たばこを すう', 'ジュースを のむ', 'でんわを かける'], 3,
-          'Bài 15 (V ても いいです / V ては いけません). Nam hỏi lần lượt bốn việc. Nữ trả lời: chụp ảnh 「いけません」, hút thuốc 「いけません」, gọi điện 「いけません」 (đều cấm). Chỉ có nước ép là được: 「ジュースは のんでも いいですよ」 (uống nước ép thì được). Đáp án 3.',
+          'Bài 15 (V ても いいです / V ては いけません). Nam hỏi lần lượt ba việc: chụp ảnh, hút thuốc, gọi điện. Nữ trả lời: chụp ảnh 「いけません」, hút thuốc 「いけません」, gọi điện 「いけません」 (cả ba đều cấm). Rồi nữ nói thêm chỉ uống nước ép là được: 「ジュースは のんでも いいですよ」 (uống nước ép thì được). Đáp án 3.',
           { lesson: 15, audio: [
             ['ナ', '6ばん。おとこの ひとは ここで なにを しても いいですか。'],
             ['男', 'すみません、ここで しゃしんを とっても いいですか。'],
