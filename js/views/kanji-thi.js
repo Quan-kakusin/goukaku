@@ -1,15 +1,16 @@
-// Kanji hay thi: 81 từ chữ Hán nên thuộc trước kỳ thi. Trên cùng là bài trắc nghiệm (chọn số câu tuỳ ý), bên dưới là danh sách (che cách đọc để tự kiểm tra).
+// Kanji hay thi: 81 từ chữ Hán nên thuộc trước kỳ thi. Trên cùng là bài trắc nghiệm (chọn số câu tuỳ ý), bên dưới là danh sách (trộn ngẫu nhiên, che cách đọc để tự kiểm tra).
 
 import { h, show, speakButton, kanjiTabs } from '../ui.js';
 import { KANJI_THI, KANJI_THI_GROUPS } from '../../data/kanji-thi.js';
 import { thiSet } from '../quiz-set.js';
+import { shuffle } from '../questions.js';
 import { startExam } from '../exam-session.js';
 import { countPicker } from './count-picker.js';
 
 const STARS = KANJI_THI.filter(w => w.star).length;
 
 export function mount(root) {
-  const state = { group: 'all', hide: false };
+  const state = { group: 'all', hide: false, mixed: null }; // mixed: thứ tự đã trộn (null = theo nhóm như sách)
   const opened = new Set(); // từ đã bấm hiện cách đọc khi đang che
   const picker = countPicker({ total: KANJI_THI.length, unit: 'câu', initial: 20, id: 'thi-count' });
   const listBox = h('div');
@@ -40,7 +41,7 @@ export function mount(root) {
   const inGroup = w => state.group === 'all' || (state.group === 'star' ? w.star : w.group === state.group);
 
   function list() {
-    const shown = KANJI_THI.filter(inGroup);
+    const shown = (state.mixed ?? KANJI_THI).filter(inGroup);
     const rows = shown.map(w => {
       const reveal = !state.hide || opened.has(w.word);
       return h(
@@ -67,6 +68,8 @@ export function mount(root) {
           ...KANJI_THI_GROUPS.map(g => h('option', { value: g, selected: state.group === g }, g)),
         ),
         h('label', { class: 'check', for: 'thi-hide' }, h('input', { type: 'checkbox', id: 'thi-hide', checked: state.hide, onchange: e => { state.hide = e.target.checked; opened.clear(); draw(); } }), h('span', null, 'Che cách đọc để tự kiểm tra')),
+        h('label', { class: 'check', for: 'thi-mix' }, h('input', { type: 'checkbox', id: 'thi-mix', checked: Boolean(state.mixed), onchange: e => mix(e.target.checked, '#thi-mix') }), h('span', null, 'Trộn ngẫu nhiên')),
+        state.mixed && h('button', { class: 'btn small', type: 'button', id: 'thi-remix', onclick: () => mix(true, '#thi-remix') }, 'Trộn lại'),
       ),
       h('p', { class: 'muted' }, `${shown.length} từ. Bấm biểu tượng loa để nghe.`),
       h('ul', { class: 'kata-list' }, ...rows),
@@ -75,6 +78,14 @@ export function mount(root) {
 
   function draw() {
     listBox.replaceChildren(list());
+  }
+
+  // Đổi thứ tự thì che lại các từ đã mở; vẽ lại xong trả tiêu điểm về đúng nút vừa bấm
+  function mix(on, focus) {
+    state.mixed = on ? shuffle(KANJI_THI) : null;
+    opened.clear();
+    draw();
+    listBox.querySelector(focus)?.focus({ preventScroll: true });
   }
 
   draw();

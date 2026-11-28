@@ -448,7 +448,7 @@ export function mount(root) {
 
   // ---------- Dựng trang ----------
   root.classList.add('wide');
-  const layout = h('div', { class: 'exam-layout' }, h('div', { class: 'exam-main' }, card, confirmBox), h('aside', { class: 'exam-side', 'aria-label': 'Danh sách câu hỏi và nộp bài' }, qnavPanel, actions, submitRow));
+  const layout = h('div', { class: 'exam-layout' }, h('div', { class: 'exam-main' }, card, actions, submitRow, confirmBox), h('aside', { class: 'exam-side', 'aria-label': 'Danh sách câu hỏi' }, qnavPanel));
   show(
     root,
     // Luyện tập: bỏ tiêu đề cho vừa khung hình (chỉ giữ cho trình đọc màn hình). Thi thử cần tiêu đề và đồng hồ.
@@ -456,7 +456,7 @@ export function mount(root) {
     h('div', { class: 'progress' }, barFill),
     metaLine,
     audioBar,
-    // Màn rộng: câu hỏi bên trái, danh sách câu hỏi và nút nộp bài dính bên phải. Màn hẹp: xếp dọc theo thứ tự này.
+    // Nút câu trước / câu sau và nút nộp bài nằm ngay dưới ô câu hỏi. Màn rộng: danh sách câu hỏi dính bên phải. Màn hẹp: xếp dọc theo thứ tự này.
     layout,
     live,
   );

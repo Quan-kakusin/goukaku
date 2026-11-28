@@ -827,7 +827,7 @@ ruby rt {
   margin-bottom: var(--space-2);
 }
 
-.toolbar input {
+.toolbar input:not([type="checkbox"]) {
   flex: 1 1 220px;
 }
 
@@ -2858,7 +2858,7 @@ rt {
   cursor: pointer;
 }
 
-/* Làm bài: màn rộng thì câu hỏi bên trái, danh sách câu hỏi và nút nộp bài dính bên phải */
+/* Làm bài: màn rộng thì câu hỏi và các nút bên trái, danh sách câu hỏi dính bên phải */
 .exam-side .qnav-panel {
   margin-top: 0;
 }
@@ -2886,17 +2886,6 @@ rt {
     overflow-y: auto;
   }
 
-  .exam-main .exam-actions:first-child {
-    margin-top: 0;
-  }
-
-  .exam-side .exam-submit {
-    margin-top: var(--space-3);
-  }
-
-  .exam-side .exam-submit .btn {
-    width: 100%;
-  }
 }
 
 /* Phản hồi sau khi chọn đáp án (luyện tập): nhỏ gọn, meme bên trái và giải thích bên phải */
@@ -2926,25 +2915,17 @@ rt {
   margin-top: var(--space-1);
 }
 
-/* Cột phải khi làm bài: danh sách câu hỏi, rồi nút câu trước/sau, rồi nút nộp. Màn hẹp: nút câu trước/sau lên ngay dưới câu hỏi */
-.exam-side {
-  display: flex;
-  flex-direction: column;
+/* Dưới ô câu hỏi: hàng nút câu trước/sau chia đôi, nút nộp bài rộng hết hàng */
+.exam-main .exam-actions .btn {
+  flex: 1;
 }
 
-.exam-side .exam-actions {
-  order: -1;
+.exam-main .exam-submit {
+  margin-bottom: var(--space-3);
 }
 
-@media (min-width: 1100px) {
-  .exam-side .exam-actions {
-    order: 0;
-    margin: var(--space-3) 0 0;
-  }
-
-  .exam-side .exam-actions .btn {
-    flex: 1;
-  }
+.exam-main .exam-submit .btn {
+  width: 100%;
 }
 
 /* ---- Katakana thi ---- */
