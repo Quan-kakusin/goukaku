@@ -1,10 +1,12 @@
-// Bộ câu trắc nghiệm đơn giản cho Kanji (80 chữ) và Katakana (59 từ): chọn số câu bất kỳ, hai chiều trộn lẫn, 4 đáp án.
+// Bộ câu trắc nghiệm đơn giản cho Kanji (80 chữ), Kanji hay thi (81 từ) và Katakana (59 từ): chọn số câu bất kỳ, hai chiều trộn lẫn, 4 đáp án.
 // Kanji: mỗi chữ Hán ra đúng một câu, bằng một từ ví dụ của chữ đó. Nhìn kanji chọn cách đọc, hoặc nhìn cách đọc chọn kanji.
+// Kanji hay thi: mỗi từ ra một câu, hai chiều như Kanji.
 // Katakana: mỗi từ ra một câu. Nhìn katakana chọn nghĩa, hoặc nhìn nghĩa chọn katakana.
 
 import { KANJI } from '../data/kanji-n5.js';
 import { KATAKANA } from '../data/katakana-n5.js';
-import { KANJI_WORDS, kanjiQuestion, kanjiPickQuestion, kataMeaningQuestion, kataWordQuestion, pickN, shuffle } from './questions.js';
+import { KANJI_THI } from '../data/kanji-thi.js';
+import { KANJI_WORDS, kanjiQuestion, kanjiPickQuestion, kataMeaningQuestion, kataWordQuestion, thiReadingQuestion, thiPickQuestion, pickN, shuffle } from './questions.js';
 
 // Số câu hợp lệ: số nguyên từ 1 tới total. Giá trị rác (rỗng, chữ) thì lấy fallback.
 export function clampCount(value, total, fallback = 20) {
@@ -34,6 +36,10 @@ export function kanjiSet(count = KANJI.length, rng = Math.random) {
     }
   }
   return shuffle(words, rng).map(w => (rng() < 0.5 ? kanjiQuestion(w, rng) : kanjiPickQuestion(w, rng)));
+}
+
+export function thiSet(count = KANJI_THI.length, rng = Math.random) {
+  return pickN(KANJI_THI, clampCount(count, KANJI_THI.length), rng).map(w => (rng() < 0.5 ? thiReadingQuestion(w, rng) : thiPickQuestion(w, rng)));
 }
 
 export function kataSet(count = KATAKANA.length, rng = Math.random) {

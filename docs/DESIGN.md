@@ -48,9 +48,10 @@ Mọi điều khiển **phải** có đủ trạng thái: default, hover, focus-
   - **Bài học:** danh sách 25 bài có hai tab lớn Bài học / Bài tập (`#/lessons`, `#/lessons/exercise`). Mỗi bài cũng có hai tab lớn: Bài học (Tổng quan / Từ vựng / Ngữ pháp, chỉ để đọc) và Bài tập (để làm).
   - **Từ vựng:** Thẻ flash | Gõ romaji | Tra từ.
   - **Chữ viết:** Kana.
-  - **Kanji/Kata:** Kanji | Katakana, tách riêng khỏi bài học vì Kanji là nơi duy nhất dùng chữ Hán. Mỗi tab là một trang, không chia ôn tập / luyện tập: panel **Trắc nghiệm** ở trên rồi danh sách bên dưới. Chọn số câu bằng `countPicker` (js/views/count-picker.js): nút gợi ý 10 / 20 / 40, nút "Tất cả (N)" và ô số; gõ quá tổng thì kéo về tổng, ô trống thì giữ số cũ. Câu hỏi do js/quiz-set.js dựng, hai chiều trộn lẫn. Không có lịch ôn lặp lại (SRS) nữa.
+  - **Kanji/Kata:** Kanji | Kanji hay thi | Katakana, tách riêng khỏi bài học vì Kanji là nơi duy nhất dùng chữ Hán. Mỗi tab là một trang, không chia ôn tập / luyện tập: panel **Trắc nghiệm** ở trên rồi danh sách bên dưới. Chọn số câu bằng `countPicker` (js/views/count-picker.js): nút gợi ý 10 / 20 / 40, nút "Tất cả (N)" và ô số; gõ quá tổng thì kéo về tổng, ô trống thì giữ số cũ. Câu hỏi do js/quiz-set.js dựng, hai chiều trộn lẫn. Không có lịch ôn lặp lại (SRS) nữa.
   - **Gõ romaji → Từ vựng** có mục "Bộ từ" dạng nút chọn một trong ba (Hay gặp trong đề N5 / Từ vựng chính / Tất cả, mặc định mức đầu, lưu ở `nihongo-n5:word-scope`) kèm dòng giải thích mức đang chọn, để tập trung từ cần học trước kỳ thi; thẻ flash không có mục này.
-  - **Katakana thi** (mục Kanji/Kata, tab thứ hai): 59 từ katakana. Danh sách có ô "Che nghĩa để tự kiểm tra" với nút "Hiện nghĩa" từng dòng; dòng là lưới 3 cột (loa, từ, nghĩa + từ gốc) và gập thành hai hàng ở màn dưới 520px. Gõ romaji hiện ー đúng chỗ khi các chữ trước đó khớp từ đích (koohii → コーヒー); từ có ティ/ディ gõ "ti"/"di" vẫn hiện ち/ぢ.
+  - **Kanji hay thi** (tab thứ hai): cùng bố cục với Katakana thi (dùng chung kiểu dòng `.kata-row`): từ chữ Hán, dấu ⭐ cho từ hay bị hỏi, cách đọc + nghĩa; ô "Che cách đọc để tự kiểm tra"; lọc theo nhóm hoặc ⭐. Chữ Hán trong app giờ có ở mục Kanji, Kanji hay thi và đề thi.
+  - **Katakana thi** (mục Kanji/Kata, tab thứ ba): 59 từ katakana. Danh sách có ô "Che nghĩa để tự kiểm tra" với nút "Hiện nghĩa" từng dòng; dòng là lưới 3 cột (loa, từ, nghĩa + từ gốc) và gập thành hai hàng ở màn dưới 520px. Gõ romaji hiện ー đúng chỗ khi các chữ trước đó khớp từ đích (koohii → コーヒー); từ có ティ/ディ gõ "ti"/"di" vẫn hiện ち/ぢ.
   - **Kanji:** trắc nghiệm hai dạng trộn (kanji → cách đọc, cách đọc → kanji) rồi danh sách 80 chữ. Chi tiết mỗi chữ có Cấu tạo, Mẹo nhớ, Dễ nhầm với. Các câu kanji không hiện furigana (`plain`) vì furigana là đáp án. **Gõ romaji → Đọc kanji** nhìn từ kanji (cỡ `font-size-display`) và gõ cách đọc; không có đáp án kanji thì gõ romaji chỉ luyện đọc, không luyện nhớ mặt chữ.
   - **Luyện thi:** Thi thử N5 | Sổ lỗi sai. Chấm số lỗi nằm trên icon Luyện thi.
 - **Desktop (>768px):** cột điều hướng dọc `size-rail` bên trái (6 mục icon trên nhãn nằm giữa cột theo chiều dọc, mỗi mục là một ô trắng viền đen có bóng đổ cứng, nổi lên khi hover, lún khi bấm, mục đang mở tô `action`; không còn logo trong cột), khung nội dung `surface-raised` bo `radius-lg` rộng tối đa `size-content` ở giữa.
@@ -98,7 +99,7 @@ Mọi điều khiển **phải** có đủ trạng thái: default, hover, focus-
 - **Không theo dõi lâu dài:** mỗi lượt độc lập, không lưu tiến độ từng từ, giữ ý định "nhẹ, người học tự chủ" của app.
 
 ### Nội dung chỉ dùng kana
-- Bài học và bài tập (từ vựng, ví dụ, câu hỏi, đáp án, giải thích) viết hoàn toàn bằng kana, có khoảng trắng giữa các cụm như sách Minna. Chữ Hán chỉ có ở mục Kanji (80 chữ). Test tự động bắt chữ Hán lọt vào dữ liệu bài.
+- Bài học và bài tập (từ vựng, ví dụ, câu hỏi, đáp án, giải thích) viết hoàn toàn bằng kana, có khoảng trắng giữa các cụm như sách Minna. Trong phần học, chữ Hán chỉ có ở mục Kanji (80 chữ) và Kanji hay thi (81 từ). Test tự động bắt chữ Hán lọt vào dữ liệu bài.
 - Từ đồng âm (はし: đũa / cầu) không được hỏi dạng "chọn nghĩa" vì chỉ có kana nên không phân biệt được.
 
 ### Thi thử N5 đầy đủ

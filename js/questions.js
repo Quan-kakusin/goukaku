@@ -4,12 +4,13 @@
 //   type = phần của đề: 'vocab' | 'grammar' | 'kanji' | 'moji' | 'bunpou' | 'dokkai' | 'choukai' (bốn loại cuối là đề thi thử N5).   kind = dạng câu hỏi (xem KINDS).
 //   ref  = nơi tra lại kiến thức liên quan khi giải thích: { patternId } | { wordId } | { word }.
 // id ổn định để sổ lỗi sai và lịch sử đề dựng lại được câu hỏi:
-//   'v:<id từ>' chọn nghĩa · 'w:<id từ>' chọn từ theo nghĩa · 'g:<id câu>' ngữ pháp · 'k:<từ>' đọc kanji · 'p:<từ>' chọn chữ Hán · 'h:<chữ>' Hán Việt → chữ · 'kam:<từ>' / 'kaw:<từ>' katakana · 'j:<đề>:<mục>-<số>' đề thi thử N5 · 'x:<bài>:<dạng>:<mã>' bài tập của bài (js/exercises.js).
+//   'v:<id từ>' chọn nghĩa · 'w:<id từ>' chọn từ theo nghĩa · 'g:<id câu>' ngữ pháp · 'k:<từ>' đọc kanji · 'p:<từ>' chọn chữ Hán · 'h:<chữ>' Hán Việt → chữ · 'tk:<từ>' / 'tp:<từ>' đọc / chọn chữ của mục Kanji hay thi · 'kam:<từ>' / 'kaw:<từ>' katakana · 'j:<đề>:<mục>-<số>' đề thi thử N5 · 'x:<bài>:<dạng>:<mã>' bài tập của bài (js/exercises.js).
 
 import { GRAMMAR } from '../data/lessons.js';
 import { KANJI } from '../data/kanji-n5.js';
 import { KANJI_NOTES, CONFUSABLE } from '../data/kanji-notes.js';
 import { KATAKANA } from '../data/katakana-n5.js';
+import { KANJI_THI } from '../data/kanji-thi.js';
 import { toRomaji } from './romaji.js';
 import { findMockQuestion } from './mock.js';
 import { EX_KINDS, exerciseQuestion } from './exercises.js';
@@ -179,6 +180,48 @@ export function kanjiHvQuestion(k, rng) {
   };
 }
 
+// ---- Kanji hay thi (data/kanji-thi.js): hai chiều như Kanji, đáp án nhiễu ưu tiên từ cùng đuôi kana ----
+// Từ kết thúc bằng kana (見る, 高い) mà đáp án nhiễu khác chữ cuối thì nhìn đuôi là đoán ra, nên xếp từ cùng chữ cuối lên trước.
+export const THI_BY_WORD = new Map(KANJI_THI.map(w => [w.word, w]));
+const tailOf = word => word.match(/[ぁ-ん]$/)?.[0] ?? '';
+
+function thiDistractors(w, rng, score) {
+  const others = shuffle(KANJI_THI.filter(x => x.word !== w.word && x.kana !== w.kana && x.vi !== w.vi), rng);
+  return [...others].sort((a, b) => score(b) - score(a)).slice(0, 3);
+}
+
+const thiBase = w => ({ type: 'kanji', tag: 'Kanji hay thi', plain: true, choiceLang: 'ja', ref: { thi: w.word } });
+
+export function thiReadingQuestion(w, rng) {
+  const score = x => (tailOf(x.word) === tailOf(w.word) ? 3 : 0) + (x.group === w.group ? 1 : 0) - Math.abs(len(x.kana) - len(w.kana)) * 0.5;
+  return {
+    ...thiBase(w),
+    id: `tk:${w.word}`,
+    kind: 'kanji',
+    prompt: w.word,
+    promptLang: 'ja',
+    hint: 'Chọn cách đọc đúng',
+    choices: shuffle([w.kana, ...thiDistractors(w, rng, score).map(x => x.kana)], rng),
+    answer: w.kana,
+    explain: `${w.word} đọc là ${w.kana}, nghĩa là "${w.vi}".`,
+  };
+}
+
+export function thiPickQuestion(w, rng) {
+  const shares = x => [...x.word].some(c => /[一-鿿]/.test(c) && w.word.includes(c));
+  const score = x => (shares(x) ? 2 : 0) + (tailOf(x.word) === tailOf(w.word) ? 2 : 0) + (x.group === w.group ? 1 : 0);
+  return {
+    ...thiBase(w),
+    id: `tp:${w.word}`,
+    kind: 'kanjipick',
+    prompt: `${w.kana} · ${w.vi}`,
+    hint: 'Chọn từ viết bằng kanji đúng',
+    choices: shuffle([w.word, ...thiDistractors(w, rng, score).map(x => x.word)], rng),
+    answer: w.word,
+    explain: `${w.kana} (${w.vi}) viết là ${w.word}.`,
+  };
+}
+
 // ---- Katakana hay gặp trong đề N5 (data/katakana-n5.js, 59 từ) ----
 export const KATA_BY_KANA = new Map(KATAKANA.map(k => [k.kana, k]));
 
@@ -298,6 +341,11 @@ export function resolveQuestion(id, { deck = [], rng } = {}) {
     const k = KANJI_BY_CHAR.get(key);
     return k ? kanjiHvQuestion(k, rng) : null;
   }
+  if (kind === 'tk' || kind === 'tp') {
+    const w = THI_BY_WORD.get(key);
+    if (!w) return null;
+    return kind === 'tk' ? thiReadingQuestion(w, rng) : thiPickQuestion(w, rng);
+  }
   if (kind === 'k' || kind === 'p') {
     const kw = KANJI_WORDS.find(x => x.word === key);
     if (!kw) return null;
@@ -334,12 +382,13 @@ export function choiceNote(q, text, words) {
     const k = KANJI_BY_CHAR.get(text);
     return k ? `${k.char} là ${k.hv}, nghĩa là "${k.vi}".` : null;
   }
+  const kanjiPool = q.ref?.thi ? KANJI_THI : KANJI_WORDS;
   if (q.kind === 'kanjipick') {
-    const kw = KANJI_WORDS.find(x => x.word === text);
+    const kw = kanjiPool.find(x => x.word === text);
     return kw ? `${kw.word} đọc là ${kw.kana}, nghĩa là "${kw.vi}".` : null;
   }
   if (q.kind === 'kanji') {
-    const kw = KANJI_WORDS.find(x => x.kana === text);
+    const kw = kanjiPool.find(x => x.kana === text);
     return kw ? `${text} là cách đọc của ${kw.word}, nghĩa là "${kw.vi}".` : null;
   }
   return null;

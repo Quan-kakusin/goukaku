@@ -2,7 +2,7 @@
 
 **ja_paines** là web app học tiếng Nhật theo **25 bài của Minna no Nihongo (Sơ cấp 1)**: mỗi bài có Từ vựng, Ngữ pháp và Bài tập. Chạy hoàn toàn trên máy, không cần backend hay tài khoản.
 
-**Bài học và bài tập chỉ dùng kana** (hiragana, katakana, có khoảng trắng giữa các cụm như sách Minna). Chữ Hán học riêng ở mục **Kanji**: 80 chữ cần thiết nhất cho N5.
+**Bài học và bài tập chỉ dùng kana** (hiragana, katakana, có khoảng trắng giữa các cụm như sách Minna). Chữ Hán học riêng ở mục **Kanji**: 80 chữ cần thiết nhất cho N5 và 81 từ **Kanji hay thi**.
 
 ## Chạy
 
@@ -57,6 +57,7 @@ Luôn mở đúng địa chỉ này: tiến độ lưu trong `localStorage` theo
 - **Ngữ pháp theo mẫu tài liệu** của bạn: công thức, giải thích, ví dụ, lưu ý, đánh số (12.1, 12.2…), kèm bài tập từng mục.
 - **Nhập từ vựng của sách**: dán danh sách cho từng bài, hoặc thêm từng từ. Có thể ẩn các từ gợi ý của app để chỉ dùng từ của bạn.
 - **Furigana** (chữ hiragana nhỏ phía trên chữ Hán): mục Kanji hiện cách đọc chính trên từng chữ và furigana ở từ ví dụ; trong đề thi thử, chữ Hán trong câu hỏi, đáp án và đoạn văn tự có furigana theo từ vựng của app (công tắc "Hiện furigana" khi làm bài và khi xem lại, nhớ lựa chọn). Câu đọc kanji và viết kanji (問題1, 問題2) và phần luyện đọc ở mục Kanji **không** hiện furigana vì đó chính là đáp án. Chữ Hán app chưa biết cách đọc thì để nguyên, không đoán.
+- **Kanji hay thi** (mục Kanji/Kata, tab thứ hai): **81 từ** viết bằng chữ Hán, gồm 71 từ đếm được nhiều nhất trên 8 đề lấy từ ngoài (31 từ ⭐ hay bị hỏi đọc/viết) và 10 từ phương hướng thêm cho đủ cặp. Trắc nghiệm 4 đáp án hai chiều trộn lẫn (kanji → hiragana, hiragana → kanji), chọn số câu bất kỳ từ 1 đến 81; danh sách lọc theo nhóm hoặc ⭐, che cách đọc để tự kiểm tra. Dữ liệu ở `data/kanji-thi.js`.
 - **Kanji N5** (mục Kanji/Kata, 80 chữ cần thiết, có Hán Việt, âm On/Kun, từ ví dụ; trắc nghiệm có chấm điểm, giải chi tiết), **Kana**, **Tra từ** (lọc theo bài, tìm bằng kana, romaji, nghĩa hoặc cả chữ Hán gốc).
 - **Sổ lỗi sai**, **sao lưu** JSON và xuất sang Anki.
 - Giao diện sáng kiểu hoạt hình Family Guy (nền trời xanh, viền đen, ảnh meme sau mỗi câu đúng/sai; xem mục Meme), bàn phím là chính, theo WCAG 2.2 AA. Xem [docs/DESIGN.md](docs/DESIGN.md).
@@ -119,7 +120,7 @@ Chỉ ba cột đầu là bắt buộc. Muốn chỉ dùng từ của sách thì
 
 Câu điền chỗ trống có đúng một `＿`, đúng 4 lựa chọn khác nhau, đáp án nằm trong đó. Câu hỏi nên có gợi ý nghĩa để chỉ có một đáp án đúng. Id câu hỏi (`g:...`, `k:...`, `v:...`) được lưu trong sổ lỗi sai, nên **không đổi id** sau khi đã có người học.
 
-**Kanji** (`data/kanji-n5.js`, hiện 80 chữ; test kiểm tra đúng 80, sửa số trong `tests/content.test.mjs` nếu bạn đổi danh sách): `[chữ, Hán Việt IN HOA, nghĩa, âm On, âm Kun, [[từ, cách đọc, nghĩa], ...]]`, tối thiểu 2 từ ví dụ, mỗi từ phải chứa chữ Hán đó. Đây là nơi duy nhất dùng chữ Hán.
+**Kanji** (`data/kanji-n5.js`, hiện 80 chữ; test kiểm tra đúng 80, sửa số trong `tests/content.test.mjs` nếu bạn đổi danh sách): `[chữ, Hán Việt IN HOA, nghĩa, âm On, âm Kun, [[từ, cách đọc, nghĩa], ...]]`, tối thiểu 2 từ ví dụ, mỗi từ phải chứa chữ Hán đó. Ngoài file này, chữ Hán còn ở `data/kanji-thi.js` và các đề thi.
 
 ## Cấu trúc
 
@@ -131,6 +132,7 @@ data/minna/         25 file bài (từ vựng + ngữ pháp + bài tập)
 data/lessons.js     ghép 25 bài thành LESSONS, VOCAB, GRAMMAR
 data/kanji-n5.js    kanji N5
 data/katakana-n5.js 59 từ katakana hay gặp trong đề N5 (nghĩa, từ gốc, nhóm)
+data/kanji-thi.js   81 từ Kanji hay thi
 data/kanji-notes.js cấu tạo + mẹo nhớ của 80 chữ, nhóm chữ dễ nhầm
 vite.config.js      cấu hình Vite (thư mục public/, plugin danh sách meme)
 js/main.js          router (có tham số)
@@ -138,7 +140,7 @@ js/progress.js      ngưỡng điểm "đạt"
 js/import.js        phân tích danh sách từ dán vào (hàm thuần)
 js/storage.js       lưu/đọc/kiểm tra dữ liệu trong localStorage
 js/mistakes.js      sổ lỗi sai
-js/quiz-set.js      bộ câu trắc nghiệm Kanji (80 chữ) và Katakana (59 từ), chọn số câu bất kỳ
+js/quiz-set.js      bộ câu trắc nghiệm Kanji (80 chữ), Kanji hay thi (81 từ) và Katakana (59 từ), chọn số câu bất kỳ
 js/questions.js     sinh câu hỏi trắc nghiệm (ngữ pháp cho Luyện đề, đọc kanji cho mục Kanji) và giải thích đáp án
 js/exercises.js     sinh bài tập từng bài (hàm thuần, id cố định, đáp án nhiễu gieo theo id)
 js/lesson-exercises.js danh mục bài tập của bài cho trang Bài tập, chọn/trộn câu
@@ -153,7 +155,7 @@ js/furigana.js      furigana: cách đọc chính của 80 kanji, tự gắn fur
 js/ime.js           đổi romaji sang hiragana khi gõ (hàm thuần)
 js/words.js         chọn từ và chấm điểm cho thẻ flash, gõ romaji (hàm thuần)
 js/deck.js          bộ từ đang dùng (gợi ý + từ của bạn)
-js/views/           lessons, lesson, flash, typing (+ word-setup), vocab, count-picker, katakana, exams, exam (+ exam-run, exam-result), launch, kanji, kana, notebook, data, parts
+js/views/           lessons, lesson, flash, typing (+ word-setup), vocab, count-picker, katakana, exams, exam (+ exam-run, exam-result), launch, kanji, kanji-thi, kana, notebook, data, parts
 tests/              node --test
 scripts/memes.mjs   đọc danh sách ảnh meme (dùng cho dev server và lúc build)
 vercel.json         cấu hình Vercel (lệnh build, thư mục kết quả, header)

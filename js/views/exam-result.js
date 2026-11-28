@@ -6,7 +6,7 @@ import { getState } from '../storage.js';
 import { getAllWords, lessonTitle } from '../deck.js';
 import { getLast } from '../exam-session.js';
 import { gradeItems, verdict, formatDuration, pct, PASS_PERCENT } from '../exam.js';
-import { KINDS, SECTIONS, choiceNote, findPattern, resolveQuestion } from '../questions.js';
+import { KINDS, SECTIONS, THI_BY_WORD, choiceNote, findPattern, resolveQuestion } from '../questions.js';
 import { encouragement, praise, miss } from '../insights.js';
 import { romajiOf } from '../romaji.js';
 import { speakScript } from '../tts.js';
@@ -66,6 +66,18 @@ function related(q, words) {
       w.ex && h('div', { class: 'ex-jp', lang: 'ja' }, w.ex, speakButton(w.ex)),
       w.exVi && h('div', { class: 'ex-vi' }, w.exVi),
       w.lesson > 0 && h('a', { class: 'btn small', href: `#/lesson/${w.lesson}/vocab` }, `Xem từ vựng ${lessonTitle(w.lesson)}`),
+    );
+  }
+  if (q.ref?.thi) {
+    const w = THI_BY_WORD.get(q.ref.thi);
+    if (!w) return null;
+    return h(
+      'div',
+      { class: 'related' },
+      h('h3', null, 'Từ liên quan'),
+      h('div', { class: 'reading-row' }, h('span', { class: 'vword' }, furigana(w.word, w.kana)), speakButton(w.kana)),
+      h('p', null, h('strong', null, w.vi), ` · ${w.group}`),
+      h('a', { class: 'btn small', href: '#/kanjithi' }, 'Mở danh sách Kanji hay thi'),
     );
   }
   if (q.ref?.word) {

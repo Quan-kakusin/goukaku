@@ -5,7 +5,9 @@ import { KANJI_NOTES, CONFUSABLE } from '../data/kanji-notes.js';
 import { kanjiHvQuestion, resolveQuestion, confusablesOf, KINDS, KANJI_WORDS } from '../js/questions.js';
 import { kanjiQuestion, kanjiPickQuestion } from '../js/questions.js';
 import { normalize, defaults } from '../js/storage.js';
-import { kanjiSet, kataSet, clampCount } from '../js/quiz-set.js';
+import { kanjiSet, kataSet, thiSet, clampCount } from '../js/quiz-set.js';
+import { KANJI_THI } from '../data/kanji-thi.js';
+import { choiceNote } from '../js/questions.js';
 
 test('mẹo nhớ: đủ 80 chữ, mỗi chữ có mẹo, nhóm dễ nhầm chỉ gồm chữ N5', () => {
   const chars = KANJI.map(k => k.char);
@@ -83,4 +85,44 @@ test('kataSet: đủ số câu, không trùng, hai chiều trộn lẫn', () => 
 test('lưu trữ: dữ liệu cũ còn khoá srs vẫn nhập được, khoá đó bị bỏ', () => {
   assert.equal('srs' in defaults(), false);
   assert.equal('srs' in normalize({ custom: [], srs: { 'kw:日': { box: 1, due: 1 } } }), false);
+});
+
+test('kanji hay thi: 81 từ không trùng, cách đọc toàn kana, 31 từ hay bị hỏi', () => {
+  assert.equal(KANJI_THI.length, 81);
+  assert.equal(KANJI_THI.filter(w => w.star).length, 31);
+  for (const key of ['word', 'kana', 'vi']) assert.equal(new Set(KANJI_THI.map(w => w[key])).size, 81, `trùng ${key}`);
+  for (const w of KANJI_THI) {
+    assert.match(w.word, /\p{Script=Han}/u, w.word);
+    assert.match(w.kana, /^[ぁ-ん]+$/, w.word);
+  }
+  for (const w of ['上', '下', '左', '右', '前', '後ろ', '東', '西', '南', '北', '入口', '出口']) assert.ok(KANJI_THI.some(x => x.word === w), `thiếu ${w}`);
+});
+
+test('thiSet: đủ số câu, hai chiều, 4 đáp án, dựng lại được từ id, giải thích đáp án nhiễu đúng bộ từ', () => {
+  for (const n of [1, 20, 81, 500]) {
+    const qs = thiSet(n);
+    assert.equal(qs.length, Math.min(n, 81));
+    assert.equal(new Set(qs.map(q => q.id)).size, qs.length);
+  }
+  const kinds = new Set();
+  for (let i = 0; i < 20; i += 1) {
+    for (const q of thiSet(81)) {
+      kinds.add(q.kind);
+      assert.equal(new Set(q.choices).size, 4, q.id);
+      assert.ok(q.choices.includes(q.answer));
+      assert.equal(q.plain, true);
+      assert.equal(resolveQuestion(q.id).answer, q.answer);
+      for (const c of q.choices.filter(c => c !== q.answer)) assert.ok(choiceNote(q, c, []), `${q.id}: ${c}`);
+    }
+  }
+  assert.deepEqual([...kinds].sort(), ['kanji', 'kanjipick']);
+});
+
+test('kanji hay thi: đáp án nhiễu cùng chữ kana cuối khi bộ từ đủ, không đoán được qua đuôi', () => {
+  for (const id of ['tk:見る', 'tp:見る', 'tk:高い', 'tp:高い']) {
+    const q = resolveQuestion(id);
+    assert.ok(q.choices.every(c => c.endsWith(id.at(-1))), `${id}: ${q.choices.join()}`);
+  }
+  const q = resolveQuestion('tk:書く');
+  assert.equal(q.choices.filter(c => c.endsWith('く')).length, 3, q.choices.join()); // bộ từ chỉ có 書く, 行く, 近く
 });
